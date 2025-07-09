@@ -5,7 +5,7 @@ import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
   plugins: [react()],
-  base: 'https://github.com/robinrawat007/Portfolio',
+  // base: 'https://github.com/robinrawat007/Portfolio',
   css: {
     postcss: {
       plugins: [
