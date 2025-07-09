@@ -12,7 +12,10 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 const App = () => {
-  const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark');
+  const [dark, setDark] = useState(() => {
+  const savedTheme = localStorage.getItem('theme');
+  return savedTheme ? savedTheme === 'dark' : true;
+});
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
