@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import SceneCanvas from "./Three/SceneCanvas";
+import SceneCanvas from "./three/SceneCanvas";
 
 const container = {
   hidden: { opacity: 0 },
