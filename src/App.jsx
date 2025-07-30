@@ -10,7 +10,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollReveal from "./components/customScroll";
 
-import backgroundImage from "./assets/bg.jpg"; // ✅ import the image
+import backgroundImage from "./assets/bg.jpg";
 
 const App = () => {
   const [dark, setDark] = useState(() => {
@@ -23,7 +23,6 @@ const App = () => {
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
 
-  // Tawk.to Script
   useEffect(() => {
     const tawk = document.createElement("script");
     tawk.src = "https://embed.tawk.to/6889923e450f911926ceb05c/1j1cm6i24";
@@ -43,16 +42,6 @@ const App = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Toggle Button */}
-      <button
-        className="fixed top-4 right-4 z-20 p-3 rounded-full bg-indigo-600 text-white shadow-lg focus:outline-none"
-        onClick={() => setDark(!dark)}
-        aria-label="Toggle dark mode"
-      >
-        {dark ? "☀️" : "🌙"}
-      </button>
-
-      {/* Page Content */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

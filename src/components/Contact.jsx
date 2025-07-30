@@ -1,4 +1,23 @@
 import { motion } from "framer-motion";
+import Tilt from "react-parallax-tilt";
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    icon: "https://skillicons.dev/icons?i=github",
+    link: "https://github.com/robinrawat007",
+  },
+  {
+    name: "LinkedIn",
+    icon: "https://skillicons.dev/icons?i=linkedin",
+    link: "https://www.linkedin.com/in/robinrawat1",
+  },
+  {
+    name: "Gmail",
+    icon: "https://skillicons.dev/icons?i=gmail",
+    link: "mailto:robinrawat37@gmail.com",
+  },
+];
 
 export default function Contact() {
   return (
@@ -10,45 +29,50 @@ export default function Contact() {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+      <motion.h2
+        className="text-4xl font-bold mb-4 text-gray-900 dark:text-white"
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         Contact
-      </h2>
-      <p className="mb-8 text-gray-600 dark:text-gray-300">
+      </motion.h2>
+
+      <motion.p
+        className="mb-10 text-gray-600 dark:text-gray-300"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
         Have a project or want to hire me? Drop a message!
-      </p>
+      </motion.p>
 
       <div className="flex flex-wrap justify-center items-center gap-6">
-        <a
-          href="https://github.com/robinrawat007"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="https://skillicons.dev/icons?i=github"
-            alt="GitHub"
-            className="w-10 h-10 hover:scale-110 transition-transform"
-          />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/robinrawat1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="https://skillicons.dev/icons?i=linkedin"
-            alt="LinkedIn"
-            className="w-10 h-10 hover:scale-110 transition-transform"
-          />
-        </a>
-        <a href="mailto:robinrawat37@gmail.com">
-          <img
-            src="https://skillicons.dev/icons?i=gmail"
-            alt="Email"
-            className="w-10 h-10 hover:scale-110 transition-transform"
-          />
-        </a>
+        {socialLinks.map((item, index) => (
+          <motion.div
+            key={item.name}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.15, duration: 0.5 }}
+          >
+            <Tilt tiltMaxAngleX={20} tiltMaxAngleY={20} glareEnable={true} glareMaxOpacity={0.2}>
+              <a href={item.link} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={item.icon}
+                  alt={item.name}
+                  className="w-12 h-12 rounded-full hover:scale-110 transition-transform duration-300"
+                />
+              </a>
+            </Tilt>
+          </motion.div>
+        ))}
 
-        <div className="text-gray-700 dark:text-gray-300 flex items-center gap-2">
+        <motion.div
+          className="text-gray-700 dark:text-gray-300 flex items-center gap-2 mt-4 md:mt-0"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 text-gray-500 dark:text-gray-400"
@@ -64,7 +88,7 @@ export default function Contact() {
             />
           </svg>
           +91 94161 49624
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );
