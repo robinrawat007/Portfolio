@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 import cert from "../assets/certi.pdf";
 
 const container = {
@@ -13,7 +14,7 @@ const container = {
 
 const cardVariant = {
   hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 const modalOverlay = {
@@ -41,45 +42,65 @@ export default function Education() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <motion.h2
-          className="text-3xl font-bold mb-10 text-center"
+          className="text-3xl font-bold mb-10 text-center text-gray-900 dark:text-white"
           variants={cardVariant}
         >
           Education & Certifications
         </motion.h2>
 
         <div className="space-y-8">
-          <motion.div
-            className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 hover:scale-[1.01] transition duration-300"
-            variants={cardVariant}
+          <Tilt
+            glareEnable={true}
+            glareMaxOpacity={0.2}
+            tiltMaxAngleX={8}
+            tiltMaxAngleY={8}
+            scale={1.02}
+            transitionSpeed={1200}
+            className="rounded-xl"
           >
-            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
-              Bachelor of Computer Applications
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Hindu Institute of Management · 2019
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 hover:scale-[1.01] transition duration-300"
-            variants={cardVariant}
-          >
-            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
-              Advanced Program in Full Stack Software Engineering
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-              NIIT, Delhi · 2020
-            </p>
-
-            <motion.button
-              onClick={() => setShowModal(true)}
-              className="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full shadow-lg hover:scale-105 hover:bg-indigo-700 transition-transform duration-300 text-sm"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <motion.div
+              className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 transition duration-300"
+              variants={cardVariant}
             >
-              View Certificate
-            </motion.button>
-          </motion.div>
+              <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+                Bachelor of Computer Applications
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Hindu Institute of Management · 2019
+              </p>
+            </motion.div>
+          </Tilt>
+
+          <Tilt
+            glareEnable={true}
+            glareMaxOpacity={0.2}
+            tiltMaxAngleX={8}
+            tiltMaxAngleY={8}
+            scale={1.02}
+            transitionSpeed={1200}
+            className="rounded-xl"
+          >
+            <motion.div
+              className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 transition duration-300"
+              variants={cardVariant}
+            >
+              <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+                Advanced Program in Full Stack Software Engineering
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                NIIT, Delhi · 2020
+              </p>
+
+              <motion.button
+                onClick={() => setShowModal(true)}
+                className="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full shadow-lg hover:scale-105 hover:bg-indigo-700 transition-transform duration-300 text-sm"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View Certificate
+              </motion.button>
+            </motion.div>
+          </Tilt>
         </div>
       </motion.div>
 

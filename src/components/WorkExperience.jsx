@@ -1,22 +1,28 @@
 import { motion } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 
-const container = {
+const containerVariant = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
 
 const cardVariant = {
   hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 const bulletVariant = {
-  hidden: { opacity: 0, x: -20 },
-  show: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 60, damping: 12 },
+  },
 };
 
 export default function WorkExperience() {
@@ -38,46 +44,59 @@ export default function WorkExperience() {
       className="py-20 px-6 md:px-12 lg:px-24 max-w-6xl mx-auto"
     >
       <motion.div
-        variants={container}
+        variants={containerVariant}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <motion.h2
-          className="text-3xl font-bold mb-10 text-center"
+          className="text-3xl font-bold mb-10 text-center text-gray-900 dark:text-white"
           variants={cardVariant}
         >
           Work Experience
         </motion.h2>
 
-        <motion.div
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-8 transform hover:scale-[1.01] transition-all duration-300"
-          variants={cardVariant}
-          whileHover={{ scale: 1.02 }}
+        <Tilt
+          glareEnable={true}
+          glareMaxOpacity={0.2}
+          tiltMaxAngleX={8}
+          tiltMaxAngleY={8}
+          scale={1.02}
+          transitionSpeed={1200}
+          className="rounded-xl"
         >
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
-            <motion.h3
-              className="text-xl font-semibold text-indigo-600 dark:text-indigo-400"
-              variants={cardVariant}
-            >
-              Software Engineer · Builder.AI
-            </motion.h3>
-            <motion.span
-              className="text-sm text-gray-500 dark:text-gray-400"
-              variants={cardVariant}
-            >
-              Jan 2021 – Apr 2025
-            </motion.span>
-          </div>
+          <motion.div
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-8 transition-all duration-300"
+            variants={cardVariant}
+            whileHover={{ scale: 1.01 }}
+          >
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+              <motion.h3
+                className="text-xl font-semibold text-indigo-600 dark:text-indigo-400"
+                variants={cardVariant}
+              >
+                Software Engineer · Builder.AI
+              </motion.h3>
+              <motion.span
+                className="text-sm text-gray-500 dark:text-gray-400"
+                variants={cardVariant}
+              >
+                Jan 2021 – Apr 2025
+              </motion.span>
+            </div>
 
-          <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300 text-sm leading-6">
-            {bulletPoints.map((point, i) => (
-              <motion.li key={i} variants={bulletVariant}>
-                {point}
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
+            <motion.ul
+              className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300 text-sm leading-6"
+              variants={containerVariant}
+            >
+              {bulletPoints.map((point, i) => (
+                <motion.li key={i} variants={bulletVariant}>
+                  {point}
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        </Tilt>
       </motion.div>
     </section>
   );
