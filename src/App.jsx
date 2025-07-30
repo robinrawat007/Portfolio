@@ -9,8 +9,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollReveal from "./components/customScroll";
-
-import backgroundImage from "./assets/bg.jpg";
+import BackgroundCanvas from "./components/three/BackgroundCanvas";
 
 const App = () => {
   const [dark, setDark] = useState(() => {
@@ -33,15 +32,11 @@ const App = () => {
   }, []);
 
   return (
-    <div
-      className="relative min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <div className="relative min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-hidden bg-black">
+      <BackgroundCanvas />
+
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-0 pointer-events-none" />
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
