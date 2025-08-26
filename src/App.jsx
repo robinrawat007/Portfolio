@@ -42,13 +42,13 @@ const App = () => {
         animate={{ opacity: 1 }}
         className="relative z-10"
       >
-        <ScrollReveal><Hero /></ScrollReveal>
-        <ScrollReveal><About /></ScrollReveal>
-        <ScrollReveal><Skills /></ScrollReveal>
-        <ScrollReveal><WorkExperience /></ScrollReveal>
-        <ScrollReveal><Education /></ScrollReveal>
-        <ScrollReveal><Projects /></ScrollReveal>
-        <ScrollReveal><Contact /></ScrollReveal>
+        <ScrollReveal animation="fadeDown"><Hero /></ScrollReveal>
+        <ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal>
+        <ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal>
+        <ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal>
+        <ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal>
+        <ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal>
+        <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
         <Footer />
       </motion.div>
     </div>
