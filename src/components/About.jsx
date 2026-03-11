@@ -35,15 +35,12 @@ export default function About() {
           <div className="relative w-full aspect-square max-w-md mx-auto">
             {/* Cool background glowing elements behind the image placeholder */}
             <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-emerald-400 rounded-3xl transform rotate-6 opacity-50 blur-2xl"></div>
-            <div className="absolute inset-0 bg-slate-800 rounded-3xl transform -rotate-3 border border-slate-700 shadow-2xl flex items-center justify-center overflow-hidden">
-              {/* Using a placeholder aesthetic inside */}
-              <div className="text-center p-8 space-y-4">
-                <div className="w-20 h-20 bg-purple-500/20 rounded-full mx-auto flex items-center justify-center border border-purple-500/50">
-                  <span className="text-4xl font-heading font-bold text-purple-300">RR</span>
-                </div>
-                <h3 className="text-2xl font-bold text-slate-200">Robin Rawat</h3>
-                <p className="text-emerald-400 font-medium">Frontend Developer</p>
-              </div>
+            <div className="absolute inset-0 bg-slate-800 rounded-3xl transform -rotate-3 border border-slate-700 shadow-2xl overflow-hidden group">
+              <img
+                src="/profile.jpg"
+                alt="Robin Rawat"
+                className="w-full h-full object-cover rounded-3xl group-hover:scale-105 transition-transform duration-500"
+              />
             </div>
           </div>
         </motion.div>

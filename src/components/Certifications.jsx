@@ -51,12 +51,7 @@ const Certifications = () => {
                             </div>
                         </div>
 
-                        <div className="flex-shrink-0 mt-4 md:mt-0">
-                            <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 flex flex-col items-center justify-center min-w-[120px]">
-                                <span className="text-slate-400 text-xs uppercase tracking-wider mb-1">Performance</span>
-                                <span className="text-2xl font-bold text-gradient">Fair</span>
-                            </div>
-                        </div>
+
                     </div>
                 </motion.div>
             </div>

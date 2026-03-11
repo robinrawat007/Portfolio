@@ -105,8 +105,9 @@ export default function Projects() {
                   )}
                 </div>
 
-                <div className="mt-auto z-10">
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-700/50">
+                <div className="mt-auto z-10 pt-4 border-t border-slate-700/50">
+                  <p className="text-sm text-slate-400 mb-2 font-medium">Key Skills:</p>
+                  <div className="flex flex-wrap gap-2">
                     {proj.tech.map((tag) => (
                       <span
                         key={tag}
