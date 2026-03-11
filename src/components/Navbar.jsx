@@ -35,9 +35,9 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     {/* Logo element */}
                     <a href="#hero" className="flex items-center gap-3 group">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
+                        <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
                             <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
-                                <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+                                <img src="/logo.png" alt="Logo" className="w-full h-full object-contain p-1" />
                             </div>
                         </div>
                         <span className="font-heading font-bold text-xl text-slate-100 hidden sm:block tracking-wide">
