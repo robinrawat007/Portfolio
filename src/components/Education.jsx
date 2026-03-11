@@ -1,138 +1,57 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Tilt from "react-parallax-tilt";
-import cert from "../assets/certi.pdf";
-
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariant = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const modalOverlay = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-};
-
-const modalContent = {
-  hidden: { opacity: 0, scale: 0.95 },
-  show: { opacity: 1, scale: 1 },
-};
+import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function Education() {
-  const [showModal, setShowModal] = useState(false);
-
   return (
-    <section
-      id="education"
-      className="py-20 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto"
-    >
+    <section id="education" className="py-24 relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-16"
       >
-        <motion.h2
-          className="text-3xl font-bold mb-10 text-center text-gray-900 dark:text-white"
-          variants={cardVariant}
-        >
-          Education & Certifications
-        </motion.h2>
-
-        <div className="space-y-8">
-          <Tilt
-            glareEnable={true}
-            glareMaxOpacity={0.2}
-            tiltMaxAngleX={8}
-            tiltMaxAngleY={8}
-            scale={1.02}
-            transitionSpeed={1200}
-            className="rounded-xl"
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 transition duration-300"
-              variants={cardVariant}
-            >
-              <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
-                Bachelor of Computer Applications
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Hindu Institute of Management · 2019
-              </p>
-            </motion.div>
-          </Tilt>
-
-          <Tilt
-            glareEnable={true}
-            glareMaxOpacity={0.2}
-            tiltMaxAngleX={8}
-            tiltMaxAngleY={8}
-            scale={1.02}
-            transitionSpeed={1200}
-            className="rounded-xl"
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 transition duration-300"
-              variants={cardVariant}
-            >
-              <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
-                Advanced Program in Full Stack Software Engineering
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                NIIT, Delhi · 2020
-              </p>
-
-              <motion.button
-                onClick={() => setShowModal(true)}
-                className="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full shadow-lg hover:scale-105 hover:bg-indigo-700 transition-transform duration-300 text-sm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Certificate
-              </motion.button>
-            </motion.div>
-          </Tilt>
-        </div>
+        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-100 mb-4 tracking-tight">
+          Education
+        </h2>
+        <div className="w-24 h-1.5 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 mx-auto rounded-full mb-6"></div>
+        <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+          Academic background and foundational knowledge.
+        </p>
       </motion.div>
 
-      <AnimatePresence>
-        {showModal && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            variants={modalOverlay}
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-4xl h-[80vh] p-4 relative overflow-hidden"
-              variants={modalContent}
-            >
-              <button
-                onClick={() => setShowModal(false)}
-                className="absolute top-3 right-4 text-xl text-gray-500 hover:text-red-500"
-              >
-                &times;
-              </button>
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="glass-card p-8 group relative overflow-hidden"
+        >
+          {/* Aesthetic background glow */}
+          <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
 
-              <iframe
-                src={cert}
-                title="Certificate"
-                className="w-full h-full rounded"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-emerald-400 text-sm font-semibold tracking-wider uppercase">
+                  Aug 2016 – May 2019
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-slate-100 mb-1">
+                Bachelor of Computer Applications
+              </h3>
+              <p className="text-xl text-purple-400 font-medium">
+                Hindu Institute of Management
+              </p>
+            </div>
+
+            <div className="hidden md:flex flex-shrink-0 items-center justify-center w-16 h-16 rounded-full bg-slate-800 border border-slate-700 shadow-inner">
+              <span className="text-2xl">🎓</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

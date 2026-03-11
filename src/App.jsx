@@ -5,6 +5,7 @@ import About from "./components/About";
 import Skills from "./components/Skills";
 import WorkExperience from "./components/WorkExperience";
 import Education from "./components/Education";
+import Certifications from "./components/Certifications";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -47,6 +48,7 @@ const App = () => {
         <ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal>
         <ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal>
         <ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal>
+        <ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal>
         <ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
         <Footer />

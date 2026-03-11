@@ -9,10 +9,7 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [
-        tailwindcss({
-          darkMode: 'class',
-          content: ['./index.html', './src/**/*.{js,jsx}'],
-        }),
+        tailwindcss(),
         autoprefixer(),
       ],
     },
