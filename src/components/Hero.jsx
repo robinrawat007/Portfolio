@@ -25,7 +25,7 @@ export default function Hero() {
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight text-white m-0">
           Hi, I'm <br className="md:hidden" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 filter drop-shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-            Robin Rawat
+            Robin Singh Rawat
           </span>
         </h1>
 

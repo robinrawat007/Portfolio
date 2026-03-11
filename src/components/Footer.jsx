@@ -7,15 +7,13 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5">
-              <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center">
-                <span className="font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-                  RR
-                </span>
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
+              <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
+                <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
               </div>
             </div>
             <span className="font-heading font-bold text-xl text-slate-100 tracking-wide">
-              Robin Rawat
+              Robin Singh Rawat
             </span>
           </div>
 
@@ -40,7 +38,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-slate-800/50 text-slate-500 text-sm">
-          <p>© {new Date().getFullYear()} Robin Rawat. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Robin Singh Rawat. All rights reserved.</p>
           <p>
             Designed & Built with React, Tailwind CSS, & Framer Motion.
           </p>

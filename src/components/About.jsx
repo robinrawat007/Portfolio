@@ -38,7 +38,7 @@ export default function About() {
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(168,85,247,0.3)] overflow-hidden group z-10">
               <img
                 src="/profile.jpg"
-                alt="Robin Rawat"
+                alt="Robin Singh Rawat"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
             </div>

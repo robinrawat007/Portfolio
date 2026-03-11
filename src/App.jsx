@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -15,14 +16,6 @@ import BackgroundCanvas from "./components/three/BackgroundCanvas";
 import CustomCursor from "./components/CustomCursor";
 
 const App = () => {
-  useEffect(() => {
-    const tawk = document.createElement("script");
-    tawk.src = "https://embed.tawk.to/6889923e450f911926ceb05c/1j1cm6i24";
-    tawk.async = true;
-    tawk.charset = "UTF-8";
-    tawk.setAttribute("crossorigin", "*");
-    document.body.appendChild(tawk);
-  }, []);
 
   return (
     <div className="relative min-h-screen text-slate-100 overflow-hidden bg-slate-950">
@@ -31,6 +24,17 @@ const App = () => {
       <BackgroundCanvas />
 
       <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-0 pointer-events-none" />
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/919416149624"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-green-500 text-white shadow-[0_4px_14px_0_rgba(34,197,94,0.39)] hover:shadow-[0_6px_20px_rgba(34,197,94,0.23)] hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+        title="Chat on WhatsApp"
+      >
+        <FaWhatsapp className="w-8 h-8 group-hover:animate-pulse" />
+      </a>
 
       <Navbar />
 
