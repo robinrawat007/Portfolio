@@ -32,14 +32,14 @@ export default function About() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="lg:col-span-5 relative"
         >
-          <div className="relative w-full aspect-square max-w-md mx-auto">
+          <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
             {/* Cool background glowing elements behind the image placeholder */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-emerald-400 rounded-3xl transform rotate-6 opacity-50 blur-2xl"></div>
-            <div className="absolute inset-0 bg-slate-800 rounded-3xl transform -rotate-3 border border-slate-700 shadow-2xl overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-emerald-400 rounded-full blur-2xl opacity-40 transform scale-110"></div>
+            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(168,85,247,0.3)] overflow-hidden group z-10">
               <img
                 src="/profile.jpg"
                 alt="Robin Rawat"
-                className="w-full h-full object-cover rounded-3xl group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
             </div>
           </div>
