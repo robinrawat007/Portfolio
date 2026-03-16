@@ -9,13 +9,13 @@ export default function BackgroundCanvas() {
     >
       <ambientLight intensity={0.5} />
       <Stars
-        radius={100}
-        depth={50}
-        count={5000}
-        factor={4}
+        radius={200}
+        depth={60}
+        count={10000}
+        factor={7}
         saturation={0}
         fade
-        speed={1}
+        speed={0}
       />
     </Canvas>
   );

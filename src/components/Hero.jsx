@@ -35,26 +35,66 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, roleIndex]);
 
+  const starParticles = React.useMemo(() => {
+    return [...Array(80)].map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      opacity: Math.random() * 0.8 + 0.4,
+      scale: Math.random() * 1.5 + 0.5,
+      duration: Math.random() * 4 + 2,
+      delay: Math.random() * 5
+    }));
+  }, []);
+
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-14">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-[#0a051a]">
+    <section id="hero" className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-0 mt-0">
+      {/* Absolute background container */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        
+        {/* Floating Star Particles in Hero - Maximized Visibility */}
+        {starParticles.map((star) => (
+          <motion.div
+            key={star.id}
+            initial={{ 
+              opacity: star.opacity,
+              scale: star.scale
+            }}
+            animate={{ 
+              opacity: [0.4, 1, 0.4],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{ 
+              duration: star.duration,
+              repeat: Infinity,
+              delay: star.delay,
+              ease: "easeInOut"
+            }}
+            className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_10px_white] z-20"
+            style={{
+                left: star.left,
+                top: star.top,
+            }}
+          />
+        ))}
+
+        {/* Ambient Theme Orbs - Reduced opacity to let stars shine */}
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.1, 0.25, 0.1],
           }}
           transition={{
             duration: 10,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#7B4FE0]/30 rounded-full blur-[120px]"
+          className="absolute top-[-10%] left-[-15%] w-[80%] h-[70%] bg-[#7B4FE0]/30 rounded-full blur-[160px] z-10"
         />
         <motion.div
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.05, 0.2, 0.05],
           }}
           transition={{
             duration: 12,
@@ -62,7 +102,7 @@ export default function Hero() {
             ease: "easeInOut",
             delay: 1
           }}
-          className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#2DCFCF]/20 rounded-full blur-[120px]"
+          className="absolute top-[10%] right-[-15%] w-[70%] h-[60%] bg-[#2DCFCF]/20 rounded-full blur-[160px] z-10"
         />
       </div>
 

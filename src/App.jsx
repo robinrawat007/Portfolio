@@ -22,16 +22,14 @@ import AIProjectsComingSoon from "./components/AIProjectsComingSoon";
 const App = () => {
 
   return (
-    <div className="relative min-h-screen text-slate-100 overflow-x-hidden bg-slate-950">
+    <div className="relative min-h-screen text-slate-100 overflow-x-hidden">
+      {/* Background Layer Stack */}
+      <div className="fixed inset-0 bg-slate-950 -z-20" />
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <BackgroundCanvas />
+      </div>
+
       <CustomCursor />
-      <ScrollProgress />
-      <FloatingNewsletter />
-
-      <BackgroundCanvas />
-
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-0 pointer-events-none" />
-
-      {/* Floating WhatsApp Button */}
       <a
         href="https://wa.me/919416149624"
         target="_blank"
@@ -49,7 +47,7 @@ const App = () => {
         animate={{ opacity: 1 }}
         className="relative z-10"
       >
-        <ScrollReveal animation="fadeDown"><Hero /></ScrollReveal>
+        <ScrollReveal animation="fade"><Hero /></ScrollReveal>
         <MarqueeTicker />
         <ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal>
