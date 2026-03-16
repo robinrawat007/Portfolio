@@ -11,15 +11,21 @@ import Certifications from "./components/Certifications";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ScrollProgress from "./components/ScrollProgress";
+import FloatingNewsletter from "./components/FloatingNewsletter";
+import MarqueeTicker from "./components/MarqueeTicker";
 import ScrollReveal from "./components/customScroll";
 import BackgroundCanvas from "./components/three/BackgroundCanvas";
 import CustomCursor from "./components/CustomCursor";
+import AIProjectsComingSoon from "./components/AIProjectsComingSoon";
 
 const App = () => {
 
   return (
-    <div className="relative min-h-screen text-slate-100 overflow-hidden bg-slate-950">
+    <div className="relative min-h-screen text-slate-100 overflow-x-hidden bg-slate-950">
       <CustomCursor />
+      <ScrollProgress />
+      <FloatingNewsletter />
 
       <BackgroundCanvas />
 
@@ -44,12 +50,14 @@ const App = () => {
         className="relative z-10"
       >
         <ScrollReveal animation="fadeDown"><Hero /></ScrollReveal>
+        <MarqueeTicker />
         <ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal>
         <ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal>
         <ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal>
         <ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal>
         <ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal>
+        <ScrollReveal animation="scale" delay={0.2}><AIProjectsComingSoon /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
         <Footer />
       </motion.div>

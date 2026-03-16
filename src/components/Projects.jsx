@@ -82,14 +82,18 @@ export default function Projects() {
               tiltMaxAngleX={5}
               tiltMaxAngleY={5}
               transitionSpeed={2000}
-              className="glass-card flex flex-col w-full hover:-translate-y-2 transition-transform duration-500 h-full group"
+              className="relative glass-card flex flex-col w-full hover:-translate-y-2 transition-transform duration-500 h-full group overflow-hidden"
             >
-              <div className="p-8 flex-1 flex flex-col relative overflow-hidden h-full">
-                {/* Decorative blob inside card */}
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
+              {/* Gradient Glow Hover Effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#7B4FE0]/20 to-[#2DCFCF]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -inset-[2px] bg-gradient-to-r from-[#7B4FE0] to-[#2DCFCF] rounded-xl opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 -z-10" />
 
-                <h3 className="text-2xl font-bold text-slate-100 mb-1 z-10">{proj.title}</h3>
-                <p className="text-purple-400 font-medium text-sm mb-4 z-10">{proj.subtitle}</p>
+              <div className="p-8 flex-1 flex flex-col relative z-10 h-full">
+                {/* Decorative blob inside card */}
+                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-[#2DCFCF]/10 rounded-full blur-2xl group-hover:bg-[#2DCFCF]/20 transition-colors duration-500"></div>
+
+                <h3 className="text-2xl font-bold text-slate-100 mb-1">{proj.title}</h3>
+                <p className="text-[#2DCFCF] font-bold text-sm mb-4">{proj.subtitle}</p>
 
                 <div className="flex-1 space-y-3 z-10 mb-6">
                   {proj.points.slice(0, 3).map((point, i) => (

@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   const stats = [
-    { label: 'Years Experience', value: '4+' },
+    { label: 'Years Experience', value: '5' },
     { label: 'Projects Completed', value: '10+' },
-    { label: 'Test Coverage', value: '85%+' },
+    { label: 'Satisfied Clients', value: '10+' },
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function About() {
         <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-100 mb-4 tracking-tight">
           About Me
         </h2>
-        <div className="w-24 h-1.5 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 mx-auto rounded-full"></div>
+        <div className="w-24 h-1.5 bg-gradient-to-r from-[#7B4FE0] via-[#5b6ef1] to-[#2DCFCF] mx-auto rounded-full"></div>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -34,8 +34,8 @@ export default function About() {
         >
           <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
             {/* Cool background glowing elements behind the image placeholder */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-emerald-400 rounded-full blur-2xl opacity-40 transform scale-110"></div>
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(168,85,247,0.3)] overflow-hidden group z-10">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#7B4FE0] to-[#2DCFCF] rounded-full blur-2xl opacity-40 transform scale-110"></div>
+            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(123,79,224,0.3)] overflow-hidden group z-10">
               <img
                 src="/profile.jpg"
                 alt="Robin Singh Rawat"
@@ -54,18 +54,18 @@ export default function About() {
           className="lg:col-span-7 space-y-8"
         >
           <div className="glass-card p-8 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-[#7B4FE0] rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
 
             <h3 className="text-2xl font-heading font-bold text-white mb-4">
               Engineering Excellence. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-                Driven by Performance.
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7B4FE0] to-[#2DCFCF]">
+                Driven by what AI can do for real people.
               </span>
             </h3>
             <p className="text-lg leading-relaxed text-slate-300 mb-6">
-              Frontend Developer with <strong>4+ years of experience</strong> building fast, scalable web and mobile applications using <strong>Angular, React, and React Native</strong>.
+              AI Integration Developer with <strong>5 years of experience</strong> building fast, scalable applications. My journey from a Senior Frontend Engineer to an AI specialist was fueled by a passion for making Large Language Models accessible and useful in real-world products.
               <br /><br />
-              Strong expertise in state management, REST API integration, and performance optimization. Proven contributor in Agile teams with a focus on code quality and user-centric solutions.
+              Currently completing the <strong>Outskill AI Accelerator program</strong>, where I mastered RAG systems, prompt engineering, and LLM orchestration. I bridge the gap between complex AI capabilities and intuitive user interfaces.
             </p>
 
             <div className="grid grid-cols-3 gap-4 pt-6 mt-6 border-t border-slate-700/50">

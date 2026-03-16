@@ -8,14 +8,14 @@ const skillCategories = [
     skills: ["Angular", "React", "React Native", "TypeScript", "JavaScript", "Redux", "Zustand", "Tan Stack", "Tailwind", "Material UI", "RESTful APIs", "Jest", "HTML", "CSS", "WebSockets", "Git", "Unit Testing", "RxJS"]
   },
   {
+    title: "AI and LLM Tools",
+    icon: "🤖",
+    skills: ["OpenAI API", "Claude API", "LangChain", "Prompt Engineering", "AI Automation", "n8n", "RAG Systems", "Hugging Face"]
+  },
+  {
     title: "Tools & Platforms",
     icon: "🛠️",
     skills: ["Postman", "ClickUp", "Jira", "Mend", "Figma", "Android Studio", "VS Code", "Antigravity", "Chrome DevTools", "GitHub", "GitLab", "Sentry", "Vercel / Netlify", "Lighthouse", "AWS"]
-  },
-  {
-    title: "Soft Skills",
-    icon: "🤝",
-    skills: ["Communication", "Adaptability", "Problem Solving", "Attention to Detail"]
   }
 ];
 

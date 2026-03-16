@@ -29,18 +29,18 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800/50 shadow-lg py-4' : 'bg-transparent py-6'
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/70 backdrop-blur-xl border-b border-white/5 shadow-2xl py-2' : 'bg-transparent py-2'
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     {/* Logo element */}
                     <a href="#hero" className="flex items-center gap-3 group">
-                        <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
                             <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
                                 <img src="/logo.png" alt="Logo" className="w-full h-full object-contain p-1" />
                             </div>
                         </div>
-                        <span className="font-heading font-bold text-xl text-slate-100 hidden sm:block tracking-wide">
+                        <span className="font-heading font-bold text-lg text-slate-100 hidden sm:block tracking-wide">
                             Robin Singh Rawat
                         </span>
                     </a>
