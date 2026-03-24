@@ -10,7 +10,7 @@ const SocialLink3 = ({ href, icon, bg, ariaLabel }) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={ariaLabel}
-    className={`w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 ${bg} hover:text-white transition-all hover:scale-110 shadow-lg`}
+    className={`w-12 h-12 min-w-[48px] min-h-[48px] bg-slate-800 rounded-full flex items-center justify-center text-slate-300 ${bg} hover:text-white transition-all hover:scale-110 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
   >
     <div className="text-xl">{icon}</div>
   </a>
@@ -76,7 +76,7 @@ export default function Contact() {
                 <div>
                   <p className="text-sm text-slate-400 uppercase tracking-widest font-semibold">{info.label}</p>
                   {info.href ? (
-                    <a href={info.href} className="text-lg text-slate-200 hover:text-[#2DCFCF] transition-colors font-medium">
+                    <a href={info.href} className="text-lg text-slate-200 hover:text-[#2DCFCF] transition-colors font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded px-1">
                       {info.value}
                     </a>
                   ) : (
@@ -116,11 +116,11 @@ export default function Contact() {
                 </div>
                 <h3 className="text-2xl font-bold text-white">Hire an AI-Forward Developer</h3>
                 <p className="text-slate-400">
-                  I'm ready to bring my 5 years of engineering experience and AI expertise to your next big project. Let's talk about remote opportunities.
+                  I'm ready to bring my 5 years of engineering experience with React, Next.js, and TypeScript to your next big project. Let's talk about remote opportunities.
                 </p>
                 <a
                   href="mailto:robinrawat37@gmail.com"
-                  className="inline-block mt-4 px-8 py-4 bg-gradient-to-r from-[#7B4FE0] to-[#2DCFCF] text-white rounded-full font-bold shadow-[0_0_20px_rgba(123,79,224,0.4)] hover:shadow-[0_0_30px_rgba(123,79,224,0.6)] hover:-translate-y-1 transition-all"
+                  className="inline-block mt-4 px-8 py-4 min-h-[48px] bg-gradient-to-r from-[#7B4FE0] to-[#2DCFCF] text-white rounded-full font-bold shadow-[0_0_20px_rgba(123,79,224,0.4)] hover:shadow-[0_0_30px_rgba(123,79,224,0.6)] hover:-translate-y-1 transition-all flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                 >
                   Send a Message
                 </a>

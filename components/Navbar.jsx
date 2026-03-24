@@ -27,6 +27,8 @@ export default function Navbar() {
     return (
         <>
             <motion.nav
+                role="navigation"
+                aria-label="Main navigation"
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -36,7 +38,7 @@ export default function Navbar() {
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <a href="#hero" className="flex items-center gap-3 group">
+                    <a href="#hero" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-full" aria-label="Robin Singh Rawat - Home">
                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
                             <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
                                 <img src="/logo.png" alt="Robin Singh Rawat portfolio logo" width={48} height={48} className="w-full h-full object-contain p-1" loading="eager" />
@@ -52,7 +54,7 @@ export default function Navbar() {
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-colors"
+                                className="px-4 py-3 min-h-[44px] text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-colors flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                             >
                                 {link.name}
                             </a>
@@ -63,7 +65,7 @@ export default function Navbar() {
                             target="_blank"
                             rel="noopener noreferrer"
                             download
-                            className="ml-4 px-5 py-2 text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_15px_rgba(52,211,153,0.4)] transition-all"
+                            className="ml-4 px-5 py-3 min-h-[44px] text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_15px_rgba(52,211,153,0.4)] transition-all flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                         >
                             Resume
                         </a>
@@ -71,7 +73,7 @@ export default function Navbar() {
 
                     <button
                         type="button"
-                        className="md:hidden text-slate-300 hover:text-white p-2"
+                        className="md:hidden text-slate-300 hover:text-white p-3 min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-lg"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-expanded={mobileMenuOpen}
                         aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}

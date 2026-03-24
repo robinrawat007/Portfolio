@@ -11,7 +11,7 @@ export default function WorkExperience() {
       period: "09/2025 - 01/2026",
       description: "A company focused on fintech solutions",
       points: [
-        "Developed and maintained responsive fintech dashboards and loan management modules using React.js and Angular.",
+        "Developed and maintained responsive fintech dashboards and loan management modules using React.js, Next.js, and Angular.",
         "Implemented dynamic form handling, component-based architecture, and custom hooks for reusable UI logic.",
         "Integrated APIs for loan, customer, and payment workflows ensuring seamless data synchronization.",
         "Enhanced UI/UX consistency using Material UI, Angular Material, and custom component libraries.",

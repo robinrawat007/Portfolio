@@ -28,8 +28,8 @@ export default function Home() {
   return (
     <div className="relative min-h-screen text-slate-100 overflow-x-hidden">
       <a
-        href="#hero"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-purple-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-purple-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-950"
       >
         Skip to main content
       </a>
@@ -44,14 +44,15 @@ export default function Home() {
         href="https://wa.me/919416149624"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-green-500 text-white shadow-[0_4px_14px_0_rgba(34,197,94,0.39)] hover:shadow-[0_6px_20px_rgba(34,197,94,0.23)] hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex items-center justify-center group"
-        title="Chat on WhatsApp"
+        aria-label="Chat on WhatsApp"
+        className="fixed bottom-6 right-6 z-50 p-4 min-w-[48px] min-h-[48px] rounded-full bg-green-500 text-white shadow-[0_4px_14px_0_rgba(34,197,94,0.39)] hover:shadow-[0_6px_20px_rgba(34,197,94,0.23)] hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
       >
         <FaWhatsapp className="w-8 h-8 group-hover:animate-pulse" />
       </a>
 
       <Navbar />
 
+      <main id="main-content" tabIndex={-1}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -69,6 +70,7 @@ export default function Home() {
         <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
         <Footer />
       </motion.div>
+      </main>
     </div>
   );
 }

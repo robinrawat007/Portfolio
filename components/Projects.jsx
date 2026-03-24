@@ -37,7 +37,7 @@ const projects = [
     period: "01/2021 - 04/2025",
     points: [
       "Developed a centralized management dashboard enabling users to oversee projects, teams, subscriptions, and account configurations.",
-      "Built the complete frontend architecture using React.js, TypeScript, and Tailwind CSS for a modern, responsive UI.",
+      "Built the complete frontend architecture using React.js, Next.js, TypeScript, and Tailwind CSS for a modern, responsive UI.",
       "Enforced secure authentication, role-based access controls, and intuitive onboarding workflows to enhance user experience.",
       "Created a reusable component library and utilized lazy loading to improve performance and reduce initial load times.",
       "Maintained 85%+ unit test coverage with Jest and actively participated in code reviews during Agile sprints."

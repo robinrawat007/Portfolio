@@ -51,7 +51,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-0 mt-0">
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         {starParticles.map((star) => (
           <motion.div
             key={star.id}
@@ -124,10 +124,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          <a href="#projects" className="px-8 py-4 rounded-full bg-slate-100 text-slate-900 font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] w-full sm:w-auto">
+          <a href="#projects" className="px-8 py-4 min-h-[48px] rounded-full bg-slate-100 text-slate-900 font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
             View My Work
           </a>
-          <a href="#contact" className="px-8 py-4 rounded-full border border-slate-600 bg-slate-900/50 backdrop-blur-sm text-white font-bold text-lg hover:bg-slate-800 hover:border-slate-400 hover:scale-105 transition-all duration-300 w-full sm:w-auto">
+          <a href="#contact" className="px-8 py-4 min-h-[48px] rounded-full border border-slate-600 bg-slate-900/50 backdrop-blur-sm text-white font-bold text-lg hover:bg-slate-800 hover:border-slate-400 hover:scale-105 transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
             Contact Me
           </a>
         </motion.div>
@@ -143,13 +143,13 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-600/20 rounded-full blur-[100px] md:blur-[120px] pointer-events-none mix-blend-screen" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-600/20 rounded-full blur-[100px] md:blur-[120px] pointer-events-none mix-blend-screen" aria-hidden="true" />
     </section>
   );
 }
 
 const SocialLink = ({ href, icon, ariaLabel }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className="text-slate-400 hover:text-white hover:-translate-y-1 transition-all duration-300">
+  <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className="text-slate-400 hover:text-white hover:-translate-y-1 transition-all duration-300 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
     {icon}
   </a>
 );
