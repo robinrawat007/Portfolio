@@ -86,7 +86,7 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="inline-block mb-4"
         >
-          <span className="flex items-center gap-3 px-5 py-2.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-200 text-sm font-medium tracking-wide shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-md">
+          <span className="flex items-center gap-3 px-5 py-2.5 rounded-full border border-purple-500/30 bg-purple-500/20 text-purple-100 text-sm font-medium tracking-wide shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
@@ -110,7 +110,7 @@ export default function Hero() {
         </div>
 
         <motion.p
-          className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}

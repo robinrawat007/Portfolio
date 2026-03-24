@@ -18,10 +18,10 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6">
-            <a href="#about" className="text-slate-400 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">About</a>
-            <a href="#experience" className="text-slate-400 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Experience</a>
-            <a href="#projects" className="text-slate-400 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Projects</a>
-            <a href="#skills" className="text-slate-400 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Skills</a>
+            <a href="#about" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">About</a>
+            <a href="#experience" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Experience</a>
+            <a href="#projects" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Projects</a>
+            <a href="#skills" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Skills</a>
           </div>
 
           <div>
@@ -30,7 +30,7 @@ export default function Footer() {
               className="w-12 h-12 min-w-[48px] min-h-[48px] rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
               aria-label="Back to top"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 group-hover:-translate-y-1 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 group-hover:-translate-y-1 transition-transform" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
               </svg>
             </a>

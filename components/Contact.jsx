@@ -52,7 +52,7 @@ export default function Contact() {
           Let's Build the Future
         </h2>
         <div className="w-24 h-1.5 bg-gradient-to-r from-[#7B4FE0] via-[#5b6ef1] to-[#2DCFCF] mx-auto rounded-full mb-6"></div>
-        <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+        <p className="text-slate-300 max-w-2xl mx-auto text-lg">
           Currently open for AI Integration and Senior Frontend roles. Let's discuss how we can build something intelligent together.
         </p>
       </motion.div>
@@ -74,7 +74,7 @@ export default function Contact() {
                   {info.icon}
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400 uppercase tracking-widest font-semibold">{info.label}</p>
+                  <p className="text-sm text-slate-300 uppercase tracking-widest font-semibold">{info.label}</p>
                   {info.href ? (
                     <a href={info.href} className="text-lg text-slate-200 hover:text-[#2DCFCF] transition-colors font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded px-1">
                       {info.value}
@@ -115,7 +115,7 @@ export default function Contact() {
                   <span className="text-4xl">🤖</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white">Hire an AI-Forward Developer</h3>
-                <p className="text-slate-400">
+                <p className="text-slate-300">
                   I'm ready to bring my 5 years of engineering experience with React, Next.js, and TypeScript to your next big project. Let's talk about remote opportunities.
                 </p>
                 <a

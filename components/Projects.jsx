@@ -60,7 +60,7 @@ export default function Projects() {
           Featured Projects
         </h2>
         <div className="w-24 h-1.5 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 mx-auto rounded-full mb-6"></div>
-        <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+        <p className="text-slate-300 max-w-2xl mx-auto text-lg">
           A selection of enterprise platforms and dashboards I've engineered.
         </p>
       </motion.div>
@@ -110,7 +110,7 @@ export default function Projects() {
                 </div>
 
                 <div className="mt-auto z-10 pt-4 border-t border-slate-700/50">
-                  <p className="text-sm text-slate-400 mb-2 font-medium">Key Skills:</p>
+                  <p className="text-sm text-slate-300 mb-2 font-medium">Key Skills:</p>
                   <div className="flex flex-wrap gap-2">
                     {proj.tech.map((tag) => (
                       <span

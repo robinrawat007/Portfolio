@@ -35,7 +35,7 @@ export default function About() {
         >
           <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#7B4FE0] to-[#2DCFCF] rounded-full blur-2xl opacity-40 transform scale-110"></div>
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(123,79,224,0.3)] overflow-hidden group z-10">
+            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(123,79,224,0.3)] overflow-hidden group z-10 aspect-square">
               <img
                 src="/profile.jpg"
                 alt="Robin Singh Rawat - AI Integration Developer"
@@ -44,6 +44,7 @@ export default function About() {
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                style={{ aspectRatio: '1 / 1' }}
               />
             </div>
           </div>
@@ -77,7 +78,7 @@ export default function About() {
                   <div className="text-3xl font-extrabold text-white mb-1 drop-shadow-md">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-slate-400 font-medium uppercase tracking-wider">
+                  <div className="text-sm text-slate-300 font-medium uppercase tracking-wider">
                     {stat.label}
                   </div>
                 </div>

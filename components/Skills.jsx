@@ -35,7 +35,7 @@ export default function Skills() {
           Arsenal
         </h2>
         <div className="w-24 h-1.5 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 mx-auto rounded-full mb-6"></div>
-        <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+        <p className="text-slate-300 max-w-2xl mx-auto text-lg">
           Technologies and tools I use to build exceptional digital experiences.
         </p>
       </motion.div>

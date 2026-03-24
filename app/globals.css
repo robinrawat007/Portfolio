@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-purple-500/30 selection:text-purple-200;
+    @apply bg-slate-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-purple-500/30 selection:text-purple-100;
   }
 
   h1,

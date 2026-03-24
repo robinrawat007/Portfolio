@@ -74,7 +74,7 @@ export default function WorkExperience() {
                 <p className="text-purple-400 font-medium text-lg">
                   {exp.company}
                 </p>
-                <p className="text-slate-400 text-sm italic mt-1">{exp.description}</p>
+                <p className="text-slate-300 text-sm italic mt-1">{exp.description}</p>
               </div>
 
               <ul className="space-y-2 mt-4">
