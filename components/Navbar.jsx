@@ -1,6 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
 const navLinks = [
     { name: 'Home', href: '#hero' },
     { name: 'About', href: '#about' },
@@ -35,11 +36,10 @@ export default function Navbar() {
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    {/* Logo element */}
                     <a href="#hero" className="flex items-center gap-3 group">
                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
                             <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
-                                <img src="/logo.png" alt="Robin Singh Rawat portfolio logo" width="48" height="48" className="w-full h-full object-contain p-1" loading="eager" />
+                                <img src="/logo.png" alt="Robin Singh Rawat portfolio logo" width={48} height={48} className="w-full h-full object-contain p-1" loading="eager" />
                             </div>
                         </div>
                         <span className="font-heading font-bold text-lg text-slate-100 hidden sm:block tracking-wide">
@@ -47,7 +47,6 @@ export default function Navbar() {
                         </span>
                     </a>
 
-                    {/* Desktop Nav */}
                     <div className="hidden md:flex items-center space-x-1">
                         {navLinks.map((link) => (
                             <a
@@ -70,7 +69,6 @@ export default function Navbar() {
                         </a>
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button
                         type="button"
                         className="md:hidden text-slate-300 hover:text-white p-2"
@@ -89,7 +87,6 @@ export default function Navbar() {
                 </div>
             </motion.nav>
 
-            {/* Mobile Menu Dropdown */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div

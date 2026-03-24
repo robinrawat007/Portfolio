@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -48,7 +50,6 @@ export default function Skills() {
             transition={{ delay: idx * 0.2, duration: 0.6 }}
             className="glass-card p-8 group relative overflow-hidden"
           >
-            {/* Background glowing orb */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all duration-500 -mr-16 -mt-16"></div>
 
             <div className="flex items-center gap-4 mb-6 relative z-10">

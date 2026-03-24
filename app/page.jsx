@@ -1,35 +1,45 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import WorkExperience from "./components/WorkExperience";
-import Education from "./components/Education";
-import Certifications from "./components/Certifications";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import ScrollProgress from "./components/ScrollProgress";
-import FloatingNewsletter from "./components/FloatingNewsletter";
-import MarqueeTicker from "./components/MarqueeTicker";
-import ScrollReveal from "./components/customScroll";
-import BackgroundCanvas from "./components/three/BackgroundCanvas";
-import CustomCursor from "./components/CustomCursor";
-import AIProjectsComingSoon from "./components/AIProjectsComingSoon";
+import dynamic from "next/dynamic";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Skills from "@/components/Skills";
+import WorkExperience from "@/components/WorkExperience";
+import Education from "@/components/Education";
+import Certifications from "@/components/Certifications";
+import Projects from "@/components/Projects";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import FloatingNewsletter from "@/components/FloatingNewsletter";
+import MarqueeTicker from "@/components/MarqueeTicker";
+import ScrollReveal from "@/components/customScroll";
+import CustomCursor from "@/components/CustomCursor";
+import AIProjectsComingSoon from "@/components/AIProjectsComingSoon";
 
-const App = () => {
+const BackgroundCanvas = dynamic(() => import("@/components/three/BackgroundCanvas"), {
+  ssr: false,
+});
 
+export default function Home() {
   return (
     <div className="relative min-h-screen text-slate-100 overflow-x-hidden">
-      {/* Background Layer Stack */}
+      <a
+        href="#hero"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-purple-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
       <div className="fixed inset-0 bg-slate-950 -z-20" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <BackgroundCanvas />
       </div>
 
       <CustomCursor />
+      <FloatingNewsletter />
       <a
         href="https://wa.me/919416149624"
         target="_blank"
@@ -61,6 +71,4 @@ const App = () => {
       </motion.div>
     </div>
   );
-};
-
-export default App;
+}

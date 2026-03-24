@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -24,7 +26,6 @@ export default function About() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left side: Images/Visuals */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -33,7 +34,6 @@ export default function About() {
           className="lg:col-span-5 relative"
         >
           <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
-            {/* Cool background glowing elements behind the image placeholder */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#7B4FE0] to-[#2DCFCF] rounded-full blur-2xl opacity-40 transform scale-110"></div>
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(123,79,224,0.3)] overflow-hidden group z-10">
               <img
@@ -49,7 +49,6 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Right side: Text and Stats */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}

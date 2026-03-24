@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const roles = [
@@ -49,59 +51,25 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-0 mt-0">
-      {/* Absolute background container */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        
-        {/* Floating Star Particles in Hero - Maximized Visibility */}
         {starParticles.map((star) => (
           <motion.div
             key={star.id}
-            initial={{ 
-              opacity: star.opacity,
-              scale: star.scale
-            }}
-            animate={{ 
-              opacity: [0.4, 1, 0.4],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{ 
-              duration: star.duration,
-              repeat: Infinity,
-              delay: star.delay,
-              ease: "easeInOut"
-            }}
+            initial={{ opacity: star.opacity, scale: star.scale }}
+            animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.3, 1] }}
+            transition={{ duration: star.duration, repeat: Infinity, delay: star.delay, ease: "easeInOut" }}
             className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_10px_white] z-20"
-            style={{
-                left: star.left,
-                top: star.top,
-            }}
+            style={{ left: star.left, top: star.top }}
           />
         ))}
-
-        {/* Ambient Theme Orbs - Reduced opacity to let stars shine */}
         <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.25, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[-10%] left-[-15%] w-[80%] h-[70%] bg-[#7B4FE0]/30 rounded-full blur-[160px] z-10"
         />
         <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.05, 0.2, 0.05],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.2, 0.05] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           className="absolute top-[10%] right-[-15%] w-[70%] h-[60%] bg-[#2DCFCF]/20 rounded-full blur-[160px] z-10"
         />
       </div>
@@ -175,20 +143,13 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Decorative gradient blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-600/20 rounded-full blur-[100px] md:blur-[120px] pointer-events-none mix-blend-screen" />
     </section>
   );
 }
 
 const SocialLink = ({ href, icon, ariaLabel }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={ariaLabel}
-    className="text-slate-400 hover:text-white hover:-translate-y-1 transition-all duration-300"
-  >
+  <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className="text-slate-400 hover:text-white hover:-translate-y-1 transition-all duration-300">
     {icon}
   </a>
 );
