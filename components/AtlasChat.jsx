@@ -47,7 +47,6 @@ export default function AtlasChat() {
   const sessionIdRef = useRef(null);
   const listRef = useRef(null);
   const inputRef = useRef(null);
-  const pulseDone = useRef(false);
 
   const ensureSession = useCallback(() => {
     if (!sessionIdRef.current) {
@@ -152,26 +151,19 @@ export default function AtlasChat() {
         aria-label="Open AI assistant chat"
         aria-expanded={open}
         aria-haspopup="dialog"
-        className="relative flex h-16 w-16 min-h-[64px] min-w-[64px] items-center justify-center rounded-full border-2 border-cyan-400/55 bg-[#0f0f12] text-cyan-400 shadow-[0_0_28px_rgba(34,211,238,0.45),inset_0_1px_0_rgba(255,255,255,0.14)] transition-transform duration-300 hover:scale-105 hover:border-cyan-300/80 hover:shadow-[0_0_36px_rgba(34,211,238,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0c]"
-        whileTap={{ scale: 0.96 }}
+        className="group relative flex min-h-[52px] min-w-[52px] items-center justify-center rounded-2xl border-0 bg-transparent p-1 text-cyan-400 transition-transform duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950 sm:min-h-[60px] sm:min-w-[60px]"
+        whileTap={{ scale: 0.94 }}
       >
-        {!pulseDone.current && !open && (
-          <motion.span
-            className="pointer-events-none absolute inset-0 rounded-full border-2 border-cyan-400/50"
-            initial={{ opacity: 0.85, scale: 1 }}
-            animate={{ opacity: 0, scale: 1.4 }}
-            transition={{ duration: 1.15, repeat: 2, ease: "easeOut" }}
-            onAnimationComplete={() => {
-              pulseDone.current = true;
-            }}
-          />
-        )}
-        <span className="drop-shadow-[0_0_10px_rgba(34,211,238,0.85)]">
-          <AtlasChatIcon className="h-9 w-9" />
+        <span
+          className={`relative z-10 block text-cyan-400 transition-[filter,transform] duration-300 group-hover:scale-110 group-hover:!animate-none group-hover:drop-shadow-[0_0_22px_rgba(34,211,238,1)] ${
+            !open ? "animate-atlas-fab-idle" : "drop-shadow-[0_0_14px_rgba(34,211,238,0.85)]"
+          }`}
+        >
+          <AtlasChatIcon className="h-[3.25rem] w-[3.25rem] sm:h-16 sm:w-16" />
         </span>
         {showUnreadDot && !open && (
           <span
-            className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] ring-2 ring-[#0f0f12]"
+            className="absolute -right-0.5 top-0 z-20 h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] ring-2 ring-slate-950"
             aria-hidden
           />
         )}

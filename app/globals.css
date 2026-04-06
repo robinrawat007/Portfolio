@@ -52,6 +52,18 @@
   .animate-gradient-xy {
     animation: gradient-xy 15s ease infinite;
   }
+
+  /** Atlas FAB: soft glow pulse + double bounce, then idle — looped for visibility */
+  .animate-atlas-fab-idle {
+    animation: atlas-fab-idle 4.5s ease-in-out infinite;
+    will-change: transform, filter;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-atlas-fab-idle {
+      animation: none !important;
+    }
+  }
 }
 
 @keyframes gradient-xy {
@@ -62,6 +74,39 @@
   50% {
     background-size: 400% 400%;
     background-position: right center;
+  }
+}
+
+@keyframes atlas-fab-idle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.75))
+      drop-shadow(0 0 22px rgba(34, 211, 238, 0.35));
+  }
+  12% {
+    filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.95))
+      drop-shadow(0 0 36px rgba(34, 211, 238, 0.55));
+  }
+  22% {
+    transform: translateY(-8px) scale(1.04);
+    filter: drop-shadow(0 0 24px rgba(34, 211, 238, 1))
+      drop-shadow(0 0 48px rgba(34, 211, 238, 0.5));
+  }
+  32% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.9))
+      drop-shadow(0 0 30px rgba(34, 211, 238, 0.45));
+  }
+  40% {
+    transform: translateY(-5px) scale(1.025);
+    filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.95))
+      drop-shadow(0 0 38px rgba(34, 211, 238, 0.5));
+  }
+  48% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.75))
+      drop-shadow(0 0 22px rgba(34, 211, 238, 0.35));
   }
 }
 
