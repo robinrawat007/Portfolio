@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const roles = [
   "AI Integration Developer",
@@ -37,16 +38,21 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, roleIndex]);
 
-  const starParticles = React.useMemo(() => {
-    return [...Array(80)].map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      opacity: Math.random() * 0.8 + 0.4,
-      scale: Math.random() * 1.5 + 0.5,
-      duration: Math.random() * 4 + 2,
-      delay: Math.random() * 5
-    }));
+  /** Stars use random layout — must run only on the client so SSR HTML matches hydration. */
+  const [starParticles, setStarParticles] = useState([]);
+
+  useEffect(() => {
+    setStarParticles(
+      [...Array(80)].map((_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        opacity: Math.random() * 0.8 + 0.4,
+        scale: Math.random() * 1.5 + 0.5,
+        duration: Math.random() * 4 + 2,
+        delay: Math.random() * 5,
+      }))
+    );
   }, []);
 
   return (
@@ -138,7 +144,10 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
         >
-          <SocialLink href="https://linkedin.com/in/robinrawat1" icon={<FaLinkedin className="w-6 h-6" />} ariaLabel="LinkedIn" />
+          <SocialLink href="https://www.linkedin.com/in/robinrawat1/" icon={<FaLinkedin className="w-6 h-6" />} ariaLabel="LinkedIn" />
+          <SocialLink href="https://github.com/robinrawat007" icon={<FaGithub className="w-6 h-6" />} ariaLabel="GitHub" />
+          <SocialLink href="https://x.com/robinrawat37" icon={<FaXTwitter className="w-6 h-6" />} ariaLabel="X" />
+          <SocialLink href="https://www.instagram.com/robinrawat01/" icon={<FaInstagram className="w-6 h-6" />} ariaLabel="Instagram" />
           <SocialLink href="mailto:robinrawat37@gmail.com" icon={<FaEnvelope className="w-6 h-6" />} ariaLabel="Email" />
         </motion.div>
       </motion.div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { socialLinks } from '@/lib/socialLinks';
 
 export default function Footer() {
   return (
@@ -17,11 +18,39 @@ export default function Footer() {
             </span>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="#about" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">About</a>
-            <a href="#experience" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Experience</a>
-            <a href="#projects" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Projects</a>
-            <a href="#skills" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Skills</a>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
+              <a href="#about" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">About</a>
+              <a href="#experience" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Experience</a>
+              <a href="#projects" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Projects</a>
+              <a href="#skills" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Skills</a>
+              <a href="#services" className="text-slate-300 hover:text-emerald-400 transition-colors py-2 px-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded">Services</a>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {socialLinks.map(({ id, label, href, Icon, placeholder }) =>
+                placeholder ? (
+                  <span
+                    key={id}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700/80 bg-slate-900/50 text-slate-600 cursor-not-allowed opacity-60"
+                    title="Coming soon"
+                    aria-label={`${label} (coming soon)`}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                ) : (
+                  <a
+                    key={id}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 bg-slate-900/50 text-slate-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:scale-110 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </a>
+                )
+              )}
+            </div>
           </div>
 
           <div>
@@ -39,8 +68,8 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-slate-800/50 text-slate-500 text-sm">
           <p>© {new Date().getFullYear()} Robin Singh Rawat. All rights reserved.</p>
-          <p>
-            Designed & Built with Next.js, React, Tailwind CSS, & Framer Motion.
+          <p className="text-center md:text-right">
+            Built by Robin · {new Date().getFullYear()}
           </p>
         </div>
       </div>

@@ -19,6 +19,9 @@ import MarqueeTicker from "@/components/MarqueeTicker";
 import ScrollReveal from "@/components/customScroll";
 import CustomCursor from "@/components/CustomCursor";
 import AIProjectsComingSoon from "@/components/AIProjectsComingSoon";
+import Services from "@/components/Services";
+import AtlasChat from "@/components/AtlasChat";
+import SocialSidebar from "@/components/SocialSidebar";
 
 const BackgroundCanvas = dynamic(() => import("@/components/three/BackgroundCanvas"), {
   ssr: false,
@@ -39,6 +42,8 @@ export default function Home() {
       </div>
 
       <CustomCursor />
+      <SocialSidebar />
+      <AtlasChat />
       <FloatingNewsletter />
       <a
         href="https://wa.me/919416149624"
@@ -67,6 +72,7 @@ export default function Home() {
         <ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal>
         <ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.2}><AIProjectsComingSoon /></ScrollReveal>
+        <ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
         <Footer />
       </motion.div>

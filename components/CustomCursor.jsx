@@ -6,8 +6,17 @@ import { motion } from 'framer-motion';
 export default function CustomCursor() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
+    /** false during SSR + first client paint — set in effect so server HTML matches touch + non-touch clients. */
+    const [showCursor, setShowCursor] = useState(false);
 
     useEffect(() => {
+        const touch =
+            typeof window !== 'undefined' &&
+            (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+        if (touch) return;
+
+        setShowCursor(true);
+
         const updateMousePosition = (e) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
@@ -34,8 +43,7 @@ export default function CustomCursor() {
         };
     }, []);
 
-    const isTouchDevice = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
-    if (isTouchDevice) return null;
+    if (!showCursor) return null;
 
     return (
         <>

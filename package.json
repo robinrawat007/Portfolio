@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "clean": "node scripts/clean-next.cjs",
     "dev": "next dev",
+    "update:browserslist": "pnpm dlx update-browserslist-db@latest --yes",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
