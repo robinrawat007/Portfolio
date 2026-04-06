@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const SocialLink3 = ({ href, icon, bg, ariaLabel }) => (
@@ -95,6 +95,7 @@ export default function Contact() {
               <SocialLink3 href="https://github.com/robinrawat007" icon={<FaGithub />} bg="hover:bg-slate-700" ariaLabel="GitHub profile" />
               <SocialLink3 href="https://x.com/robinrawat37" icon={<FaXTwitter />} bg="hover:bg-slate-600" ariaLabel="X profile" />
               <SocialLink3 href="https://www.instagram.com/robinrawat01/" icon={<FaInstagram />} bg="hover:bg-pink-600/80" ariaLabel="Instagram profile" />
+              <SocialLink3 href="https://wa.me/919416149624" icon={<FaWhatsapp />} bg="hover:bg-green-600" ariaLabel="WhatsApp" />
               <SocialLink3 href="https://thestackshift.beehiiv.com" icon={<span className="text-xs font-bold">NEWS</span>} bg="hover:bg-[#7B4FE0]" ariaLabel="Newsletter" />
               <SocialLink3 href="https://topmate.io/robin_singh_rawat" icon={<span className="text-xs font-bold">BOOK</span>} bg="hover:bg-[#2DCFCF]" ariaLabel="Book a session" />
             </div>

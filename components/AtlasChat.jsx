@@ -2,7 +2,8 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPaperPlane, FaRobot, FaTimes } from "react-icons/fa";
+import { FaPaperPlane, FaTimes } from "react-icons/fa";
+import AtlasChatIcon from "@/components/AtlasChatIcon";
 import { ATLAS_WEBHOOK_URL } from "@/lib/webhooks";
 
 const GREETING =
@@ -141,32 +142,36 @@ export default function AtlasChat() {
   }, [open]);
 
   return (
-    <div className="fixed right-6 z-[55] flex flex-col-reverse items-end gap-3 bottom-28 max-[1023px]:bottom-36 pointer-events-none [&>*]:pointer-events-auto">
+    <div
+      className="fixed right-6 z-50 flex flex-col-reverse items-end gap-3 pointer-events-none [&>*]:pointer-events-auto bottom-6 pb-[max(0px,env(safe-area-inset-bottom))]"
+    >
       <motion.button
         type="button"
         onClick={openPanel}
         title="Ask Atlas anything about Robin"
-        aria-label="Open Atlas chat"
+        aria-label="Open AI assistant chat"
         aria-expanded={open}
         aria-haspopup="dialog"
-        className="relative w-14 h-14 min-w-[56px] min-h-[56px] rounded-full bg-gradient-to-br from-[#7B4FE0] to-[#2DCFCF] text-white shadow-lg shadow-[#7B4FE0]/30 flex items-center justify-center hover:scale-105 transition-transform duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-        whileTap={{ scale: 0.95 }}
+        className="relative flex h-16 w-16 min-h-[64px] min-w-[64px] items-center justify-center rounded-full border-2 border-cyan-400/55 bg-[#0f0f12] text-cyan-400 shadow-[0_0_28px_rgba(34,211,238,0.45),inset_0_1px_0_rgba(255,255,255,0.14)] transition-transform duration-300 hover:scale-105 hover:border-cyan-300/80 hover:shadow-[0_0_36px_rgba(34,211,238,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0c]"
+        whileTap={{ scale: 0.96 }}
       >
         {!pulseDone.current && !open && (
           <motion.span
-            className="absolute inset-0 rounded-full border-2 border-[#2DCFCF]/60 pointer-events-none"
-            initial={{ opacity: 0.8, scale: 1 }}
-            animate={{ opacity: 0, scale: 1.35 }}
-            transition={{ duration: 1.2, repeat: 2, ease: "easeOut" }}
+            className="pointer-events-none absolute inset-0 rounded-full border-2 border-cyan-400/50"
+            initial={{ opacity: 0.85, scale: 1 }}
+            animate={{ opacity: 0, scale: 1.4 }}
+            transition={{ duration: 1.15, repeat: 2, ease: "easeOut" }}
             onAnimationComplete={() => {
               pulseDone.current = true;
             }}
           />
         )}
-        <FaRobot className="w-7 h-7" aria-hidden />
+        <span className="drop-shadow-[0_0_10px_rgba(34,211,238,0.85)]">
+          <AtlasChatIcon className="h-9 w-9" />
+        </span>
         {showUnreadDot && !open && (
           <span
-            className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950"
+            className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] ring-2 ring-[#0f0f12]"
             aria-hidden
           />
         )}
@@ -178,32 +183,57 @@ export default function AtlasChat() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="atlas-dialog-title"
-            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+            initial={{ opacity: 0, y: 28, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mb-1 w-[calc(100vw-32px)] max-w-[380px] h-[min(85vh,520px)] md:h-[520px] md:w-[380px] rounded-2xl overflow-hidden shadow-2xl shadow-black/60 border border-white/10 flex flex-col bg-slate-950"
+            exit={{ opacity: 0, y: 20, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-2 flex h-[min(85vh,560px)] w-[calc(100vw-32px)] max-w-[400px] flex-col overflow-hidden rounded-2xl border border-cyan-500/25 bg-[#0a0a0c] shadow-[0_0_0_1px_rgba(34,211,238,0.12),0_24px_48px_rgba(0,0,0,0.65)]"
           >
-            <div className="flex-shrink-0 flex items-start justify-between gap-3 px-4 py-4 bg-gradient-to-r from-[#7B4FE0] to-[#5b6ef1] text-white">
-              <div className="min-w-0">
-                <h2 id="atlas-dialog-title" className="font-heading font-bold text-lg leading-tight">
+            {/* Top bar — reference: thin nav */}
+            <div className="flex shrink-0 items-center gap-3 border-b border-cyan-500/15 bg-[#08080a] px-3 py-2.5">
+              <span className="text-slate-600" aria-hidden>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span className="flex-1 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                AI assistant
+              </span>
+              <span
+                className="rounded-full border border-cyan-500/20 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-cyan-400/90"
+                title="Assistant"
+              >
+                Atlas
+              </span>
+            </div>
+
+            {/* Header */}
+            <div className="flex shrink-0 items-start justify-between gap-3 border-b border-cyan-500/10 bg-gradient-to-b from-cyan-500/8 to-transparent px-4 py-3">
+              <div className="min-w-0 pt-0.5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-500/70">
+                  Need help?
+                </p>
+                <h2
+                  id="atlas-dialog-title"
+                  className="font-heading text-lg font-bold tracking-tight text-cyan-100"
+                >
                   Atlas
                 </h2>
-                <p className="text-sm text-white/85">Robin&apos;s AI assistant</p>
+                <p className="text-xs text-slate-500">Robin&apos;s AI assistant</p>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="p-2 rounded-full hover:bg-white/15 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white min-w-[40px] min-h-[40px] flex items-center justify-center"
+                className="flex min-h-[40px] min-w-[40px] items-center justify-center rounded-full border border-cyan-500/25 text-cyan-300/90 transition-colors hover:bg-cyan-500/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 aria-label="Close chat"
               >
-                <FaTimes className="w-5 h-5" />
+                <FaTimes className="h-4 w-4" />
               </button>
             </div>
 
             <div
               ref={listRef}
-              className="flex-1 min-h-0 overflow-y-auto px-3 py-4 space-y-3 bg-slate-900/80"
+              className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-[#060608] px-3 py-4"
             >
               {messages.map((msg, i) => (
                 <div
@@ -211,16 +241,16 @@ export default function AtlasChat() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                    className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-gradient-to-br from-[#7B4FE0] to-[#5b6ef1] text-white rounded-br-md"
-                        : "bg-slate-800/90 border border-slate-700 text-slate-200 rounded-bl-md"
+                        ? "rounded-br-md border border-cyan-400/35 bg-gradient-to-br from-cyan-600/25 to-cyan-500/10 text-cyan-50 shadow-[0_0_20px_rgba(34,211,238,0.12)]"
+                        : "rounded-bl-md border border-white/[0.08] bg-[#111114] text-slate-200"
                     }`}
                   >
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                     <p
-                      className={`text-[10px] mt-1.5 tabular-nums ${
-                        msg.role === "user" ? "text-white/70" : "text-slate-500"
+                      className={`mt-1.5 text-[10px] tabular-nums ${
+                        msg.role === "user" ? "text-cyan-200/60" : "text-slate-500"
                       }`}
                     >
                       {formatTime(msg.t instanceof Date ? msg.t : new Date(msg.t))}
@@ -231,17 +261,17 @@ export default function AtlasChat() {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-slate-800/90 border border-slate-700 rounded-2xl rounded-bl-md px-4 py-3 flex gap-1.5 items-center">
-                    <span className="w-2 h-2 rounded-full bg-slate-500 animate-bounce [animation-delay:0ms]" />
-                    <span className="w-2 h-2 rounded-full bg-slate-500 animate-bounce [animation-delay:150ms]" />
-                    <span className="w-2 h-2 rounded-full bg-slate-500 animate-bounce [animation-delay:300ms]" />
+                  <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-md border border-cyan-500/15 bg-[#111114] px-4 py-3">
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-400 [animation-delay:0ms]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-400 [animation-delay:140ms]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-400 [animation-delay:280ms]" />
                   </div>
                 </div>
               )}
 
               {errorBanner && (
                 <p
-                  className="text-sm text-red-300 bg-red-500/10 border border-red-500/30 rounded-xl px-3 py-2"
+                  className="rounded-xl border border-red-500/30 bg-red-950/40 px-3 py-2 text-sm text-red-200"
                   role="alert"
                 >
                   {errorBanner}
@@ -250,14 +280,14 @@ export default function AtlasChat() {
             </div>
 
             {!suggestedHidden && messages.length <= 1 && (
-              <div className="flex-shrink-0 px-3 pb-2 flex flex-wrap gap-2">
+              <div className="flex shrink-0 flex-wrap gap-2 border-t border-cyan-500/10 bg-[#08080a] px-3 py-2.5">
                 {SUGGESTED_PROMPTS.map((p) => (
                   <button
                     key={p}
                     type="button"
                     onClick={() => sendMessage(p)}
                     disabled={loading}
-                    className="text-xs px-3 py-1.5 rounded-full border border-slate-600 bg-slate-800/80 text-slate-300 hover:border-[#7B4FE0]/50 hover:text-white transition-colors disabled:opacity-50"
+                    className="rounded-full border border-cyan-500/25 bg-[#0f1114] px-3 py-1.5 text-xs text-cyan-100/85 transition-colors hover:border-cyan-400/45 hover:bg-cyan-500/10 disabled:opacity-50"
                   >
                     {p}
                   </button>
@@ -265,7 +295,7 @@ export default function AtlasChat() {
               </div>
             )}
 
-            <div className="flex-shrink-0 border-t border-slate-800 p-3 bg-slate-950/95 flex gap-2">
+            <div className="flex shrink-0 gap-2 border-t border-cyan-500/15 bg-[#08080a] p-3">
               <label htmlFor="atlas-input" className="sr-only">
                 Message to Atlas
               </label>
@@ -277,18 +307,18 @@ export default function AtlasChat() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={onKeyDown}
                 disabled={loading}
-                placeholder="Ask anything…"
-                className="flex-1 min-w-0 rounded-xl border border-slate-700 bg-slate-900 px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:border-[#7B4FE0] focus:outline-none focus:ring-2 focus:ring-[#7B4FE0]/30"
+                placeholder="Message…"
+                className="min-w-0 flex-1 rounded-xl border border-cyan-500/20 bg-[#121214] px-3 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:border-cyan-400/45 focus:outline-none focus:ring-2 focus:ring-cyan-500/25"
                 autoComplete="off"
               />
               <button
                 type="button"
                 onClick={() => sendMessage()}
                 disabled={loading || !input.trim()}
-                className="shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#7B4FE0] to-[#2DCFCF] text-white flex items-center justify-center hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan-400/40 bg-cyan-500 text-[#0a0a0c] shadow-[0_0_18px_rgba(34,211,238,0.35)] transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
                 aria-label="Send message"
               >
-                <FaPaperPlane className="w-4 h-4" />
+                <FaPaperPlane className="h-4 w-4" />
               </button>
             </div>
           </motion.div>

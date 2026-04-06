@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const roles = [
@@ -148,6 +148,7 @@ export default function Hero() {
           <SocialLink href="https://github.com/robinrawat007" icon={<FaGithub className="w-6 h-6" />} ariaLabel="GitHub" />
           <SocialLink href="https://x.com/robinrawat37" icon={<FaXTwitter className="w-6 h-6" />} ariaLabel="X" />
           <SocialLink href="https://www.instagram.com/robinrawat01/" icon={<FaInstagram className="w-6 h-6" />} ariaLabel="Instagram" />
+          <SocialLink href="https://wa.me/919416149624" icon={<FaWhatsapp className="w-6 h-6" />} ariaLabel="WhatsApp" />
           <SocialLink href="mailto:robinrawat37@gmail.com" icon={<FaEnvelope className="w-6 h-6" />} ariaLabel="Email" />
         </motion.div>
       </motion.div>
