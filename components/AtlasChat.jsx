@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPaperPlane, FaTimes } from "react-icons/fa";
 import AtlasChatIcon from "@/components/AtlasChatIcon";
-import { ATLAS_WEBHOOK_URL } from "@/lib/webhooks";
+import { API_CHAT_URL, ATLAS_WEBHOOK_URL, USE_WEBHOOKS } from "@/lib/webhooks";
 
 const GREETING =
   "Hey! I'm Atlas — Robin's AI assistant. Ask me anything about his work, skills, or services.";
@@ -101,28 +101,112 @@ export default function AtlasChat() {
     const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const res = await fetch(ATLAS_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: text,
-          session_id: ensureSession(),
-        }),
-        signal: controller.signal,
-      });
+      // Optimistic assistant message to stream into (keeps UI/styling intact).
+      const assistantMsg = { role: "atlas", text: "", t: new Date() };
+      setMessages((m) => [...m, assistantMsg]);
+
+      const apiPayload = {
+        message: text,
+        session_id: ensureSession(),
+        messages: messages
+          .filter((m) => m.role === "user" || m.role === "atlas")
+          .slice(-10)
+          .map((m) => ({
+            role: m.role === "atlas" ? "assistant" : "user",
+            content: m.text,
+          })),
+      };
+
+      const webhookPayload = { message: text, session_id: ensureSession() };
+
+      // Prefer in-app API when available; fall back to webhook only if needed.
+      const tryFetch = async (url, payload) =>
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+      let res;
+      if (USE_WEBHOOKS) {
+        res = await tryFetch(ATLAS_WEBHOOK_URL, webhookPayload);
+      } else {
+        try {
+          res = await tryFetch(API_CHAT_URL, apiPayload);
+          if (res.status === 404) throw new Error("api route missing");
+        } catch {
+          // Fallback for static exports / environments without API routes.
+          res = await tryFetch(ATLAS_WEBHOOK_URL, webhookPayload);
+        }
+      }
 
       clearTimeout(timeoutId);
 
-      if (!res.ok) throw new Error("bad status");
+      if (!res.ok) {
+        let msg = "Request failed";
+        try {
+          const data = await res.json();
+          msg = data?.error || msg;
+          if (data?.details) msg = `${msg} (${data.details})`;
+        } catch {
+          // ignore
+        }
+        throw new Error(msg);
+      }
 
-      const reply = await parseAtlasResponse(res);
-      if (!reply) throw new Error("no reply");
+      if (USE_WEBHOOKS || res.url?.includes("n8n.cloud/webhook")) {
+        const reply = await parseAtlasResponse(res);
+        if (!reply) throw new Error("no reply");
 
-      setMessages((m) => [...m, { role: "atlas", text: reply, t: new Date() }]);
-    } catch {
+        setMessages((m) => {
+          const next = [...m];
+          // Replace the last empty assistant message (if present), otherwise append.
+          for (let i = next.length - 1; i >= 0; i--) {
+            if (next[i]?.role === "atlas" && next[i]?.text === "") {
+              next[i] = { ...next[i], text: reply, t: new Date() };
+              return next;
+            }
+          }
+          next.push({ role: "atlas", text: reply, t: new Date() });
+          return next;
+        });
+      } else {
+        if (!res.body) throw new Error("no stream");
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let full = "";
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          if (!chunk) continue;
+          full += chunk;
+          setMessages((m) => {
+            const next = [...m];
+            for (let i = next.length - 1; i >= 0; i--) {
+              if (next[i]?.role === "atlas") {
+                next[i] = { ...next[i], text: full };
+                break;
+              }
+            }
+            return next;
+          });
+        }
+        if (!full.trim()) throw new Error("empty reply");
+      }
+    } catch (e) {
       setErrorBanner(
-        "Something went wrong. Try again, or reach Robin directly at robinrawat37@gmail.com"
+        e?.message ||
+          "Something went wrong. Try again, or reach Robin directly at robinrawat37@gmail.com"
       );
+      // Remove the optimistic assistant message if it stayed empty.
+      setMessages((m) => {
+        const next = [...m];
+        const last = next[next.length - 1];
+        if (last?.role === "atlas" && last?.text === "") next.pop();
+        return next;
+      });
     } finally {
       clearTimeout(timeoutId);
       setLoading(false);

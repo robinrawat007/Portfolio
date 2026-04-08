@@ -8,12 +8,13 @@ export default function BackgroundCanvas() {
     <Canvas
       className="fixed inset-0 z-0"
       camera={{ position: [0, 0, 5], fov: 75 }}
+      dpr={[1, 1.5]}
     >
       <ambientLight intensity={0.5} />
       <Stars
         radius={200}
         depth={60}
-        count={10000}
+        count={7000}
         factor={7}
         saturation={0}
         fade

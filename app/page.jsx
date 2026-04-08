@@ -56,13 +56,13 @@ export default function Home() {
         <ScrollReveal animation="fade"><Hero /></ScrollReveal>
         <MarqueeTicker />
         <ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal>
+        <ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal>
         <ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal>
         <ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal>
         <ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal>
         <ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.2}><AIProjectsComingSoon /></ScrollReveal>
-        <ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal>
         <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
         <Footer />
       </motion.div>

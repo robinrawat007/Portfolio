@@ -1,0 +1,187 @@
+[
+  {
+    "id": "profile.name-title",
+    "content": "Name: Robin Singh Rawat. Title: AI Integration Developer / Frontend Engineer. Focus: building AI-powered web apps and interfaces that make LLMs usable for real people.",
+    "metadata": { "section": "Hero", "source": "components/Hero.jsx" }
+  },
+  {
+    "id": "profile.availability",
+    "content": "Availability: open to remote opportunities.",
+    "metadata": { "section": "Hero", "source": "components/Hero.jsx" }
+  },
+  {
+    "id": "profile.roles-keywords",
+    "content": "Keywords/roles: AI Integration Developer; Frontend Engineer; LLM App Builder; Open to Remote.",
+    "metadata": { "section": "Hero", "source": "components/Hero.jsx" }
+  },
+  {
+    "id": "about.experience-summary",
+    "content": "Summary: AI Integration Developer with 5 years of experience building fast, scalable applications using React, Next.js, Angular, and TypeScript.",
+    "metadata": { "section": "About", "source": "components/About.jsx" }
+  },
+  {
+    "id": "about.story",
+    "content": "Background: moved from Senior Frontend Engineer into AI specialization with a focus on making Large Language Models accessible and useful in real-world products.",
+    "metadata": { "section": "About", "source": "components/About.jsx" }
+  },
+  {
+    "id": "about.outskill",
+    "content": "Current learning: completing the Outskill AI Accelerator program covering RAG systems, prompt engineering, and LLM orchestration.",
+    "metadata": { "section": "About", "source": "components/About.jsx" }
+  },
+  {
+    "id": "about.stats",
+    "content": "Quick stats: 5 years experience, 10+ projects completed, 10+ satisfied clients.",
+    "metadata": { "section": "About", "source": "components/About.jsx" }
+  },
+  {
+    "id": "skills.technical",
+    "content": "Technical skills include: Angular, React, Next.js, React Native, TypeScript, JavaScript, Redux, Zustand, Tan Stack, Tailwind, Material UI, RESTful APIs, Jest, HTML, CSS, WebSockets, Git, Unit Testing, RxJS.",
+    "metadata": { "section": "Skills", "category": "Technical Skills", "source": "components/Skills.jsx" }
+  },
+  {
+    "id": "skills.ai-llm",
+    "content": "AI and LLM tools include: OpenAI API, Claude API, LangChain, Prompt Engineering, AI Automation, n8n, RAG Systems, Hugging Face.",
+    "metadata": { "section": "Skills", "category": "AI and LLM Tools", "source": "components/Skills.jsx" }
+  },
+  {
+    "id": "skills.tools-platforms",
+    "content": "Tools & platforms include: Postman, ClickUp, Jira, Mend, Figma, Android Studio, VS Code, Antigravity, Chrome DevTools, GitHub, GitLab, Sentry, Vercel/Netlify, Lighthouse, AWS.",
+    "metadata": { "section": "Skills", "category": "Tools & Platforms", "source": "components/Skills.jsx" }
+  },
+  {
+    "id": "skills.quick-answer",
+    "content": "Q: What does Robin work with? A: React, Next.js, Angular, TypeScript, AI/LLM integrations (RAG, automation), and modern UI tooling (Tailwind, Material UI).",
+    "metadata": { "section": "Skills", "source": "components/Skills.jsx" }
+  },
+  {
+    "id": "experience.arth-impact.overview",
+    "content": "Arth Impact — Software Engineer (09/2025 - 01/2026). Domain: fintech solutions.",
+    "metadata": { "section": "Experience", "company": "Arth Impact", "source": "components/WorkExperience.jsx" }
+  },
+  {
+    "id": "experience.arth-impact.highlights",
+    "content": "Arth Impact highlights: built responsive fintech dashboards + loan management modules (React, Next.js, Angular); dynamic forms; reusable UI logic via custom hooks; integrated loan/customer/payment APIs; improved UI consistency (Material UI, Angular Material); enhanced React Native Android UI components and API-driven workflows.",
+    "metadata": { "section": "Experience", "company": "Arth Impact", "source": "components/WorkExperience.jsx" }
+  },
+  {
+    "id": "experience.builder-ai.overview",
+    "content": "Builder.AI — Software Engineer (01/2021 - 04/2025). Focus: building web apps and scalable frontend architecture.",
+    "metadata": { "section": "Experience", "company": "Builder.AI", "source": "components/WorkExperience.jsx" }
+  },
+  {
+    "id": "experience.builder-ai.performance",
+    "content": "Builder.AI performance: delivered 10+ responsive web apps (Angular 14+, React, Next.js, Tailwind, TypeScript) and improved average load speed by ~30%. Optimized performance using lazy loading + RxJS (bundle size -20%).",
+    "metadata": { "section": "Experience", "company": "Builder.AI", "source": "components/WorkExperience.jsx" }
+  },
+  {
+    "id": "experience.builder-ai.architecture-quality",
+    "content": "Builder.AI architecture & quality: helped convert monolithic frontend to microfrontend modules; integrated RESTful APIs and Redux state management (API reliability +40%); built reusable components (dev time -25%); maintained 85%+ Jest test coverage; supported vulnerability scans for SLA compliance.",
+    "metadata": { "section": "Experience", "company": "Builder.AI", "source": "components/WorkExperience.jsx" }
+  },
+  {
+    "id": "education.bca",
+    "content": "Education: Bachelor of Computer Applications, Hindu Institute of Management (Aug 2016 – May 2019).",
+    "metadata": { "section": "Education", "source": "components/Education.jsx" }
+  },
+  {
+    "id": "cert.ai-accelerator",
+    "content": "Certification/Program: AI Accelerator Program (Outskill, 2026) — specialization in AI integration, LLM orchestration, RAG architectures, and building production-ready AI applications.",
+    "metadata": { "section": "Certifications", "source": "components/Certifications.jsx" }
+  },
+  {
+    "id": "cert.niit-fullstack",
+    "content": "Certification/Program: Advance Program in Full Stack Software Engineering (NIIT, July 2020, 216 hours) — end-to-end full stack development including frontend frameworks, backend architecture, and database management.",
+    "metadata": { "section": "Certifications", "source": "components/Certifications.jsx" }
+  },
+  {
+    "id": "projects.builder-studio",
+    "content": "Project: Builder Studio — No-Code App Development Platform (01/2021 - 04/2025). Contributed to a low-code drag-and-drop app builder. Built dynamic component-based UIs with Angular/TypeScript. Delivered modules like form builders, logic flow engines, and pricing configuration. Integrated REST APIs for automation, cost estimation, and live previews. Ensured responsive cross-browser design.",
+    "metadata": { "section": "Projects", "project": "Builder Studio", "source": "components/Projects.jsx" }
+  },
+  {
+    "id": "projects.builder-tracker",
+    "content": "Project: Builder Tracker — Real-Time Project Tracking Dashboard (01/2021 - 04/2025). Engineered dashboards with Angular and RxJS for live sync. Built interactive timelines, summary cards, and real-time status views. Used WebSocket integration for instant updates. Implemented motion effects and responsive UI guided by Figma prototypes.",
+    "metadata": { "section": "Projects", "project": "Builder Tracker", "source": "components/Projects.jsx" }
+  },
+  {
+    "id": "projects.builder-home",
+    "content": "Project: Builder Home — User Onboarding & Account Portal (01/2021 - 04/2025). Built a management dashboard for projects, teams, subscriptions, and account settings. Used React, Next.js, TypeScript, Tailwind. Implemented secure auth, role-based access, and onboarding flows. Built reusable components, used lazy loading for performance, maintained 85%+ Jest unit test coverage.",
+    "metadata": { "section": "Projects", "project": "Builder Home", "source": "components/Projects.jsx" }
+  },
+  {
+    "id": "projects.quick-answer",
+    "content": "Q: What kind of projects has Robin worked on? A: Enterprise platforms and dashboards such as Builder Studio (no-code app builder), Builder Tracker (real-time dashboard), and Builder Home (onboarding & account portal).",
+    "metadata": { "section": "Projects", "source": "components/Projects.jsx" }
+  },
+  {
+    "id": "services.offered",
+    "content": "Services offered: Starter Website; Enterprise Web Application; AI Workflow Automation; Custom Chatbot; Custom Voice Assistant; RAG System / Knowledge Base AI.",
+    "metadata": { "section": "Services", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.coming-soon",
+    "content": "Coming soon service: AI Content Pipeline (automated content generation workflows for video, copy, and social).",
+    "metadata": { "section": "Services", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.starter-website",
+    "content": "Service: Starter Website — clean, fast websites and landing pages for individuals and small businesses.",
+    "metadata": { "section": "Services", "serviceId": "starter-website", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.enterprise-web-app",
+    "content": "Service: Enterprise Web Application — scalable, full-stack web apps built for complex business needs.",
+    "metadata": { "section": "Services", "serviceId": "enterprise-web-app", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.ai-workflow-automation",
+    "content": "Service: AI Workflow Automation — end-to-end automation pipelines that eliminate manual, repetitive work.",
+    "metadata": { "section": "Services", "serviceId": "ai-workflow-automation", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.custom-chatbot",
+    "content": "Service: Custom Chatbot — intelligent chatbots for websites, WhatsApp, and customer support.",
+    "metadata": { "section": "Services", "serviceId": "custom-chatbot", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.custom-voice-assistant",
+    "content": "Service: Custom Voice Assistant — AI-powered voice agents for sales, support, and operations.",
+    "metadata": { "section": "Services", "serviceId": "custom-voice-assistant", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "services.rag-knowledge-base",
+    "content": "Service: RAG System / Knowledge Base AI — smart document Q&A and internal knowledge search systems.",
+    "metadata": { "section": "Services", "serviceId": "rag-knowledge-base", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "start-project.form-fields",
+    "content": "Start a Project form fields: name, email, phone, selected services, budget range, and an optional message.",
+    "metadata": { "section": "Services", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "start-project.budget-options",
+    "content": "Budget options include: Less than $500; $500 – $2,000; $2,000 – $5,000; $5,000+; Not sure yet.",
+    "metadata": { "section": "Services", "source": "components/Services.jsx" }
+  },
+  {
+    "id": "contact.details",
+    "content": "Contact details: Email robinrawat37@gmail.com. Phone +91-9416149624. Location Sonipat, Haryana, India (open to remote).",
+    "metadata": { "section": "Contact", "source": "components/Contact.jsx" }
+  },
+  {
+    "id": "contact.quick-answer",
+    "content": "Q: How do I contact Robin? A: Email robinrawat37@gmail.com or WhatsApp +91-9416149624. Location: Sonipat, Haryana, India (open to remote).",
+    "metadata": { "section": "Contact", "source": "components/Contact.jsx" }
+  },
+  {
+    "id": "contact.socials",
+    "content": "Social links: LinkedIn (robinrawat1), GitHub (robinrawat007), X/Twitter (robinrawat37), Instagram (robinrawat01), WhatsApp (+91-9416149624), Newsletter (thestackshift.beehiiv.com), Booking (topmate.io/robin_singh_rawat).",
+    "metadata": { "section": "Contact", "source": "components/Contact.jsx" }
+  },
+  {
+    "id": "footer.branding",
+    "content": "Footer branding: Robin Singh Rawat. Navigation anchors include About, Experience, Projects, Skills, Services. Copyright © current year.",
+    "metadata": { "section": "Footer", "source": "components/Footer.jsx" }
+  }
+]

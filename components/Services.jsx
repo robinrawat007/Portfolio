@@ -11,7 +11,7 @@ import {
   FaMicrophone,
 } from "react-icons/fa";
 import { FaClapperboard } from "react-icons/fa6";
-import { ENQUIRY_WEBHOOK_URL } from "@/lib/webhooks";
+import { SERVICE_WEBHOOK_URL } from "@/lib/webhooks";
 
 const enquiryServiceOptions = [
   { id: "starter-website", label: "Starter Website" },
@@ -152,20 +152,33 @@ export default function Services() {
     };
 
     try {
-      const res = await fetch(ENQUIRY_WEBHOOK_URL, {
+      const url = SERVICE_WEBHOOK_URL;
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, source: "start-project-form" }),
       });
 
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) {
+        let msg = "Request failed";
+        try {
+          const data = await res.json();
+          msg = data?.error || msg;
+          if (data?.details) msg = `${msg} (${data.details})`;
+        } catch {
+          // ignore
+        }
+        throw new Error(msg);
+      }
 
-      setStatus({ type: "success", text: "Thanks! Robin will get back to you within 24 hours." });
+      setStatus({ type: "success", text: "Thanks! Please check your email for confirmation." });
       setForm(initialForm);
-    } catch {
+    } catch (e) {
       setStatus({
         type: "error",
-        text: "Something went wrong. Try again or email robinrawat37@gmail.com directly.",
+        text:
+          e?.message ||
+          "Something went wrong. Try again or email robinrawat37@gmail.com directly.",
       });
     } finally {
       setSubmitting(false);
