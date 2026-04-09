@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter, Outfit } from "next/font/google";
+import Analytics from "../components/Analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,7 +42,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${outfit.variable}`}>
       <head />
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
