@@ -56,15 +56,6 @@ export default function AIProjectsComingSoon() {
               >
                 Subscribe to Newsletter →
               </a>
-              <a
-                href="https://topmate.io/robin_singh_rawat"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Book a call on Topmate"
-                className="px-10 py-5 min-h-[48px] rounded-full border-2 border-[#2DCFCF]/30 bg-[#2DCFCF]/5 backdrop-blur-sm text-[#2DCFCF] font-bold text-xl hover:bg-[#2DCFCF]/10 hover:border-[#2DCFCF] hover:scale-105 transition-all flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2DCFCF] focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-              >
-                Book a Call
-              </a>
             </motion.div>
           </div>
         </motion.div>

@@ -172,7 +172,6 @@ export default function Contact() {
               <SocialLink3 href="https://www.instagram.com/robinrawat01/" icon={<FaInstagram />} bg="hover:bg-pink-600/80" ariaLabel="Instagram profile" />
               <SocialLink3 href="https://wa.me/919416149624" icon={<FaWhatsapp />} bg="hover:bg-green-600" ariaLabel="WhatsApp" />
               <SocialLink3 href="https://thestackshift.beehiiv.com" icon={<span className="text-xs font-bold">NEWS</span>} bg="hover:bg-[#7B4FE0]" ariaLabel="Newsletter" />
-              <SocialLink3 href="https://topmate.io/robin_singh_rawat" icon={<span className="text-xs font-bold">BOOK</span>} bg="hover:bg-[#2DCFCF]" ariaLabel="Book a session" />
             </div>
           </div>
         </motion.div>
