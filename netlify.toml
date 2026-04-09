@@ -1,5 +1,6 @@
 [build]
   command = "npm run build"
+  publish = ".next"
 
 # Full Next.js (API routes at /api/*). Do not publish `out` — static export forces
 # client-side n8n webhooks and triggers CORS failures for Atlas in the browser.
