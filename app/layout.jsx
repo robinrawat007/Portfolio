@@ -25,12 +25,14 @@ export const metadata = {
     type: "website",
     url: "https://robin-singh-rawat.netlify.app/",
     title: "Robin Singh Rawat — AI Generalist",
-    description: "Building AI-powered web apps and interfaces that make LLMs actually usable for real people.",
+    description:
+      "From landing pages to production apps. AI assistants, RAG chatbots, voice agents, and workflow automation—end to end.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Robin Singh Rawat — AI Generalist",
-    description: "Building AI-powered web apps and interfaces that make LLMs actually usable for real people.",
+    description:
+      "From landing pages to production apps. AI assistants, RAG chatbots, voice agents, and workflow automation—end to end.",
   },
 };
 

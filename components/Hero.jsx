@@ -119,7 +119,9 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          Building AI-powered web apps and interfaces that make LLMs actually usable for real people.
+          From landing pages to production apps.
+          <br />
+          AI assistants, RAG chatbots, voice agents, and workflow automation—end to end.
         </motion.p>
 
         <motion.div
