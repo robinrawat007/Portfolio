@@ -1,11 +1,11 @@
 [
   {
     "id": "identity.intro",
-    "content": "Robin Singh Rawat is an AI Generalist and Full Stack Engineer based in Sonipat, Haryana, India. He specializes in building AI-powered web applications and interfaces that make Large Language Models usable for real people. With 5 years of professional experience, he bridges the gap between modern full-stack engineering (React, Next.js, Angular) and applied AI (RAG systems, LLM orchestration, prompt engineering). He is open to remote opportunities worldwide.",
+    "content": "Robin Singh Rawat is an AI Generalist and Full Stack Engineer based in Sonipat, Haryana, India. He specializes in building AI-powered web applications and interfaces that make Large Language Models usable for real people. With 5 years of professional experience, he bridges the gap between modern full-stack engineering (React, Next.js, Angular) and applied AI (RAG systems, LLM orchestration, prompt engineering).",
     "metadata": {
       "section": "Identity",
       "type": "overview",
-      "tags": ["robin singh rawat", "ai developer", "full stack engineer", "llm", "react", "remote", "india", "who is robin", "introduction"]
+      "tags": ["robin singh rawat", "ai developer", "full stack engineer", "llm", "react", "india", "who is robin", "introduction"]
     }
   },
   {
@@ -140,7 +140,7 @@
   },
   {
     "id": "contact.all",
-    "content": "Robin's contact details: Email — robinrawat37@gmail.com. WhatsApp/Phone — +91-9416149624. He's based in Sonipat, Haryana, India and is open to remote work worldwide. Social links: LinkedIn (linkedin.com/in/robinrawat1), GitHub (github.com/robinrawat007), X/Twitter (twitter.com/robinrawat37), Instagram (instagram.com/robinrawat01). Newsletter: thestackshift.beehiiv.com.",
+    "content": "Robin's contact details: Email — robinrawat37@gmail.com. WhatsApp/Phone — +91-9416149624. He's based in Sonipat, Haryana, India. Social links: LinkedIn (linkedin.com/in/robinrawat1), GitHub (github.com/robinrawat007), X/Twitter (twitter.com/robinrawat37), Instagram (instagram.com/robinrawat01). Newsletter: thestackshift.beehiiv.com.",
     "metadata": {
       "section": "Contact",
       "type": "contact",
@@ -149,7 +149,7 @@
   },
   {
     "id": "qa.who-is-robin",
-    "content": "Q: Who is Robin? A: Robin Singh Rawat is an AI Generalist and Full Stack Engineer with 5 years of experience. He builds AI-powered web apps using React, Next.js, Angular, and integrates LLMs, RAG systems, and automation into real products. He's based in India and open to remote work.",
+    "content": "Q: Who is Robin? A: Robin Singh Rawat is an AI Generalist and Full Stack Engineer with 5 years of experience. He builds AI-powered web apps using React, Next.js, Angular, and integrates LLMs, RAG systems, and automation into real products.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
@@ -203,11 +203,11 @@
   },
   {
     "id": "qa.location",
-    "content": "Q: Where is Robin located? A: Robin is based in Sonipat, Haryana, India. He works remotely and is open to remote opportunities and clients worldwide.",
+    "content": "Q: Where is Robin located? A: Robin is based in Sonipat, Haryana, India.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
-      "tags": ["location", "where", "remote", "india", "timezone"]
+      "tags": ["location", "where", "india", "timezone"]
     }
   },
   {

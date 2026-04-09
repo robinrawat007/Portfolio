@@ -16,7 +16,7 @@ const outfit = Outfit({
 
 export const metadata = {
   title: "Robin Singh Rawat — AI Generalist | React Next.js Angular TypeScript",
-  description: "Full-stack developer with 5 years experience specializing in AI integration and LLM-powered web applications. React, Next.js, Angular, TypeScript. Open to remote roles globally.",
+  description: "Full-stack developer with 5 years experience specializing in AI integration and LLM-powered web applications. React, Next.js, Angular, TypeScript.",
   metadataBase: new URL("https://robin-singh-rawat.netlify.app/"),
   alternates: {
     canonical: "https://robin-singh-rawat.netlify.app/",

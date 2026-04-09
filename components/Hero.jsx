@@ -8,8 +8,6 @@ import { FaXTwitter } from 'react-icons/fa6';
 const roles = [
   "AI Generalist",
   "Full Stack Engineer",
-  "LLM App Builder",
-  "Open to Remote"
 ];
 
 export default function Hero() {

@@ -110,7 +110,7 @@ export default function Contact() {
       icon: <FaMapMarkerAlt className="text-xl" />,
       label: "Location",
       value: "Sonipat, Haryana, India",
-      desc: "Open to Remote",
+      desc: null,
       href: null
     }
   ];
