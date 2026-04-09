@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { API_ENQUIRY_URL, ENQUIRY_WEBHOOK_URL, USE_WEBHOOKS } from "@/lib/webhooks";
+import { ENQUIRY_WEBHOOK_URL } from "@/lib/webhooks";
 
 const initialForm = { name: "", email: "", enquiry: "" };
 
@@ -37,19 +37,13 @@ export default function Enquiry() {
     setStatus(null);
 
     try {
-      const url = USE_WEBHOOKS ? ENQUIRY_WEBHOOK_URL : API_ENQUIRY_URL;
-      const payload = USE_WEBHOOKS
-        ? {
-            name: form.name.trim(),
-            email: form.email.trim(),
-            message: form.enquiry.trim(),
-            source: "enquiry-form",
-          }
-        : {
-            name: form.name.trim(),
-            email: form.email.trim(),
-            enquiry: form.enquiry.trim(),
-          };
+      const url = ENQUIRY_WEBHOOK_URL;
+      const payload = {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        message: form.enquiry.trim(),
+        source: "enquiry-form",
+      };
 
       const res = await fetch(url, {
         method: "POST",
