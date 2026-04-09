@@ -63,7 +63,10 @@ export default function Enquiry() {
         throw new Error(msg);
       }
 
-      setStatus({ type: "success", text: "Thanks! Please check your email for confirmation." });
+      setStatus({
+        type: "success",
+        text: "Thanks for reaching out — I’ve received your enquiry. I’ll get back to you soon.",
+      });
       setForm(initialForm);
     } catch (e) {
       setStatus({

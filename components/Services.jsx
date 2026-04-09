@@ -171,7 +171,10 @@ export default function Services() {
         throw new Error(msg);
       }
 
-      setStatus({ type: "success", text: "Thanks! Please check your email for confirmation." });
+      setStatus({
+        type: "success",
+        text: "Thanks for choosing my services — I’ve received your request. I’ll review the details and reach out soon with next steps.",
+      });
       setForm(initialForm);
     } catch (e) {
       setStatus({

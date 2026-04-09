@@ -76,7 +76,10 @@ export default function Contact() {
         throw new Error(msg);
       }
 
-      setStatus({ type: "success", text: "Thanks! Please check your email for confirmation." });
+      setStatus({
+        type: "success",
+        text: "Thanks — your message is sent. I’ll get back to you shortly.",
+      });
       setForm(initialForm);
     } catch (err) {
       setStatus({
