@@ -15,8 +15,8 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "Robin Singh Rawat — AI Integration Developer | React Next.js Angular TypeScript",
-  description: "Frontend developer with 5 years experience specializing in AI integration and LLM-powered web applications. React, Next.js, Angular, TypeScript. Open to remote roles globally.",
+  title: "Robin Singh Rawat — AI Generalist | React Next.js Angular TypeScript",
+  description: "Full-stack developer with 5 years experience specializing in AI integration and LLM-powered web applications. React, Next.js, Angular, TypeScript. Open to remote roles globally.",
   metadataBase: new URL("https://robin-singh-rawat.netlify.app/"),
   alternates: {
     canonical: "https://robin-singh-rawat.netlify.app/",
@@ -24,12 +24,12 @@ export const metadata = {
   openGraph: {
     type: "website",
     url: "https://robin-singh-rawat.netlify.app/",
-    title: "Robin Singh Rawat — AI Integration Developer",
+    title: "Robin Singh Rawat — AI Generalist",
     description: "Building AI-powered web apps and interfaces that make LLMs actually usable for real people.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Robin Singh Rawat — AI Integration Developer",
+    title: "Robin Singh Rawat — AI Generalist",
     description: "Building AI-powered web apps and interfaces that make LLMs actually usable for real people.",
   },
 };

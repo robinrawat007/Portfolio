@@ -6,8 +6,8 @@ import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react
 import { FaXTwitter } from 'react-icons/fa6';
 
 const roles = [
-  "AI Integration Developer",
-  "Frontend Engineer",
+  "AI Generalist",
+  "Full Stack Engineer",
   "LLM App Builder",
   "Open to Remote"
 ];

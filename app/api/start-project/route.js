@@ -58,7 +58,7 @@ Looking forward to learning more about your project.
 
 Best regards,
 Robin Rawat
-Frontend Developer | AI Interfaces & Automation
+Full Stack Developer | AI Interfaces & Automation
 
 📧 robinrawat37@gmail.com
 📞 +91 9416149624

@@ -1,16 +1,16 @@
 [
   {
     "id": "identity.intro",
-    "content": "Robin Singh Rawat is an AI Integration Developer and Frontend Engineer based in Sonipat, Haryana, India. He specializes in building AI-powered web applications and interfaces that make Large Language Models usable for real people. With 5 years of professional experience, he bridges the gap between modern frontend engineering (React, Next.js, Angular) and applied AI (RAG systems, LLM orchestration, prompt engineering). He is open to remote opportunities worldwide.",
+    "content": "Robin Singh Rawat is an AI Generalist and Full Stack Engineer based in Sonipat, Haryana, India. He specializes in building AI-powered web applications and interfaces that make Large Language Models usable for real people. With 5 years of professional experience, he bridges the gap between modern full-stack engineering (React, Next.js, Angular) and applied AI (RAG systems, LLM orchestration, prompt engineering). He is open to remote opportunities worldwide.",
     "metadata": {
       "section": "Identity",
       "type": "overview",
-      "tags": ["robin singh rawat", "ai developer", "frontend engineer", "llm", "react", "remote", "india", "who is robin", "introduction"]
+      "tags": ["robin singh rawat", "ai developer", "full stack engineer", "llm", "react", "remote", "india", "who is robin", "introduction"]
     }
   },
   {
     "id": "identity.positioning",
-    "content": "Robin positions himself at the intersection of frontend engineering and AI integration. He is not a pure ML researcher — he is a builder who takes AI capabilities (LLMs, RAG, automation) and ships them as real, usable products. His unique angle: 5 years of production frontend experience + hands-on AI specialization, meaning he can build the AI logic AND the interface users interact with.",
+    "content": "Robin positions himself at the intersection of full-stack engineering and AI integration. He is not a pure ML researcher — he is a builder who takes AI capabilities (LLMs, RAG, automation) and ships them as real, usable products. His unique angle: 5 years of production full-stack experience + hands-on AI specialization, meaning he can build the AI logic AND the interface users interact with.",
     "metadata": {
       "section": "Identity",
       "type": "positioning",
@@ -19,7 +19,7 @@
   },
   {
     "id": "background.career-arc",
-    "content": "Robin started as a frontend developer, spent 4+ years at Builder.AI as a Software Engineer building enterprise-scale web applications, then moved to Arth Impact for fintech work. He transitioned from Senior Frontend Engineer into AI specialization, combining his deep frontend skills with applied AI to build LLM-powered products. He is currently completing the Outskill AI Accelerator program (2026) covering RAG systems, prompt engineering, and LLM orchestration.",
+    "content": "Robin started as a full-stack developer, spent 4+ years at Builder.AI as a Software Engineer building enterprise-scale web applications, then moved to Arth Impact for fintech work. He transitioned from Senior Full Stack Engineer into AI specialization, combining his deep full-stack skills with applied AI to build LLM-powered products. He is currently completing the Outskill AI Accelerator program (2026) covering RAG systems, prompt engineering, and LLM orchestration.",
     "metadata": {
       "section": "Background",
       "type": "career-story",
@@ -28,7 +28,7 @@
   },
   {
     "id": "experience.builder-ai",
-    "content": "Builder.AI — Software Engineer (January 2021 – April 2025). Robin spent over 4 years here building enterprise web apps and scalable frontend architecture. Key results: delivered 10+ responsive web apps using Angular 14+, React, Next.js, Tailwind, and TypeScript. Improved average page load speed by ~30%. Reduced bundle size by 20% using lazy loading and RxJS optimization. Helped convert a monolithic frontend into microfrontend modules. Integrated RESTful APIs with Redux state management, improving API reliability by 40%. Built reusable component libraries that cut dev time by 25%. Maintained 85%+ Jest test coverage. Supported vulnerability scans for SLA compliance.",
+    "content": "Builder.AI — Software Engineer (January 2021 – April 2025). Robin spent over 4 years here building enterprise web apps and scalable full-stack architecture. Key results: delivered 10+ responsive web apps using Angular 14+, React, Next.js, Tailwind, and TypeScript. Improved average page load speed by ~30%. Reduced bundle size by 20% using lazy loading and RxJS optimization. Helped convert a monolithic app into microfrontend modules. Integrated RESTful APIs with Redux state management, improving API reliability by 40%. Built reusable component libraries that cut dev time by 25%. Maintained 85%+ Jest test coverage. Supported vulnerability scans for SLA compliance.",
     "metadata": {
       "section": "Experience",
       "type": "role",
@@ -50,7 +50,7 @@
   },
   {
     "id": "skills.frontend",
-    "content": "Frontend & core technical skills: Angular (14+), React, Next.js, React Native, TypeScript, JavaScript, Redux, Zustand, TanStack Query, RxJS, Tailwind CSS, Material UI, Angular Material, HTML, CSS, WebSockets, RESTful APIs, Jest, Unit Testing, Git, GitHub, GitLab.",
+    "content": "Full-stack & core technical skills: Angular (14+), React, Next.js, React Native, TypeScript, JavaScript, Redux, Zustand, TanStack Query, RxJS, Tailwind CSS, Material UI, Angular Material, HTML, CSS, WebSockets, RESTful APIs, Jest, Unit Testing, Git, GitHub, GitLab.",
     "metadata": {
       "section": "Skills",
       "type": "technical",
@@ -131,7 +131,7 @@
   },
   {
     "id": "certifications.all",
-    "content": "Certifications: 1) AI Accelerator Program (Outskill, 2026) — specialization in AI integration, LLM orchestration, RAG architectures, and building production-ready AI applications. 2) Advance Program in Full Stack Software Engineering (NIIT, July 2020, 216 hours) — covering frontend frameworks, backend architecture, and database management.",
+    "content": "Certifications: 1) AI Accelerator Program (Outskill, 2026) — specialization in AI integration, LLM orchestration, RAG architectures, and building production-ready AI applications. 2) Advance Program in Full Stack Software Engineering (NIIT, July 2020, 216 hours) — covering full-stack frameworks, backend architecture, and database management.",
     "metadata": {
       "section": "Certifications",
       "type": "certifications",
@@ -149,7 +149,7 @@
   },
   {
     "id": "qa.who-is-robin",
-    "content": "Q: Who is Robin? A: Robin Singh Rawat is an AI Integration Developer and Frontend Engineer with 5 years of experience. He builds AI-powered web apps using React, Next.js, Angular, and integrates LLMs, RAG systems, and automation into real products. He's based in India and open to remote work.",
+    "content": "Q: Who is Robin? A: Robin Singh Rawat is an AI Generalist and Full Stack Engineer with 5 years of experience. He builds AI-powered web apps using React, Next.js, Angular, and integrates LLMs, RAG systems, and automation into real products. He's based in India and open to remote work.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
@@ -158,7 +158,7 @@
   },
   {
     "id": "qa.what-does-robin-do",
-    "content": "Q: What does Robin do? A: Robin builds AI-powered web applications and interfaces. He combines frontend engineering (React, Next.js, Angular, TypeScript) with AI integration (LLM APIs, RAG systems, chatbots, voice assistants, workflow automation) to ship products that make AI accessible to real users.",
+    "content": "Q: What does Robin do? A: Robin builds AI-powered web applications and interfaces. He combines full-stack engineering (React, Next.js, Angular, TypeScript) with AI integration (LLM APIs, RAG systems, chatbots, voice assistants, workflow automation) to ship products that make AI accessible to real users.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
@@ -167,7 +167,7 @@
   },
   {
     "id": "qa.tech-stack",
-    "content": "Q: What technologies does Robin use? A: Frontend — React, Next.js, Angular, TypeScript, Tailwind, Material UI, Redux, RxJS. AI — OpenAI API, Claude API, LangChain, RAG systems, n8n automation, Hugging Face. Tools — Git, Figma, Jira, AWS, Vercel, Sentry, Jest.",
+    "content": "Q: What technologies does Robin use? A: Full Stack — React, Next.js, Angular, TypeScript, Tailwind, Material UI, Redux, RxJS. AI — OpenAI API, Claude API, LangChain, RAG systems, n8n automation, Hugging Face. Tools — Git, Figma, Jira, AWS, Vercel, Sentry, Jest.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
@@ -239,7 +239,7 @@
   },
   {
     "id": "qa.newsletter",
-    "content": "Q: Does Robin have a newsletter or blog? A: Yes — Robin runs The Stack Shift newsletter at thestackshift.beehiiv.com covering AI, frontend engineering, and building with LLMs.",
+    "content": "Q: Does Robin have a newsletter or blog? A: Yes — Robin runs The Stack Shift newsletter at thestackshift.beehiiv.com covering AI, full-stack engineering, and building with LLMs.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",

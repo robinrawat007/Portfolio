@@ -79,7 +79,7 @@ export default function About() {
               </span>
             </h3>
             <p className="text-lg leading-relaxed text-slate-300 mb-6">
-              AI Integration Developer with <strong>5 years of experience</strong> building fast, scalable applications with React, Next.js, Angular, and TypeScript. My journey from a Senior Frontend Engineer to an AI specialist was fueled by a passion for making Large Language Models accessible and useful in real-world products.
+              AI Generalist with <strong>5 years of experience</strong> building fast, scalable applications with React, Next.js, Angular, and TypeScript. My journey from a Senior Full Stack Engineer to an AI specialist was fueled by a passion for making Large Language Models accessible and useful in real-world products.
               <br /><br />
               Currently completing the <strong>Outskill AI Accelerator program</strong>, where I mastered RAG systems, prompt engineering, and LLM orchestration. I bridge the gap between complex AI capabilities and intuitive user interfaces.
             </p>
