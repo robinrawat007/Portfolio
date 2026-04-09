@@ -10,10 +10,12 @@ const GREETING =
   "Hey! I'm Atlas — Robin's AI assistant. Ask me anything about his work, skills, or services.";
 
 const SUGGESTED_PROMPTS = [
-  "What does Robin build?",
-  "See services & pricing",
-  "Is Robin available?",
-  "Tell me about his projects",
+  "Summarize Robin in 2 lines.",
+  "What services does Robin offer?",
+  "What are Robin’s strongest projects?",
+  "What’s Robin’s tech stack (frontend + AI)?",
+  "Is Robin open to remote / freelance right now?",
+  "How can I contact or hire Robin?",
 ];
 
 const FETCH_TIMEOUT_MS = 15_000;

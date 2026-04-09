@@ -1,7 +1,8 @@
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import { searchKnowledgeBase, formatRagContext } from "@/lib/rag";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function toPlainText(messages) {
   // Keep the payload flexible: accept either {message} or a {messages:[...]} array.
@@ -24,10 +25,10 @@ export async function POST(req) {
       return Response.json({ error: "Missing message" }, { status: 400 });
     }
 
-    const apiKey = process.env.GROQ_API_KEY;
+    const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       return Response.json(
-        { error: "Atlas is not configured", details: "Missing GROQ_API_KEY" },
+        { error: "Atlas is not configured", details: "Missing ANTHROPIC_API_KEY" },
         { status: 503 }
       );
     }
@@ -61,24 +62,26 @@ export async function POST(req) {
       .filter(Boolean)
       .join("\n");
 
-    const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
-    const client = new OpenAI({
-      apiKey,
-      baseURL: "https://api.groq.com/openai/v1",
-    });
+    const model = process.env.ANTHROPIC_MODEL || "claude-haiku-4-5-20251001";
+    const client = new Anthropic({ apiKey });
 
-    let upstreamStream;
+    // Return plaintext (client can still read it as a stream).
+    // This avoids “200 with empty body” when streaming events change across SDK versions.
+    let text = "";
     try {
-      upstreamStream = await client.chat.completions.create({
+      const msg = await client.messages.create({
         model,
-        temperature: 0.4,
         max_tokens: 700,
-        stream: true,
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: userText },
-        ],
+        temperature: 0.4,
+        system,
+        messages: [{ role: "user", content: userText }],
       });
+      text = Array.isArray(msg?.content)
+        ? msg.content
+            .filter((c) => c?.type === "text" && typeof c?.text === "string")
+            .map((c) => c.text)
+            .join("")
+        : "";
     } catch (e) {
       return Response.json(
         { error: "Chat provider error", details: e?.message || "Unknown error" },
@@ -86,46 +89,14 @@ export async function POST(req) {
       );
     }
 
-    const encoder = new TextEncoder();
+    if (!text.trim()) {
+      return Response.json(
+        { error: "Empty reply from provider" },
+        { status: 502 }
+      );
+    }
 
-    const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          let gotAny = false;
-          for await (const part of upstreamStream) {
-            const delta = part?.choices?.[0]?.delta?.content;
-            if (typeof delta === "string" && delta.length > 0) {
-              gotAny = true;
-              controller.enqueue(encoder.encode(delta));
-            }
-          }
-
-          // Fallback: some OpenAI-compatible providers may not stream deltas consistently.
-          if (!gotAny) {
-            const completion = await client.chat.completions.create({
-              model,
-              temperature: 0.4,
-              max_tokens: 700,
-              stream: false,
-              messages: [
-                { role: "system", content: system },
-                { role: "user", content: userText },
-              ],
-            });
-            const text = completion?.choices?.[0]?.message?.content;
-            if (typeof text === "string" && text.length > 0) {
-              controller.enqueue(encoder.encode(text));
-            }
-          }
-        } catch (err) {
-          // Best-effort: close stream; client will show partial response.
-        } finally {
-          controller.close();
-        }
-      },
-    });
-
-    return new Response(readable, {
+    return new Response(text, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         "Cache-Control": "no-store",

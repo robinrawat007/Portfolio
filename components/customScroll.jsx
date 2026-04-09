@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import { useReducedMotion } from "framer-motion";
 
 const animations = {
   fadeUp: {
@@ -39,14 +40,15 @@ export default function ScrollReveal({
   animation = 'fadeUp',
   duration = 0.6 
 }) {
+  const prefersReducedMotion = useReducedMotion();
   const selectedAnimation = animations[animation] || animations.fadeUp;
   
   return (
     <motion.div
-      initial={selectedAnimation.initial}
-      whileInView={selectedAnimation.animate}
-      transition={{ duration, delay, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.1 }}
+      initial={prefersReducedMotion ? false : selectedAnimation.initial}
+      whileInView={prefersReducedMotion ? undefined : selectedAnimation.animate}
+      transition={prefersReducedMotion ? undefined : { duration, delay, ease: "easeOut" }}
+      viewport={prefersReducedMotion ? undefined : { once: true, amount: 0.1 }}
     >
       {children}
     </motion.div>

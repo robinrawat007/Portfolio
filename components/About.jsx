@@ -1,9 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from "next/image";
 
 export default function About() {
+  const [photoError, setPhotoError] = useState(false);
   const stats = [
     { label: 'Years Experience', value: '5' },
     { label: 'Projects Completed', value: '10+' },
@@ -36,16 +38,26 @@ export default function About() {
           <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#7B4FE0] to-[#2DCFCF] rounded-full blur-2xl opacity-40 transform scale-110"></div>
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(123,79,224,0.3)] overflow-hidden group z-10 aspect-square">
-              <img
-                src="/profile.jpg"
-                alt="Robin Singh Rawat - AI Integration Developer"
-                width={320}
-                height={320}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                style={{ aspectRatio: '1 / 1' }}
-              />
+              {!photoError ? (
+                <Image
+                  src="/profile.jpg"
+                  alt="Robin Singh Rawat"
+                  fill
+                  sizes="(max-width: 768px) 256px, 320px"
+                  priority={false}
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={() => setPhotoError(true)}
+                />
+              ) : (
+                <div
+                  className="h-full w-full bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center"
+                  aria-label="Robin Singh Rawat"
+                >
+                  <span className="font-heading font-extrabold text-5xl md:text-6xl text-slate-100 tracking-tight">
+                    RR
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>

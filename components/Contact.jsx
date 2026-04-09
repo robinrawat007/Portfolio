@@ -78,7 +78,7 @@ export default function Contact() {
 
       setStatus({
         type: "success",
-        text: "Thanks — your message is sent. I’ll get back to you shortly.",
+        text: "Thanks — I've received your message. I’ll get back to you shortly.",
       });
       setForm(initialForm);
     } catch (err) {
@@ -125,11 +125,11 @@ export default function Contact() {
         className="text-center mb-16"
       >
         <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-100 mb-4 tracking-tight">
-          Let's Build the Future
+          Let&apos;s Build the Future
         </h2>
         <div className="w-24 h-1.5 bg-gradient-to-r from-[#7B4FE0] via-[#5b6ef1] to-[#2DCFCF] mx-auto rounded-full mb-6"></div>
         <p className="text-slate-300 max-w-2xl mx-auto text-lg">
-          Currently open for AI Integration and Senior Frontend roles. Let's discuss how we can build something intelligent together.
+          Currently open for AI Integration and Senior Frontend roles. Let&apos;s discuss how we can build something intelligent together.
         </p>
       </motion.div>
 

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
 const navLinks = [
     { name: 'Home', href: '#hero' },
     { name: 'About', href: '#about' },
@@ -42,7 +44,9 @@ export default function Navbar() {
                     <a href="#hero" className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-full" aria-label="Robin Singh Rawat - Home">
                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
                             <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
-                                <img src="/logo.png" alt="Robin Singh Rawat portfolio logo" width={48} height={48} className="w-full h-full object-contain p-1" loading="eager" />
+                                <span className="font-heading font-extrabold text-slate-100 tracking-tight text-lg">
+                                    RR
+                                </span>
                             </div>
                         </div>
                         <span className="font-heading font-bold text-lg text-slate-100 hidden sm:block tracking-wide">
@@ -61,15 +65,16 @@ export default function Navbar() {
                             </a>
                         ))}
 
-                        <a
-                            href="/resume.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            download
-                            className="ml-4 px-5 py-3 min-h-[44px] text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_15px_rgba(52,211,153,0.4)] transition-all flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-                        >
-                            Resume
-                        </a>
+                        {RESUME_URL && (
+                            <a
+                                href={RESUME_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="ml-4 px-5 py-3 min-h-[44px] text-sm font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_15px_rgba(52,211,153,0.4)] transition-all flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                            >
+                                Resume
+                            </a>
+                        )}
                     </div>
 
                     <button
@@ -111,15 +116,16 @@ export default function Navbar() {
                                 </a>
                             ))}
                             <div className="pt-4 px-4">
-                                <a
-                                    href="/resume.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    download
-                                    className="flex justify-center w-full px-5 py-3 text-base font-semibold bg-emerald-500 text-white shadow-lg rounded-xl"
-                                >
-                                    Download Resume
-                                </a>
+                                {RESUME_URL && (
+                                    <a
+                                        href={RESUME_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex justify-center w-full px-5 py-3 text-base font-semibold bg-emerald-500 text-white shadow-lg rounded-xl"
+                                    >
+                                        Download Resume
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </motion.div>

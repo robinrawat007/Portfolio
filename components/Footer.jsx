@@ -10,7 +10,9 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 p-0.5 shadow-lg group-hover:scale-110 transition-transform">
               <div className="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden">
-                <img src="/logo.png" alt="Robin Singh Rawat portfolio logo" className="w-full h-full object-contain p-1" width={64} height={64} />
+                <span className="font-heading font-extrabold text-slate-100 tracking-tight text-xl">
+                  RR
+                </span>
               </div>
             </div>
             <span className="font-heading font-bold text-xl text-slate-100 tracking-wide">
