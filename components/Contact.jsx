@@ -190,7 +190,7 @@ export default function Contact() {
 
               <div className="relative z-10 w-full max-w-md text-left">
                 <div className="w-20 h-20 bg-slate-800 rounded-2xl mx-auto flex items-center justify-center border border-slate-700 rotate-12 shadow-2xl mb-6">
-                  <span className="text-4xl">✉️</span>
+                  <span className="text-4xl" aria-hidden="true">✉️</span>
                 </div>
                 <h3 className="text-2xl font-bold text-white text-center">Enquiry</h3>
                 <p className="text-slate-300 text-center mt-2 mb-6">
@@ -289,7 +289,15 @@ export default function Contact() {
                       disabled={submitting}
                       className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-4 rounded-full bg-gradient-to-r from-[#7B4FE0] to-[#2DCFCF] text-white font-bold shadow-[0_0_20px_rgba(123,79,224,0.4)] hover:shadow-[0_0_30px_rgba(123,79,224,0.6)] hover:-translate-y-1 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                     >
-                      {submitting ? "Sending…" : "Submit"}
+                      {submitting ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                          </svg>
+                          Sending…
+                        </>
+                      ) : "Submit"}
                     </button>
                   </div>
                 </form>

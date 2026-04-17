@@ -1,8 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { searchKnowledgeBase, formatRagContext } from "@/lib/rag";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const MAX_INPUT_LENGTH = 2000;
 
 function toPlainText(messages) {
   // Keep the payload flexible: accept either {message} or a {messages:[...]} array.
@@ -14,6 +17,15 @@ function toPlainText(messages) {
 
 export async function POST(req) {
   try {
+    // Rate limit: 20 requests per minute per IP
+    const ip = getClientIp(req);
+    if (!checkRateLimit(ip, 20, 60 * 1000)) {
+      return Response.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
     const body = await req.json().catch(() => ({}));
 
     const userText =
@@ -23,6 +35,13 @@ export async function POST(req) {
 
     if (!userText?.trim()) {
       return Response.json({ error: "Missing message" }, { status: 400 });
+    }
+
+    if (userText.length > MAX_INPUT_LENGTH) {
+      return Response.json(
+        { error: `Message too long (max ${MAX_INPUT_LENGTH} characters).` },
+        { status: 400 }
+      );
     }
 
     const apiKey = process.env.ANTHROPIC_API_KEY;

@@ -13,18 +13,18 @@ import Certifications from "@/components/Certifications";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import FloatingNewsletter from "@/components/FloatingNewsletter";
 import MarqueeTicker from "@/components/MarqueeTicker";
 import ScrollReveal from "@/components/customScroll";
-import CustomCursor from "@/components/CustomCursor";
-import AIProjectsComingSoon from "@/components/AIProjectsComingSoon";
+import AIProjects from "@/components/AIProjects";
 import Services from "@/components/Services";
-import AtlasChat from "@/components/AtlasChat";
-import SocialSidebar from "@/components/SocialSidebar";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
-const BackgroundCanvas = dynamic(() => import("@/components/three/BackgroundCanvas"), {
-  ssr: false,
-});
+// Deferred — not needed for initial render
+const BackgroundCanvas = dynamic(() => import("@/components/three/BackgroundCanvas"), { ssr: false });
+const AtlasChat = dynamic(() => import("@/components/AtlasChat"), { ssr: false });
+const SocialSidebar = dynamic(() => import("@/components/SocialSidebar"), { ssr: false });
+const CustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
+const FloatingNewsletter = dynamic(() => import("@/components/FloatingNewsletter"), { ssr: false });
 
 export default function Home() {
   return (
@@ -48,24 +48,24 @@ export default function Home() {
       <Navbar />
 
       <main id="main-content" tabIndex={-1}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="relative z-10"
-      >
-        <ScrollReveal animation="fade"><Hero /></ScrollReveal>
-        <MarqueeTicker />
-        <ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal>
-        <ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal>
-        <ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal>
-        <ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal>
-        <ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal>
-        <ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal>
-        <ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal>
-        <ScrollReveal animation="scale" delay={0.2}><AIProjectsComingSoon /></ScrollReveal>
-        <ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal>
-        <Footer />
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="relative z-10"
+        >
+          <ErrorBoundary><ScrollReveal animation="fade"><Hero /></ScrollReveal></ErrorBoundary>
+          <MarqueeTicker />
+          <ErrorBoundary><ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><AIProjects /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
+          <Footer />
+        </motion.div>
       </main>
     </div>
   );

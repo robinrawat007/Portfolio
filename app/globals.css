@@ -5,31 +5,31 @@
 @layer base {
   body {
     @apply bg-slate-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-purple-500/30 selection:text-purple-100;
+    text-wrap: pretty;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     @apply font-heading text-slate-100;
+    text-wrap: balance;
   }
 
-  /* Accessibility: visible focus for keyboard navigation */
-  a:focus-visible,
-  button:focus-visible {
-    @apply outline-none;
+  /* Remove 300ms tap delay on mobile */
+  a, button, [role="button"] {
+    touch-action: manipulation;
   }
 
-  /* Respect reduced motion preference */
+  /* Cursor pointer on all interactive elements */
+  button, [role="button"], label[for], summary {
+    cursor: pointer;
+  }
+
+  /* Respect reduced motion — collapse all animations */
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 }
@@ -44,14 +44,19 @@
   }
 
   .glass-card-hover {
-    @apply hover:bg-white/10 hover:border-white/20 transition-all duration-300;
+    @apply hover:bg-white/10 hover:border-white/20 transition-colors duration-300;
+  }
+
+  /* Contain scroll inside modals/drawers — prevents page scroll bleed */
+  .scroll-contain {
+    overscroll-behavior: contain;
   }
 
   .animate-gradient-xy {
     animation: gradient-xy 15s ease infinite;
   }
 
-  /** Atlas FAB: soft glow pulse + double bounce, then idle — looped for visibility */
+  /** Atlas FAB: soft glow pulse + double bounce, then idle */
   .animate-atlas-fab-idle {
     animation: atlas-fab-idle 4.5s ease-in-out infinite;
     will-change: transform, filter;
@@ -62,6 +67,63 @@
       animation: none !important;
     }
   }
+}
+
+/* ── CSS-only background orbs (replaces Three.js BackgroundCanvas) ── */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  will-change: transform, opacity;
+  animation: orb-float 15s ease-in-out infinite;
+}
+.bg-orb-1 {
+  width: 70%;
+  height: 65%;
+  top: -10%;
+  left: -15%;
+  background: rgba(123, 79, 224, 0.25);
+  animation-duration: 15s;
+}
+.bg-orb-2 {
+  width: 60%;
+  height: 55%;
+  top: 10%;
+  right: -15%;
+  background: rgba(45, 207, 207, 0.15);
+  animation-duration: 18s;
+  animation-direction: reverse;
+}
+.bg-orb-3 {
+  width: 45%;
+  height: 45%;
+  bottom: -10%;
+  left: 30%;
+  background: rgba(91, 110, 241, 0.12);
+  animation-duration: 12s;
+  animation-delay: 2s;
+}
+
+/* ── CSS-only star particles (replaces 80 Framer Motion divs in Hero) ── */
+.star-particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: opacity;
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+  33%       { transform: scale(1.12) translate(2%, 1%); opacity: 1; }
+  66%       { transform: scale(0.95) translate(-1%, 2%); opacity: 0.7; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: var(--min-op, 0.4); transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.4); }
 }
 
 @keyframes gradient-xy {
@@ -76,8 +138,7 @@
 }
 
 @keyframes atlas-fab-idle {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0) scale(1);
     filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.75))
       drop-shadow(0 0 22px rgba(34, 211, 238, 0.35));
@@ -108,24 +169,17 @@
   }
 }
 
+/* Prevent navbar (80px) from covering section anchors */
+[id] {
+  scroll-margin-top: 80px;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #020617;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #020617; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }

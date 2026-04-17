@@ -10,6 +10,18 @@ const roles = [
   "Full Stack Engineer",
 ];
 
+// Deterministic star positions via golden-ratio sequence — safe for SSR/hydration.
+const PHI = 1.6180339887;
+const starParticles = Array.from({ length: 80 }, (_, i) => ({
+  id: i,
+  left: `${((i * PHI * 100) % 100).toFixed(2)}%`,
+  top: `${((i * PHI * 61.8) % 100).toFixed(2)}%`,
+  minOp: (0.3 + (i % 5) * 0.1).toFixed(2),
+  dur: `${(2 + (i * 0.18) % 4).toFixed(2)}s`,
+  delay: `${((i * 0.27) % 5).toFixed(2)}s`,
+  size: i % 4 === 0 ? "2px" : "1px",
+}));
+
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -36,34 +48,22 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayedText, isDeleting, roleIndex, typingSpeed]);
 
-  /** Stars use random layout — must run only on the client so SSR HTML matches hydration. */
-  const [starParticles, setStarParticles] = useState([]);
-
-  useEffect(() => {
-    setStarParticles(
-      [...Array(80)].map((_, i) => ({
-        id: i,
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        opacity: Math.random() * 0.8 + 0.4,
-        scale: Math.random() * 1.5 + 0.5,
-        duration: Math.random() * 4 + 2,
-        delay: Math.random() * 5,
-      }))
-    );
-  }, []);
-
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-0 mt-0">
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         {starParticles.map((star) => (
-          <motion.div
+          <div
             key={star.id}
-            initial={{ opacity: star.opacity, scale: star.scale }}
-            animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.3, 1] }}
-            transition={{ duration: star.duration, repeat: Infinity, delay: star.delay, ease: "easeInOut" }}
-            className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_10px_white] z-20"
-            style={{ left: star.left, top: star.top }}
+            className="star-particle absolute z-20"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: star.size,
+              height: star.size,
+              "--min-op": star.minOp,
+              "--dur": star.dur,
+              "--delay": star.delay,
+            }}
           />
         ))}
         <motion.div
@@ -106,10 +106,15 @@ export default function Hero() {
           </span>
         </h1>
 
-        <div className="h-10 md:h-12 flex items-center justify-center" aria-live="polite" aria-atomic="true">
+        {/* SR: announce the full role only when it changes, not every keystroke */}
+        <span className="sr-only" aria-live="polite" aria-atomic="true">
+          {roles[roleIndex]}
+        </span>
+        {/* Visual typing animation — hidden from screen readers */}
+        <div className="h-10 md:h-12 flex items-center justify-center" aria-hidden="true">
           <h2 className="text-xl md:text-3xl font-light text-slate-300 leading-relaxed">
             {displayedText}
-            <span className="inline-block w-[3px] h-6 md:h-8 bg-[#2DCFCF] ml-1 animate-pulse" aria-hidden="true" />
+            <span className="inline-block w-[3px] h-6 md:h-8 bg-[#2DCFCF] ml-1 animate-pulse" />
           </h2>
         </div>
 

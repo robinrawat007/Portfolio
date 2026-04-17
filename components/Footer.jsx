@@ -70,9 +70,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-slate-800/50 text-slate-500 text-sm">
           <p>© {new Date().getFullYear()} Robin Singh Rawat. All rights reserved.</p>
-          <p className="text-center md:text-right">
-            Built by Robin · {new Date().getFullYear()}
-          </p>
+          <p className="text-center md:text-right">Designed &amp; built by Robin</p>
         </div>
       </div>
     </footer>

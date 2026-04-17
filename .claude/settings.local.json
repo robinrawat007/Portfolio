@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(npx skills *)",
-      "Bash(ls -la /d/Project/Portfolio/components/*.jsx)"
+      "Bash(ls -la /d/Project/Portfolio/components/*.jsx)",
+      "Bash(pnpm dev *)",
+      "Bash(curl -s http://localhost:3001)",
+      "Bash(curl -s http://localhost:3001/_next/static/chunks/app/page.js)",
+      "Bash(curl -s \"http://localhost:3001/api/playground\" -X POST -H \"Content-Type: application/json\" -d '{\"task\":\"prompt-polish\",\"input\":\"write me a button component\"}')",
+      "Bash(pnpm build *)",
+      "Bash(del *)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

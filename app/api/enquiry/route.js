@@ -1,7 +1,12 @@
 import { getEmailConfigError, sendConfirmationEmail } from "@/lib/email";
 import { appendToSheet, getGoogleSheetsConfigError } from "@/lib/googleSheets";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
+
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_ENQUIRY_LENGTH = 3000;
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
@@ -9,6 +14,15 @@ function isValidEmail(email) {
 
 export async function POST(req) {
   try {
+    // Rate limit: 5 requests per 10 minutes per IP
+    const ip = getClientIp(req);
+    if (!checkRateLimit(ip, 5, 10 * 60 * 1000)) {
+      return Response.json(
+        { error: "Too many submissions. Please wait before trying again." },
+        { status: 429, headers: { "Retry-After": "600" } }
+      );
+    }
+
     const configError = getEmailConfigError();
     if (configError) {
       return Response.json({ error: "Email is not configured", details: configError }, { status: 503 });
@@ -20,9 +34,9 @@ export async function POST(req) {
     }
 
     const body = await req.json().catch(() => ({}));
-    const name = String(body?.name || "").trim();
-    const email = String(body?.email || "").trim();
-    const enquiry = String(body?.enquiry || "").trim();
+    const name = String(body?.name || "").trim().slice(0, MAX_NAME_LENGTH);
+    const email = String(body?.email || "").trim().slice(0, MAX_EMAIL_LENGTH);
+    const enquiry = String(body?.enquiry || "").trim().slice(0, MAX_ENQUIRY_LENGTH);
 
     if (!name) return Response.json({ error: "Name is required" }, { status: 400 });
     if (!email || !isValidEmail(email))
