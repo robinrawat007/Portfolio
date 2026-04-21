@@ -131,8 +131,8 @@ export default function AIProjects() {
       id="ai-projects"
       ref={sectionRef}
       className="py-24 relative overflow-hidden"
-      style={{ background: "var(--bg)" }}
     >
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div ref={headerRef} className="text-center mb-16">
           {/* "AI" rendered as SVG with stroke-draw animation */}
@@ -291,8 +291,6 @@ export default function AIProjects() {
         </div>
       </div>
 
-      <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[140px] pointer-events-none" style={{ background: "rgba(217,255,0,0.04)" }} />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-[140px] pointer-events-none" style={{ background: "rgba(0,255,133,0.03)" }} />
     </section>
   );
 }

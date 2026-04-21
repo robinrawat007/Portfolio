@@ -39,6 +39,32 @@ export default function Home() {
           Skip to main content
         </a>
         <div className="fixed inset-0 -z-20" style={{ background: 'var(--bg)' }} />
+        
+        {/* Global Background Layer: Drifting grid + neon ambience */}
+        <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+          {/* Ambient Orbs */}
+          <div
+            className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[200px] opacity-[0.06]"
+            style={{ background: 'var(--neon-yellow)' }}
+          />
+          <div
+            className="absolute bottom-1/3 left-1/3 w-[450px] h-[450px] rounded-full blur-[180px] opacity-[0.04]"
+            style={{ background: 'var(--neon-green)' }}
+          />
+
+          {/* Global Diagonal Drifting Grid */}
+          <div
+            className="absolute inset-0 opacity-[0.035]"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+              animation: 'grid-drift 40s linear infinite',
+            }}
+          />
+          {/* Pulsing neon dots at grid intersections */}
+          <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'radial-gradient(circle, var(--neon-blue) 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
+        </div>
+
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           <BackgroundCanvas />
         </div>

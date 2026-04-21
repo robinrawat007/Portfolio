@@ -46,14 +46,20 @@ export default function ArsenalPlayground() {
   }, []);
 
   useEffect(() => {
-    if (!mounted || !sceneRef.current) return;
+    const init = () => {
+      if (!sceneRef.current) return;
+      
+      const width = sceneRef.current.clientWidth || 800;
+      const height = sceneRef.current.clientHeight || 500;
+      
+      if (width < 100) { // Still too small, likely layout not ready
+        setTimeout(init, 100);
+        return;
+      }
 
-    const engine = engineRef.current;
-    const world = engine.world;
-    engine.world.gravity.y = 1;
-
-    const width = sceneRef.current.clientWidth || 800;
-    const height = sceneRef.current.clientHeight || 500;
+      const engine = engineRef.current;
+      const world = engine.world;
+      engine.world.gravity.y = 1;
 
     // Walls
     const wallOptions = { isStatic: true, render: { visible: false } };
@@ -115,15 +121,18 @@ export default function ArsenalPlayground() {
     };
     updateRender();
 
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      Matter.Runner.stop(runner);
-      Matter.Engine.clear(engine);
-      Matter.World.clear(world);
+      return () => {
+        cancelAnimationFrame(animationFrame);
+        Matter.Runner.stop(runner);
+        Matter.Engine.clear(engine);
+        Matter.World.clear(world);
+      };
     };
+
+    const timeoutId = setTimeout(init, 150);
+    return () => clearTimeout(timeoutId);
   }, [mounted]);
 
-  if (!mounted) return <div className="h-[70vh] min-h-[500px]" />;
 
   return (
     <div
@@ -136,9 +145,15 @@ export default function ArsenalPlayground() {
         backgroundPosition: 'center'
       }}
     >
-      {bodies.map((body) => {
+      {!mounted && (
+        <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+          <p className="text-xs font-bold tracking-[0.4em] uppercase">Initializing Physics...</p>
+        </div>
+      )}
+
+      {mounted && bodies.map((body) => {
         const { Icon, style } = body.data;
-        if (!Icon) return null; // Safe guard
+        if (!Icon) return null;
         return (
           <div
             key={`skill-body-${body.id}`}
@@ -161,7 +176,6 @@ export default function ArsenalPlayground() {
           </div>
         );
       })}
-
     </div>
   );
 }

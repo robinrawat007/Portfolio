@@ -139,27 +139,7 @@ export default function Hero() {
     >
       <MouseGlow />
 
-      {/* Drifting grid + neon ambience */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div
-          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[200px] opacity-[0.07]"
-          style={{ background: 'var(--neon-yellow)' }}
-        />
-        <div
-          className="absolute bottom-1/3 left-1/3 w-[400px] h-[400px] rounded-full blur-[180px] opacity-[0.05]"
-          style={{ background: 'var(--neon-green)' }}
-        />
-
-        {/* Diagonal drifting grid */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-            animation: 'grid-drift 40s linear infinite',
-          }}
-        />
-
         {/* Pulsing neon dots at grid intersections */}
         {NEON_DOTS.map((dot, i) => (
           <div
