@@ -2,25 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
 
 const roles = [
   "AI Generalist",
   "Full Stack Engineer",
 ];
 
-// Deterministic star positions via golden-ratio sequence — safe for SSR/hydration.
-const PHI = 1.6180339887;
-const starParticles = Array.from({ length: 80 }, (_, i) => ({
-  id: i,
-  left: `${((i * PHI * 100) % 100).toFixed(2)}%`,
-  top: `${((i * PHI * 61.8) % 100).toFixed(2)}%`,
-  minOp: (0.3 + (i % 5) * 0.1).toFixed(2),
-  dur: `${(2 + (i * 0.18) % 4).toFixed(2)}s`,
-  delay: `${((i * 0.27) % 5).toFixed(2)}s`,
-  size: i % 4 === 0 ? "2px" : "1px",
-}));
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -50,33 +37,6 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-0 mt-0">
-      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        {starParticles.map((star) => (
-          <div
-            key={star.id}
-            className="star-particle absolute z-20"
-            style={{
-              left: star.left,
-              top: star.top,
-              width: star.size,
-              height: star.size,
-              "--min-op": star.minOp,
-              "--dur": star.dur,
-              "--delay": star.delay,
-            }}
-          />
-        ))}
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-15%] w-[80%] h-[70%] bg-[#7B4FE0]/30 rounded-full blur-[160px] z-10"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.2, 0.05] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-[10%] right-[-15%] w-[70%] h-[60%] bg-[#2DCFCF]/20 rounded-full blur-[160px] z-10"
-        />
-      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -143,28 +103,9 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        <motion.div
-          className="flex items-center justify-center gap-6 pt-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-        >
-          <SocialLink href="https://www.linkedin.com/in/robinrawat1/" icon={<FaLinkedin className="w-6 h-6" />} ariaLabel="LinkedIn" />
-          <SocialLink href="https://github.com/robinrawat007" icon={<FaGithub className="w-6 h-6" />} ariaLabel="GitHub" />
-          <SocialLink href="https://x.com/robinrawat37" icon={<FaXTwitter className="w-6 h-6" />} ariaLabel="X" />
-          <SocialLink href="https://www.instagram.com/robinrawat01/" icon={<FaInstagram className="w-6 h-6" />} ariaLabel="Instagram" />
-          <SocialLink href="https://wa.me/919416149624" icon={<FaWhatsapp className="w-6 h-6" />} ariaLabel="WhatsApp" />
-          <SocialLink href="mailto:robinrawat37@gmail.com" icon={<FaEnvelope className="w-6 h-6" />} ariaLabel="Email" />
-        </motion.div>
       </motion.div>
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-600/20 rounded-full blur-[100px] md:blur-[120px] pointer-events-none mix-blend-screen" aria-hidden="true" />
     </section>
   );
 }
 
-const SocialLink = ({ href, icon, ariaLabel }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className="text-slate-400 hover:text-white hover:-translate-y-1 transition-all duration-300 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
-    {icon}
-  </a>
-);

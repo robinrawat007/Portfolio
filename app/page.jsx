@@ -56,13 +56,13 @@ export default function Home() {
           <ErrorBoundary><ScrollReveal animation="fade"><Hero /></ScrollReveal></ErrorBoundary>
           <MarqueeTicker />
           <ErrorBoundary><ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal></ErrorBoundary>
+          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><AIProjects /></ScrollReveal></ErrorBoundary>
           <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal></ErrorBoundary>
           <ErrorBoundary><ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal></ErrorBoundary>
           <ErrorBoundary><ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal></ErrorBoundary>
           <ErrorBoundary><ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal></ErrorBoundary>
           <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal></ErrorBoundary>
-          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal></ErrorBoundary>
-          <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><AIProjects /></ScrollReveal></ErrorBoundary>
           <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
           <Footer />
         </motion.div>

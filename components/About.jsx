@@ -73,15 +73,16 @@ export default function About() {
             <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-[#7B4FE0] rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
 
             <h3 className="text-2xl font-heading font-bold text-white mb-4">
-              Engineering Excellence. <br />
+              Your business deserves more than a pretty website. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7B4FE0] to-[#2DCFCF]">
-                Driven by what AI can do for real people.
+                It deserves one that works while you sleep.
               </span>
             </h3>
+            <p className="text-lg leading-relaxed text-slate-300 mb-4">
+              Every day without a fast, professional online presence is a day your competitors are winning customers you should have. A slow site kills trust in 3 seconds. A confusing app sends leads straight to someone else. A manual process costs you hours you can't buy back.
+            </p>
             <p className="text-lg leading-relaxed text-slate-300 mb-6">
-              AI Generalist & Full Stack Engineer with <strong>5 years of experience</strong> building fast, scalable applications with React, Next.js, Angular, and TypeScript. My journey from a Senior Full Stack Engineer to an AI specialist was fueled by a passion for making Large Language Models accessible and useful in real-world products.
-              <br /><br />
-              Currently completing the <strong>Outskill AI Accelerator program</strong>, where I mastered RAG systems, prompt engineering, and LLM orchestration. I bridge the gap between complex AI capabilities and intuitive user interfaces.
+              I build the digital infrastructure that turns visitors into paying clients, automates the repetitive work draining your team, and makes your business look like the obvious choice in your market. <strong>5 years. 10+ businesses served. Results that show up in your revenue, not just your analytics.</strong>
             </p>
 
             <div className="grid grid-cols-3 gap-4 pt-6 mt-6 border-t border-slate-700/50">

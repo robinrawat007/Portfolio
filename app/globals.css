@@ -104,16 +104,6 @@
   animation-delay: 2s;
 }
 
-/* ── CSS-only star particles (replaces 80 Framer Motion divs in Hero) ── */
-.star-particle {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-  animation: twinkle var(--dur, 3s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-  will-change: opacity;
-}
 
 @keyframes orb-float {
   0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.8; }
@@ -121,10 +111,6 @@
   66%       { transform: scale(0.95) translate(-1%, 2%); opacity: 0.7; }
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: var(--min-op, 0.4); transform: scale(1); }
-  50%       { opacity: 1; transform: scale(1.4); }
-}
 
 @keyframes gradient-xy {
   0%, 100% {
