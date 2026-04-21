@@ -12,127 +12,182 @@ import {
   SiTypescript,
   SiJavascript,
   SiTailwindcss,
-  SiN8N
+  SiN8N,
+  SiSupabase,
+  SiClaude
 } from 'react-icons/si';
 import { TbBrandReactNative } from "react-icons/tb";
 
 const SKILLS_DATA = [
-  { name: "Angular", icon: FaAngular },
-  { name: "React", icon: FaReact },
-  { name: "Next.js", icon: SiNextdotjs },
-  { name: "React Native", icon: TbBrandReactNative },
-  { name: "TypeScript", icon: SiTypescript },
-  { name: "JavaScript", icon: SiJavascript },
-  { name: "Tailwind", icon: SiTailwindcss },
-  { name: "n8n", icon: SiN8N },
-  { name: "GitHub", icon: FaGithub },
-];
-
-const COLORS = [
-  { bg: "rgba(188, 169, 255, 0.2)", border: "#bca9ff", shadow: "#7e6fcc", text: "#bca9ff" },
-  { bg: "rgba(217, 255, 0, 0.15)", border: "#d9ff00", shadow: "#8aad00", text: "#d9ff00" },
-  { bg: "rgba(0, 255, 133, 0.15)", border: "#00ff85", shadow: "#008f4a", text: "#00ff85" },
-  { bg: "rgba(0, 212, 255, 0.15)", border: "#00d4ff", shadow: "#007a99", text: "#00d4ff" },
+  { name: "Angular", icon: FaAngular, color: "#f40e5e", shadow: "#ac0a42", rgba: "244, 14, 94" },
+  { name: "React", icon: FaReact, color: "#58c4dc", shadow: "#3e8a9c", rgba: "88, 196, 220" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#ffffff", shadow: "#a3a3a3", rgba: "255, 255, 255" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178c6", shadow: "#23558c", rgba: "49, 120, 198" },
+  { name: "JavaScript", icon: SiJavascript, color: "#f7e024", shadow: "#ab9a18", rgba: "247, 224, 36" },
+  { name: "Tailwind", icon: SiTailwindcss, color: "#00bcff", shadow: "#0085b3", rgba: "0, 188, 255" },
+  { name: "n8n", icon: SiN8N, color: "#e94b70", shadow: "#a3354f", rgba: "233, 75, 112" },
+  { name: "GitHub", icon: FaGithub, color: "#ffffff", shadow: "#a3a3a3", rgba: "255, 255, 255" },
+  { name: "Supabase", icon: SiSupabase, color: "#3bc688", shadow: "#298c5f", rgba: "59, 198, 136" },
+  { name: "Claude", icon: SiClaude, color: "#d97757", shadow: "#99543d", rgba: "217, 119, 87" },
 ];
 
 export default function ArsenalPlayground() {
   const sceneRef = useRef(null);
-  const engineRef = useRef(Matter.Engine.create());
   const [bodies, setBodies] = useState([]);
   const [mounted, setMounted] = useState(false);
+  const [engineError, setEngineError] = useState(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    const init = () => {
-      if (!sceneRef.current) return;
-      
-      const width = sceneRef.current.clientWidth || 800;
-      const height = sceneRef.current.clientHeight || 500;
-      
-      if (width < 100) { // Still too small, likely layout not ready
-        setTimeout(init, 100);
-        return;
+    if (!mounted) return;
+
+    let engine;
+    let renderFrame;
+
+    const setupPhysics = () => {
+      try {
+        const el = sceneRef.current;
+        if (!el) {
+          renderFrame = requestAnimationFrame(setupPhysics);
+          return;
+        }
+
+        const width = el.clientWidth || window.innerWidth || 800;
+        const height = el.clientHeight || window.innerHeight || 500;
+
+        engine = Matter.Engine.create();
+        engine.world.gravity.y = 1;
+
+        // Indestructible thick walls to perfectly map the CSS container
+        const wallOptions = { isStatic: true, render: { visible: false } };
+        
+        // Ground top edge matches exactly at `height`
+        const ground = Matter.Bodies.rectangle(width / 2, height + 500, width * 5, 1000, wallOptions);
+        
+        // Left wall right edge matches exactly at `0`
+        const leftWall = Matter.Bodies.rectangle(-500, height / 2, 1000, height * 4, wallOptions);
+        
+        // Right wall left edge matches exactly at `width`
+        const rightWall = Matter.Bodies.rectangle(width + 500, height / 2, 1000, height * 4, wallOptions);
+        
+        // Ceiling bottom edge matches exactly at `0` (Traps them perfectly from going UP)
+        const ceiling = Matter.Bodies.rectangle(width / 2, -500, width * 5, 1000, wallOptions); 
+
+        Matter.World.add(engine.world, [ground, leftWall, rightWall, ceiling]);
+
+        // Create skill bodies with 4 distinctive shapes to add variety
+        const skillBodies = SKILLS_DATA.map((skill, index) => {
+          // Spread safely inside the box width
+          const x = 100 + ((width - 200) * (index / Math.max(SKILLS_DATA.length - 1, 1)));
+          // Spawn INSIDE the container so they don't get trapped by the zero-ceiling
+          const y = 80 + (index * 20); 
+          
+          const shapeType = index % 4; // 0: circle, 1: rounded-box, 2: sharp-box, 3: pill
+          let body;
+          let viewProps = {};
+
+          if (shapeType === 0) {
+            // Perfect Circle
+            body = Matter.Bodies.circle(x, y, 55, {
+              restitution: 0.6,
+              friction: 0.1,
+              density: 0.005,
+            });
+            viewProps = { w: 110, h: 110, radius: '50%' };
+          } else if (shapeType === 1) {
+            // Squircle / Soft Box
+            body = Matter.Bodies.rectangle(x, y, 110, 110, {
+              chamfer: { radius: 32 },
+              restitution: 0.4,
+              friction: 0.3,
+              density: 0.005,
+            });
+            viewProps = { w: 110, h: 110, radius: '32px' };
+          } else if (shapeType === 2) {
+            // Sharp Box
+            body = Matter.Bodies.rectangle(x, y, 100, 100, {
+              chamfer: { radius: 8 },
+              restitution: 0.3,
+              friction: 0.5,
+              density: 0.006, 
+            });
+            viewProps = { w: 100, h: 100, radius: '8px' };
+          } else {
+            // Wide Pill
+            body = Matter.Bodies.rectangle(x, y, 150, 70, {
+              chamfer: { radius: 35 },
+              restitution: 0.4,
+              friction: 0.2,
+              density: 0.004,
+            });
+            viewProps = { w: 150, h: 70, radius: '35px' };
+          }
+
+          body.skillData = {
+            name: skill.name,
+            Icon: skill.icon,
+            style: {
+              bg: `rgba(${skill.rgba}, 0.15)`,
+              border: skill.color,
+              shadow: skill.shadow,
+              text: skill.color
+            },
+            viewProps: viewProps
+          };
+
+          return body;
+        });
+
+        Matter.World.add(engine.world, skillBodies);
+
+        // Mouse Interaction
+        const mouse = Matter.Mouse.create(el);
+        const mouseConstraint = Matter.MouseConstraint.create(engine, {
+          mouse: mouse,
+          constraint: { stiffness: 0.2, render: { visible: false } }
+        });
+        Matter.World.add(engine.world, mouseConstraint);
+
+        let tickCount = 0;
+
+        // Manual Sync Loop: Update React state and tick engine manually to bypass Runner bugs
+        const updateRender = () => {
+          Matter.Engine.update(engine, 1000 / 60); 
+          tickCount++;
+
+          setBodies(skillBodies.map(body => ({
+            id: body.id,
+            x: body.position.x,
+            y: body.position.y,
+            angle: body.angle,
+            data: body.skillData,
+            _debug: { w: width, h: height, ticks: tickCount } // pass debug data
+          })));
+
+          renderFrame = requestAnimationFrame(updateRender);
+        };
+
+        updateRender();
+      } catch (err) {
+        console.error("Physics initialization failed:", err);
+        setEngineError(err.toString());
       }
-
-      const engine = engineRef.current;
-      const world = engine.world;
-      engine.world.gravity.y = 1;
-
-    // Walls
-    const wallOptions = { isStatic: true, render: { visible: false } };
-    const ground = Matter.Bodies.rectangle(width / 2, height + 50, width, 100, wallOptions);
-    const leftWall = Matter.Bodies.rectangle(-50, height / 2, 100, height, wallOptions);
-    const rightWall = Matter.Bodies.rectangle(width + 50, height / 2, 100, height, wallOptions);
-    const ceiling = Matter.Bodies.rectangle(width / 2, -50, width, 100, wallOptions);
-
-    Matter.World.add(world, [ground, leftWall, rightWall, ceiling]);
-
-    // Create skill bodies
-    const skillBodies = SKILLS_DATA.map((skill, index) => {
-      const x = (width * 0.2) + (width * 0.6 * (index / (SKILLS_DATA.length - 1 || 1)));
-      const y = -100 - (index * 100);
-      const bodyWidth = 110;
-      const bodyHeight = 110;
-
-      const body = Matter.Bodies.rectangle(x, y, bodyWidth, bodyHeight, {
-        chamfer: { radius: 28 },
-        restitution: 0.5,
-        friction: 0.3,
-        density: 0.005,
-        render: { visible: false }
-      });
-
-      body.skillData = {
-        name: skill.name,
-        Icon: skill.icon,
-        style: COLORS[index % COLORS.length]
-      };
-
-      return body;
-    });
-
-    Matter.World.add(world, skillBodies);
-
-    // Mouse
-    const mouse = Matter.Mouse.create(sceneRef.current);
-    const mouseConstraint = Matter.MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: { stiffness: 0.2, render: { visible: false } }
-    });
-
-    Matter.World.add(world, mouseConstraint);
-
-    const runner = Matter.Runner.create();
-    Matter.Runner.run(runner, engine);
-
-    let animationFrame;
-    const updateRender = () => {
-      setBodies(skillBodies.map(body => ({
-        id: body.id,
-        x: body.position.x,
-        y: body.position.y,
-        angle: body.angle,
-        data: body.skillData
-      })));
-      animationFrame = requestAnimationFrame(updateRender);
     };
-    updateRender();
 
-      return () => {
-        cancelAnimationFrame(animationFrame);
-        Matter.Runner.stop(runner);
+    renderFrame = requestAnimationFrame(setupPhysics);
+
+    // Guaranteed Cleanup for Strict Mode & Unmounting
+    return () => {
+      cancelAnimationFrame(renderFrame);
+      if (engine) {
         Matter.Engine.clear(engine);
-        Matter.World.clear(world);
-      };
+        Matter.World.clear(engine.world);
+      }
     };
-
-    const timeoutId = setTimeout(init, 150);
-    return () => clearTimeout(timeoutId);
   }, [mounted]);
-
 
   return (
     <div
@@ -145,31 +200,46 @@ export default function ArsenalPlayground() {
         backgroundPosition: 'center'
       }}
     >
-      {!mounted && (
+      <div className="absolute top-4 left-4 z-0 text-[10px] font-mono text-white/20 select-none pointer-events-none">
+        Debug HUD: mounted={String(mounted)}, bodies={bodies.length}, width={bodies[0]?._debug.w || 0}, height={bodies[0]?._debug.h || 0}, ticks={bodies[0]?._debug.ticks || 0}
+      </div>
+
+      {!mounted && !engineError && (
         <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
           <p className="text-xs font-bold tracking-[0.4em] uppercase">Initializing Physics...</p>
         </div>
       )}
 
+      {engineError && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-50 p-6">
+          <div className="bg-red-950/80 border border-red-500/50 rounded-xl p-6 max-w-lg backdrop-blur-md">
+            <h3 className="text-xl font-bold mb-2 text-red-400">Physics Engine Failed to Boot</h3>
+            <p className="font-mono text-sm text-red-200/80 whitespace-pre-wrap">{engineError}</p>
+            <p className="text-xs mt-4 text-red-400/60 font-semibold uppercase tracking-wider">Please provide this exact text so I can resolve it.</p>
+          </div>
+        </div>
+      )}
+
       {mounted && bodies.map((body) => {
-        const { Icon, style } = body.data;
-        if (!Icon) return null;
+        const { Icon, style, viewProps } = body.data;
+        if (!Icon || !viewProps) return null;
         return (
           <div
             key={`skill-body-${body.id}`}
-            className="absolute flex flex-col items-center justify-center p-4 border-[3px] rounded-3xl select-none"
+            className="absolute flex flex-col items-center justify-center p-4 border-[3px] select-none"
             style={{
-              width: '110px',
-              height: '110px',
-              left: body.x - 55,
-              top: body.y - 55,
+              width: `${viewProps.w}px`,
+              height: `${viewProps.h}px`,
+              left: body.x - (viewProps.w / 2),
+              top: body.y - (viewProps.h / 2),
+              borderRadius: viewProps.radius,
               transform: `rotate(${body.angle}rad)`,
               backgroundColor: style.bg,
               borderColor: style.border,
               color: style.text,
               boxShadow: `0px 8px 0px 0px ${style.shadow}`,
               zIndex: 10,
-              pointerEvents: 'none',
+              pointerEvents: 'none', // Letting Matter.js MouseConstraint handle interactions
             }}
           >
             <Icon size={44} />
