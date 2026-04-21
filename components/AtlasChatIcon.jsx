@@ -25,8 +25,10 @@ export default function AtlasChatIcon({ className = "w-14 h-14" }) {
         strokeWidth="1.75"
         style={{ color: '#D9FF00' }}
       />
-      <circle cx="25.5" cy="24" r="1.75" fill="#D9FF00" />
-      <circle cx="32.5" cy="24" r="1.75" fill="#D9FF00" />
+      <g className="atlas-eyes">
+        <circle cx="25.5" cy="24" r="1.75" fill="#D9FF00" />
+        <circle cx="32.5" cy="24" r="1.75" fill="#D9FF00" />
+      </g>
       <path
         d="M25.5 28.5c1.1.9 2.5.9 3.6 0"
         stroke="#D9FF00"

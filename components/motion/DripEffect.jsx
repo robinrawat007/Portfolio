@@ -20,7 +20,7 @@ export default function DripEffect({ children, color = "var(--neon-yellow)", cla
     return () => clearInterval(interval);
   }, [isHovered]);
 
-  const createDrip = () => {
+  const createDrip = React.useCallback(() => {
     if (!dripContainerRef.current) return;
 
     // Create droplet
@@ -65,7 +65,7 @@ export default function DripEffect({ children, color = "var(--neon-yellow)", cla
       scale: 0,
       duration: 0.2,
     }, "-=0.2");
-  };
+  }, [color]);
 
   return (
     <div

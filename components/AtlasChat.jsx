@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
 import { FaPaperPlane, FaTimes } from "react-icons/fa";
 import AtlasChatIcon from "@/components/AtlasChatIcon";
 import { API_CHAT_URL, ATLAS_WEBHOOK_URL, USE_WEBHOOKS } from "@/lib/webhooks";
@@ -195,8 +196,28 @@ export default function AtlasChat() {
 
   useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
 
+  const [isHovered, setIsHovered] = useState(false);
+  const blinkTimeline = useRef(null);
+
+  useEffect(() => {
+    if (isHovered && !open) {
+      // Trigger eye blink periodically
+      blinkTimeline.current = gsap.timeline({ repeat: -1, repeatDelay: 3 });
+      blinkTimeline.current
+        .to(".atlas-eyes", { scaleY: 0, duration: 0.1, transformOrigin: "center 24px" })
+        .to(".atlas-eyes", { scaleY: 1, duration: 0.1 });
+    } else {
+      blinkTimeline.current?.kill();
+    }
+    return () => blinkTimeline.current?.kill();
+  }, [isHovered, open]);
+
   return (
-    <div className="fixed right-6 z-50 flex flex-col-reverse items-end gap-3 pointer-events-none [&>*]:pointer-events-auto bottom-6 pb-[max(0px,env(safe-area-inset-bottom))]">
+    <div
+      className="fixed right-6 z-50 flex flex-col-reverse items-end gap-3 pointer-events-none [&>*]:pointer-events-auto bottom-6 pb-[max(0px,env(safe-area-inset-bottom))]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* FAB */}
       <motion.button
         type="button"
@@ -209,6 +230,21 @@ export default function AtlasChat() {
         style={{ color: 'var(--neon-yellow)', '--tw-ring-color': 'var(--neon-yellow)' }}
         whileTap={{ scale: 0.94 }}
       >
+        <AnimatePresence>
+          {isHovered && !open && (
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -5 }}
+              className="absolute right-full mr-4 px-3 py-1.5 rounded-lg whitespace-nowrap text-xs font-mono font-bold border backdrop-blur-md shadow-lg"
+              style={{ background: 'rgba(10,10,10,0.85)', borderColor: 'rgba(217,255,0,0.2)', color: 'var(--neon-yellow)' }}
+            >
+              How you doin...?
+              <span className="ml-1 animate-pulse" style={{ color: 'var(--neon-yellow)' }}>|</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <span
           className={`relative z-10 block transition-[filter,transform] duration-300 group-hover:scale-110 group-hover:!animate-none ${
             !open ? "animate-atlas-fab-idle" : ""
