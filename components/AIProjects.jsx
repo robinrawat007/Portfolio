@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrambleText from "@/components/motion/ScrambleText";
-import CornerBrackets from "@/components/motion/CornerBrackets";
+import { HoloEffect } from "@/components/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -190,7 +190,7 @@ export default function AIProjects() {
           {AI_PROJECTS.map((project, index) => {
             const Icon = project.Icon;
             return (
-              <CornerBrackets key={project.title}>
+              <HoloEffect key={project.title} mode="all" color={project.color} className="h-full">
                 <div
                   className="ai-project-card glass-card flex flex-col overflow-hidden group"
                   style={{ transition: "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease" }}
@@ -285,7 +285,7 @@ export default function AIProjects() {
                     </button>
                   </div>
                 </div>
-              </CornerBrackets>
+              </HoloEffect>
             );
           })}
         </div>

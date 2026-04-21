@@ -3,61 +3,115 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
+/**
+ * Premium CustomCursor
+ * Features velocity-based stretching, "Magnetic Aura", and "Digital Brackets" on hover.
+ */
 export default function CustomCursor() {
   const dotRef    = useRef(null);
-  const ringRef   = useRef(null);
+  const auraRef   = useRef(null);
   const labelRef  = useRef(null);
 
   useEffect(() => {
     const dot   = dotRef.current;
-    const ring  = ringRef.current;
+    const aura  = auraRef.current;
     const label = labelRef.current;
-    if (!dot || !ring || !label) return;
+    if (!dot || !aura || !label) return;
+
+    let mouse = { x: 0, y: 0 };
+    let previousMouse = { x: 0, y: 0 };
+    let velocity = { x: 0, y: 0 };
+    let currentMode = "default"; // Track mode to prevent flicker
 
     const mm = gsap.matchMedia();
     mm.add("(hover: hover) and (pointer: fine)", () => {
       dot.style.display   = "block";
-      ring.style.display  = "block";
+      aura.style.display  = "block";
 
-      const xDot  = gsap.quickTo(dot,  "x", { duration: 0.08, ease: "none" });
-      const yDot  = gsap.quickTo(dot,  "y", { duration: 0.08, ease: "none" });
-      const xRing = gsap.quickTo(ring, "x", { duration: 0.35, ease: "power3.out" });
-      const yRing = gsap.quickTo(ring, "y", { duration: 0.35, ease: "power3.out" });
+      const xDot  = gsap.quickTo(dot,  "x", { duration: 0.1, ease: "none" });
+      const yDot  = gsap.quickTo(dot,  "y", { duration: 0.1, ease: "none" });
+      const xAura = gsap.quickTo(aura, "x", { duration: 0.4, ease: "power3.out" });
+      const yAura = gsap.quickTo(aura, "y", { duration: 0.4, ease: "power3.out" });
 
-      const onMove = (e) => {
-        xDot(e.clientX - 4);
-        yDot(e.clientY - 4);
-        xRing(e.clientX - 20);
-        yRing(e.clientY - 20);
-      };
+      const onMouseMove = (e) => {
+        // Show cursor on first move
+        if (dot.style.opacity === "0" || dot.style.opacity === "") {
+          gsap.to([dot, aura], { opacity: 1, duration: 0.2 });
+        }
 
-      const onOver = (e) => {
-        const dragTarget       = e.target.closest("[data-cursor='drag']");
-        const interactiveTarget = e.target.closest("[data-cursor='interactive'], a, button");
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
 
-        if (dragTarget) {
-          gsap.to(ring, { scale: 2.5, duration: 0.25, ease: "power2.out" });
-          label.style.display = "block";
-          gsap.to(dot, { opacity: 0, duration: 0.15 });
-        } else if (interactiveTarget) {
-          gsap.to(ring, { scale: 2, duration: 0.25, ease: "power2.out" });
-          label.style.display = "none";
-          gsap.to(dot, { opacity: 1, duration: 0.15 });
-        } else {
-          gsap.to(ring, { scale: 1, duration: 0.25, ease: "power2.out" });
-          label.style.display = "none";
-          gsap.to(dot, { opacity: 1, duration: 0.15 });
+        // Calculate velocity for stretching
+        velocity.x = mouse.x - previousMouse.x;
+        velocity.y = mouse.y - previousMouse.y;
+        previousMouse.x = mouse.x;
+        previousMouse.y = mouse.y;
+
+        const speed = Math.sqrt(velocity.x ** 2 + velocity.y ** 2);
+        const stretch = Math.min(speed / 100, 0.4);
+        const angle = Math.atan2(velocity.y, velocity.x) * (180 / Math.PI);
+
+        xDot(mouse.x - 3);
+        yDot(mouse.y - 3);
+        xAura(mouse.x - 24);
+        yAura(mouse.y - 24);
+
+        // Apply dynamic stretching to the aura (only in default mode to avoid jitter)
+        if (currentMode === "default") {
+          gsap.to(aura, {
+            rotate: angle,
+            scaleX: 1 + stretch,
+            scaleY: 1 - stretch * 0.5,
+            duration: 0.2,
+            overwrite: "auto",
+          });
         }
       };
 
-      window.addEventListener("mousemove", onMove);
-      window.addEventListener("mouseover", onOver);
+      const onMouseOver = (e) => {
+        const interactiveTarget = e.target.closest("[data-cursor='interactive'], a, button");
+
+        if (interactiveTarget) {
+          if (currentMode === "interactive") return;
+          currentMode = "interactive";
+
+          // Transform Aura into Digital Brackets
+          gsap.to(aura, { 
+            scale: 1.5, 
+            rotate: 0,
+            borderRadius: "4px",
+            borderWidth: "1px",
+            borderColor: "rgba(217,255,0,0.8)",
+            backgroundColor: "rgba(217,255,0,0.05)",
+            duration: 0.3,
+            overwrite: true
+          });
+          gsap.to(".aura-corner", { opacity: 1, duration: 0.2 });
+        } else {
+          if (currentMode === "default") return;
+          currentMode = "default";
+
+          // Return to soft Aura
+          gsap.to(aura, { 
+            scale: 1, 
+            borderRadius: "50%",
+            borderWidth: "1.5px",
+            borderColor: "rgba(217,255,0,0.4)",
+            backgroundColor: "transparent",
+            duration: 0.3,
+            overwrite: true
+          });
+          gsap.to(".aura-corner", { opacity: 0, duration: 0.2 });
+        }
+      };
+
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseover", onMouseOver);
 
       return () => {
-        window.removeEventListener("mousemove", onMove);
-        window.removeEventListener("mouseover", onOver);
-        dot.style.display  = "none";
-        ring.style.display = "none";
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseover", onMouseOver);
       };
     });
 
@@ -66,39 +120,37 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* 8px neon-yellow dot */}
+      {/* 6px Solid Core */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[200]"
-        style={{ display: "none" }}
+        className="fixed top-0 left-0 pointer-events-none z-[10000] w-1.5 h-1.5 rounded-full opacity-0"
+        style={{ background: "var(--neon-yellow)", boxShadow: "0 0 10px var(--neon-yellow)" }}
+        aria-hidden="true"
+      />
+
+      {/* 48px Magnetic Aura / Bracket */}
+      <div
+        ref={auraRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] w-12 h-12 border flex items-center justify-center transition-[border-radius] opacity-0"
+        style={{ 
+          borderColor: "rgba(217,255,0,0.4)", 
+          borderRadius: "50%",
+          boxShadow: "0 0 15px rgba(217,255,0,0.1)"
+        }}
         aria-hidden="true"
       >
-        <div
-          className="w-2 h-2 rounded-full"
-          style={{ background: "var(--neon-yellow)", boxShadow: "0 0 8px var(--neon-yellow)" }}
-        />
+        {/* Invisible Corner Brackets for interactive mode */}
+        <div className="aura-corner absolute top-0 left-0 w-2 h-2 border-t border-l border-neon-yellow opacity-0" />
+        <div className="aura-corner absolute top-0 right-0 w-2 h-2 border-t border-r border-neon-yellow opacity-0" />
+        <div className="aura-corner absolute bottom-0 left-0 w-2 h-2 border-b border-l border-neon-yellow opacity-0" />
+        <div className="aura-corner absolute bottom-0 right-0 w-2 h-2 border-b border-r border-neon-yellow opacity-0" />
       </div>
 
-      {/* 40px ring + optional DRAG label */}
-      <div
-        ref={ringRef}
-        className="fixed top-0 left-0 pointer-events-none z-[199] w-10 h-10"
-        style={{ display: "none" }}
-        aria-hidden="true"
-      >
-        <div
-          className="w-full h-full rounded-full border flex items-center justify-center"
-          style={{ borderColor: "rgba(217,255,0,0.6)", boxShadow: "0 0 12px rgba(217,255,0,0.2)" }}
-        >
-          <span
-            ref={labelRef}
-            className="font-mono text-[8px] font-bold tracking-widest uppercase"
-            style={{ color: "var(--neon-yellow)", display: "none" }}
-          >
-            DRAG
-          </span>
-        </div>
-      </div>
+      <style jsx>{`
+        .border-neon-yellow {
+          border-color: var(--neon-yellow);
+        }
+      `}</style>
     </>
   );
 }

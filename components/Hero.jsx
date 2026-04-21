@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import MouseGlow from '@/components/motion/MouseGlow';
 import ScrambleText from '@/components/motion/ScrambleText';
-import { Magnetic, CornerBrackets } from '@/components/motion';
+import { Magnetic, HoloEffect } from '@/components/motion';
 
 const roles = ["AI Generalist", "Full Stack Engineer"];
 
@@ -279,29 +279,29 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8"
         >
           <Magnetic>
-            <CornerBrackets>
+            <HoloEffect mode="all" color="var(--neon-yellow)" particleColor="var(--neon-yellow)" className="w-full sm:w-auto rounded-lg">
               <a
                 href="#projects"
-                className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg hover:brightness-110 transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
-                style={{ background: 'var(--neon-yellow)', color: '#000', boxShadow: '0 0 20px rgba(217,255,0,0.3)' }}
+                className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg hover:brightness-110 transition-all duration-300 w-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                style={{ background: 'transparent', color: '#fff', border: '1px solid var(--neon-yellow)', boxShadow: '0 0 20px rgba(217,255,0,0.1)' }}
               >
                 View My Work
               </a>
-            </CornerBrackets>
+            </HoloEffect>
           </Magnetic>
 
           <Magnetic>
-            <CornerBrackets>
+            <HoloEffect mode="heartbeat" color="var(--neon-green)" className="w-full sm:w-auto rounded-lg">
               <a
                 href="#contact"
-                className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg transition-all duration-300 w-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={{ border: '1px solid var(--neon-green)', color: 'var(--fg)', background: 'transparent' }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0,255,133,0.08)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
               >
                 Contact Me
               </a>
-            </CornerBrackets>
+            </HoloEffect>
           </Magnetic>
         </div>
 

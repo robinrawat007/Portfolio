@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaEyeSlash, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Image from 'next/image';
 import SplitReveal from '@/components/motion/SplitReveal';
-import { Magnetic, CornerBrackets } from '@/components/motion';
+import { Magnetic, HoloEffect } from '@/components/motion';
 
 const projects = [
   {
@@ -236,7 +236,7 @@ export default function Projects() {
         </div>
 
         <Magnetic className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
-          <CornerBrackets>
+          <HoloEffect mode="scan" color="var(--neon-green)">
             <button
               onClick={prev}
               aria-label="Previous project"
@@ -247,11 +247,11 @@ export default function Projects() {
             >
               <FaChevronLeft className="text-sm" />
             </button>
-          </CornerBrackets>
+          </HoloEffect>
         </Magnetic>
 
         <Magnetic className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
-          <CornerBrackets>
+          <HoloEffect mode="scan" color="var(--neon-green)">
             <button
               onClick={next}
               aria-label="Next project"
@@ -262,7 +262,7 @@ export default function Projects() {
             >
               <FaChevronRight className="text-sm" />
             </button>
-          </CornerBrackets>
+          </HoloEffect>
         </Magnetic>
       </div>
 

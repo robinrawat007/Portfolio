@@ -9,14 +9,14 @@ import { useGSAP } from "@gsap/react";
 
 const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
 const navLinks = [
-    { name: 'Home',       href: '#hero',       color: '#D9FF00' }, // neon-yellow
-    { name: 'About',      href: '#about',      color: '#00FF85' }, // neon-green
+    { name: 'Home', href: '#hero', color: '#D9FF00' }, // neon-yellow
+    { name: 'About', href: '#about', color: '#00FF85' }, // neon-green
     { name: 'Experience', href: '#experience', color: '#2DCFCF' }, // neon-cyan
-    { name: 'Projects',   href: '#projects',   color: '#7B4FE0' }, // neon-purple
-    { name: 'Skills',     href: '#skills',     color: '#FF0080' }, // neon-pink
-    { name: 'Education',  href: '#education',  color: '#0080FF' }, // neon-azure
-    { name: 'Services',   href: '#services',   color: '#FF8000' }, // neon-orange
-    { name: 'Contact',    href: '#contact',    color: '#80FF00' }, // neon-lime
+    { name: 'Projects', href: '#projects', color: '#7B4FE0' }, // neon-purple
+    { name: 'Skills', href: '#skills', color: '#FF0080' }, // neon-pink
+    { name: 'Education', href: '#education', color: '#0080FF' }, // neon-azure
+    { name: 'Services', href: '#services', color: '#FF8000' }, // neon-orange
+    { name: 'Contact', href: '#contact', color: '#80FF00' }, // neon-lime
 ];
 
 export default function Navbar() {
@@ -28,11 +28,11 @@ export default function Navbar() {
 
     useGSAP(() => {
         if (!logoRef.current) return;
-        
+
         // Revolving animation on hover
         const logo = logoRef.current;
         let animation;
-        
+
         const enterAnim = () => {
             animation = gsap.to(logo, {
                 rotationY: "+=360",
@@ -55,7 +55,7 @@ export default function Navbar() {
 
         logo.addEventListener('mouseenter', enterAnim);
         logo.addEventListener('mouseleave', leaveAnim);
-        
+
         return () => {
             logo.removeEventListener('mouseenter', enterAnim);
             logo.removeEventListener('mouseleave', leaveAnim);
@@ -105,7 +105,7 @@ export default function Navbar() {
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
                     ? 'border-b py-2'
                     : 'bg-transparent py-2'
-                }`}
+                    }`}
                 style={scrolled ? {
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
@@ -124,13 +124,13 @@ export default function Navbar() {
                         <div
                             ref={logoRef}
                             className="w-10 h-10 md:w-12 md:h-12 rounded-full p-0.5 shadow-lg group-hover:scale-110 transition-transform flex items-center justify-center overflow-hidden"
-                            style={{ 
+                            style={{
                                 background: 'linear-gradient(135deg, var(--neon-yellow), var(--neon-green))',
                                 perspective: '1000px'
                             }}
                         >
                             <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden relative" style={{ background: 'var(--bg)' }}>
-                                <Image 
+                                <Image
                                     src="/Logo.png"
                                     alt="Robin logo"
                                     fill
@@ -138,11 +138,6 @@ export default function Navbar() {
                                 />
                             </div>
                         </div>
-                        <GlowText>
-                          <span className="font-heading font-bold text-lg hidden sm:block tracking-wide">
-                              Robin Singh Rawat
-                          </span>
-                        </GlowText>
                     </a>
 
                     {/* Desktop nav */}

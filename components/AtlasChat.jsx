@@ -200,6 +200,11 @@ export default function AtlasChat() {
   const [isHovered, setIsHovered] = useState(false);
   const blinkTimeline = useRef(null);
 
+  // Reset hover state when panel opens/closes to prevent stale hover UI
+  useEffect(() => {
+    if (open) setIsHovered(false);
+  }, [open]);
+
   useEffect(() => {
     if (isHovered && !open) {
       // Trigger eye blink periodically
