@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { DripEffect } from '@/components/motion';
+import { DripEffect, GlowText } from '@/components/motion';
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
 const navLinks = [
@@ -21,6 +24,43 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const menuRef = useRef(null);
+    const logoRef = useRef(null);
+
+    useGSAP(() => {
+        if (!logoRef.current) return;
+        
+        // Revolving animation on hover
+        const logo = logoRef.current;
+        let animation;
+        
+        const enterAnim = () => {
+            animation = gsap.to(logo, {
+                rotationY: "+=360",
+                duration: 1.5,
+                repeat: -1,
+                ease: "none",
+                overwrite: "auto"
+            });
+        };
+
+        const leaveAnim = () => {
+            if (animation) animation.kill();
+            gsap.to(logo, {
+                rotationY: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                overwrite: "auto"
+            });
+        };
+
+        logo.addEventListener('mouseenter', enterAnim);
+        logo.addEventListener('mouseleave', leaveAnim);
+        
+        return () => {
+            logo.removeEventListener('mouseenter', enterAnim);
+            logo.removeEventListener('mouseleave', leaveAnim);
+        };
+    }, { scope: logoRef });
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -82,18 +122,27 @@ export default function Navbar() {
                         aria-label="Robin Singh Rawat - Home"
                     >
                         <div
-                            className="w-10 h-10 md:w-12 md:h-12 rounded-full p-0.5 shadow-lg group-hover:scale-110 transition-transform"
-                            style={{ background: 'linear-gradient(135deg, var(--neon-yellow), var(--neon-green))' }}
+                            ref={logoRef}
+                            className="w-10 h-10 md:w-12 md:h-12 rounded-full p-0.5 shadow-lg group-hover:scale-110 transition-transform flex items-center justify-center overflow-hidden"
+                            style={{ 
+                                background: 'linear-gradient(135deg, var(--neon-yellow), var(--neon-green))',
+                                perspective: '1000px'
+                            }}
                         >
-                            <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'var(--bg)' }}>
-                                <span className="font-heading font-extrabold tracking-tight text-lg" style={{ color: 'var(--fg)' }}>
-                                    RR
-                                </span>
+                            <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden relative" style={{ background: 'var(--bg)' }}>
+                                <Image 
+                                    src="/Logo.png"
+                                    alt="Robin logo"
+                                    fill
+                                    className="object-cover"
+                                />
                             </div>
                         </div>
-                        <span className="font-heading font-bold text-lg hidden sm:block tracking-wide" style={{ color: 'var(--fg)' }}>
-                            Robin Singh Rawat
-                        </span>
+                        <GlowText>
+                          <span className="font-heading font-bold text-lg hidden sm:block tracking-wide">
+                              Robin Singh Rawat
+                          </span>
+                        </GlowText>
                     </a>
 
                     {/* Desktop nav */}

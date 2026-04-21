@@ -9,17 +9,6 @@ export default function DripEffect({ children, color = "var(--neon-yellow)", cla
   const dripContainerRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    let interval;
-    if (isHovered) {
-      // Periodic dripping
-      interval = setInterval(() => {
-        createDrip();
-      }, 150); // Every 150ms
-    }
-    return () => clearInterval(interval);
-  }, [isHovered]);
-
   const createDrip = React.useCallback(() => {
     if (!dripContainerRef.current) return;
 
@@ -66,6 +55,17 @@ export default function DripEffect({ children, color = "var(--neon-yellow)", cla
       duration: 0.2,
     }, "-=0.2");
   }, [color]);
+
+  useEffect(() => {
+    let interval;
+    if (isHovered) {
+      // Periodic dripping
+      interval = setInterval(() => {
+        createDrip();
+      }, 150); // Every 150ms
+    }
+    return () => clearInterval(interval);
+  }, [isHovered, createDrip]);
 
   return (
     <div

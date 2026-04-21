@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Image from 'next/image';
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { FaPaperPlane, FaTimes } from "react-icons/fa";
@@ -233,14 +234,20 @@ export default function AtlasChat() {
         <AnimatePresence>
           {isHovered && !open && (
             <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -5 }}
-              className="absolute right-full mr-4 px-3 py-1.5 rounded-lg whitespace-nowrap text-xs font-mono font-bold border backdrop-blur-md shadow-lg"
-              style={{ background: 'rgba(10,10,10,0.85)', borderColor: 'rgba(217,255,0,0.2)', color: 'var(--neon-yellow)' }}
+              initial={{ opacity: 0, x: -10, y: 10, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, y: -40, scale: 1 }}
+              exit={{ opacity: 0, x: -5, y: -20, scale: 0.8 }}
+              className="absolute right-full mr-4 pointer-events-none drop-shadow-[0_0_15px_rgba(217,255,0,0.4)]"
             >
-              How you doin...?
-              <span className="ml-1 animate-pulse" style={{ color: 'var(--neon-yellow)' }}>|</span>
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40">
+                <Image 
+                  src="/joey.png"
+                  alt="Joey - How you doin?"
+                  fill
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
