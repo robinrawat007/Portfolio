@@ -14,7 +14,6 @@ const navLinks = [
     { name: 'Experience', href: '#experience', color: '#2DCFCF' }, // neon-cyan
     { name: 'Projects', href: '#projects', color: '#7B4FE0' }, // neon-purple
     { name: 'Skills', href: '#skills', color: '#FF0080' }, // neon-pink
-    { name: 'Education', href: '#education', color: '#0080FF' }, // neon-azure
     { name: 'Services', href: '#services', color: '#FF8000' }, // neon-orange
     { name: 'Contact', href: '#contact', color: '#80FF00' }, // neon-lime
 ];

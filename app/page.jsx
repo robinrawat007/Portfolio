@@ -8,8 +8,6 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import WorkExperience from "@/components/WorkExperience";
-import Education from "@/components/Education";
-import Certifications from "@/components/Certifications";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -68,8 +66,6 @@ export default function Home() {
             <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal></ErrorBoundary>
             <ErrorBoundary><ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal></ErrorBoundary>
             <ErrorBoundary><ScrollReveal animation="fadeLeft" delay={0.3}><WorkExperience /></ScrollReveal></ErrorBoundary>
-            <ErrorBoundary><ScrollReveal animation="rotate" delay={0.2}><Education /></ScrollReveal></ErrorBoundary>
-            <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.2}><Certifications /></ScrollReveal></ErrorBoundary>
             <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
             <Footer />
           </motion.div>

@@ -121,24 +121,6 @@
     }
   },
   {
-    "id": "education.formal",
-    "content": "Education: Bachelor of Computer Applications (BCA) from Hindu Institute of Management, August 2016 – May 2019.",
-    "metadata": {
-      "section": "Education",
-      "type": "degree",
-      "tags": ["education", "degree", "bca", "college", "university", "qualification"]
-    }
-  },
-  {
-    "id": "certifications.all",
-    "content": "Certifications: 1) AI Accelerator Program (Outskill, 2026) — specialization in AI integration, LLM orchestration, RAG architectures, and building production-ready AI applications. 2) Advance Program in Full Stack Software Engineering (NIIT, July 2020, 216 hours) — covering full-stack frameworks, backend architecture, and database management.",
-    "metadata": {
-      "section": "Certifications",
-      "type": "certifications",
-      "tags": ["certifications", "outskill", "niit", "ai accelerator", "full stack", "credentials", "courses"]
-    }
-  },
-  {
     "id": "contact.all",
     "content": "Robin's contact details: Email — robinrawat37@gmail.com. WhatsApp/Phone — +91-9416149624. He's based in Sonipat, Haryana, India. Social links: LinkedIn (linkedin.com/in/robinrawat1), GitHub (github.com/robinrawat007), X/Twitter (twitter.com/robinrawat37), Instagram (instagram.com/robinrawat01). Newsletter: thestackshift.beehiiv.com.",
     "metadata": {

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import ArsenalPlayground from './ArsenalPlayground';
 
 const skillCategories = [
   {
@@ -40,43 +41,7 @@ export default function Skills() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {skillCategories.map((category, idx) => (
-          <motion.div
-            key={category.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.2, duration: 0.6 }}
-            className="glass-card p-8 group relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl group-hover:opacity-20 transition-all duration-500 -mr-16 -mt-16 opacity-8" style={{ background: 'var(--neon-yellow)' }} />
-
-            <div className="flex items-center gap-4 mb-6 relative z-10">
-              <span className="text-3xl p-3 rounded-xl border shadow-sm" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }} aria-label={`${category.title} icon`}>
-                {category.icon}
-              </span>
-              <h3 className="text-xl font-bold" style={{ color: 'var(--fg)' }}>
-                {category.title}
-              </h3>
-            </div>
-
-            <div className="flex flex-wrap gap-2.5 relative z-10">
-              {category.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="text-sm font-medium px-3 py-1.5 rounded-md transition-colors shadow-sm cursor-default"
-                  style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--neon-yellow)'; e.currentTarget.style.color = 'var(--neon-yellow)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-muted)'; }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      <ArsenalPlayground />
     </section>
   );
 }
