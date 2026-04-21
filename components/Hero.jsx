@@ -112,25 +112,23 @@ export default function Hero() {
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // 1. Pill draws in
-    tl.to(pill, { opacity: 1, duration: 0.25 }, 0)
-      .to(svgRect, { attr: { 'stroke-dashoffset': 0 }, duration: 0.5, ease: 'power2.inOut' }, 0);
+    // 1. Name revealed first ("Hi, I'm Robin Singh Rawat")
+    tl.to(hi, { opacity: 1, y: 0, duration: 0.6 }, 0)
+      .to(name, { opacity: 1, duration: 0.1 }, 0.2);
 
-    // 2. "Hi, I'm"
-    tl.to(hi, { opacity: 1, y: 0, duration: 0.5 }, 0.35);
+    // 2. Pill draws in ABOVE the name
+    tl.to(pill, { opacity: 1, duration: 0.4 }, 0.8)
+      .to(svgRect, { attr: { 'stroke-dashoffset': 0 }, duration: 0.6, ease: 'power2.inOut' }, 0.8);
 
-    // 3. Name becomes visible — ScrambleText fires from delay prop
-    tl.to(name, { opacity: 1, duration: 0.1 }, 0.65);
+    // 3. Description reveals BELOW
+    tl.to(desc, { opacity: 1, y: 0, duration: 0.6 }, 1.3);
 
-    // 4. Description
-    tl.to(desc, { opacity: 1, y: 0, duration: 0.6 }, 0.9);
+    // 4. CTAs stagger in
+    tl.to(ctaChildren, { opacity: 1, y: 0, duration: 0.4, stagger: 0.14 }, 1.5);
 
-    // 5. CTAs stagger in
-    tl.to(ctaChildren, { opacity: 1, y: 0, duration: 0.4, stagger: 0.14 }, 1.1);
-
-    // 6. Enable typing after ScrambleText finishes (~0.65 + 1s = 1.65s)
-    tl.call(() => setTypingEnabled(true), [], 1.7)
-      .to(subtitle, { opacity: 1, duration: 0.3 }, 1.7);
+    // 5. Enable typing after everything is settled
+    tl.call(() => setTypingEnabled(true), [], 1.9)
+      .to(subtitle, { opacity: 1, duration: 0.3 }, 1.9);
 
   }, { scope: containerRef });
 
@@ -230,7 +228,7 @@ export default function Hero() {
               className="text-transparent bg-clip-text whitespace-nowrap"
               style={{ backgroundImage: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }}
             >
-              <ScrambleText text="Robin Singh Rawat" delay={0.65} duration={1000} />
+              <ScrambleText text="Robin Singh Rawat" delay={0.1} duration={1000} />
             </span>
           </span>
         </h1>
@@ -270,7 +268,7 @@ export default function Hero() {
         >
           From landing pages to production apps.
           <br />
-          AI assistants, RAG chatbots, voice agents, and workflow automation—end to end.
+          AI assistants, RAG chatbots, voice agents, and workflow automation end to end.
         </p>
 
         {/* CTAs — Magnetic + CornerBrackets */}

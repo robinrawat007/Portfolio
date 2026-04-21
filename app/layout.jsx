@@ -81,6 +81,10 @@ export const metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-snippet": -1 },
   },
+  icons: {
+    icon: "/Logo.png",
+    apple: "/Logo.png",
+  },
 };
 
 export const viewport = {
