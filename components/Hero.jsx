@@ -5,9 +5,9 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import MouseGlow from '@/components/motion/MouseGlow';
 import ScrambleText from '@/components/motion/ScrambleText';
-import { Magnetic, HoloEffect } from '@/components/motion';
+import { Magnetic, HoloEffect, Firecrackers } from '@/components/motion';
 
-const roles = ["AI Generalist", "Full Stack Engineer"];
+const roles = ["AI Generalist", "Full Stack Engineer", "Workflow Automation Expert"];
 
 const NEON_DOTS = [
   { top: '18%', left: '12%', color: 'var(--neon-yellow)', dur: 2.4, delay: '0s' },
@@ -203,13 +203,15 @@ export default function Hero() {
           <br className="md:hidden" />
           {' '}
           {/* Name — ScrambleText with gradient; delay syncs to GSAP reveal at 0.65s */}
-          <span ref={nameRef} className="block sm:inline-block">
-            <span
-              className="text-transparent bg-clip-text whitespace-nowrap"
-              style={{ backgroundImage: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }}
-            >
-              <ScrambleText text="Robin Singh Rawat" delay={0.1} duration={1000} />
-            </span>
+          <span ref={nameRef} className="block sm:inline-block relative">
+            <Firecrackers maxSparks={50}>
+              <span
+                className="text-transparent bg-clip-text whitespace-nowrap relative z-10"
+                style={{ backgroundImage: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }}
+              >
+                <ScrambleText text="Robin Singh Rawat" delay={0.1} duration={1000} />
+              </span>
+            </Firecrackers>
           </span>
         </h1>
 
@@ -256,31 +258,23 @@ export default function Hero() {
           ref={ctaRef}
           className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8"
         >
-          <Magnetic>
-            <HoloEffect mode="all" color="var(--neon-yellow)" particleColor="var(--neon-yellow)" className="w-full sm:w-auto rounded-lg">
-              <a
-                href="#projects"
-                className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg hover:brightness-110 transition-all duration-300 w-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
-                style={{ background: 'transparent', color: '#fff', border: '1px solid var(--neon-yellow)', boxShadow: '0 0 20px rgba(217,255,0,0.1)' }}
-              >
-                View My Work
-              </a>
-            </HoloEffect>
-          </Magnetic>
+          <a
+            href="#projects"
+            className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg hover:brightness-110 transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+            style={{ background: 'transparent', color: '#fff', border: '1px solid var(--neon-yellow)', boxShadow: '0 0 20px rgba(217,255,0,0.1)' }}
+          >
+            View My Work
+          </a>
 
-          <Magnetic>
-            <HoloEffect mode="heartbeat" color="var(--neon-green)" className="w-full sm:w-auto rounded-lg">
-              <a
-                href="#contact"
-                className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg transition-all duration-300 w-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                style={{ border: '1px solid var(--neon-green)', color: 'var(--fg)', background: 'transparent' }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0,255,133,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-              >
-                Contact Me
-              </a>
-            </HoloEffect>
-          </Magnetic>
+          <a
+            href="#contact"
+            className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            style={{ border: '1px solid var(--neon-green)', color: 'var(--fg)', background: 'transparent' }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0,255,133,0.08)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+          >
+            Contact Me
+          </a>
         </div>
 
       </div>

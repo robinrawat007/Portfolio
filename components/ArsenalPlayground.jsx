@@ -191,7 +191,7 @@ export default function ArsenalPlayground() {
   return (
     <div
       ref={sceneRef}
-      className="relative w-full h-[70vh] min-h-[500px] mt-12 overflow-hidden border-[3px] rounded-[2.5rem] bg-[rgba(255,255,255,0.01)] cursor-crosshair px-8"
+      className="relative w-full h-[55vh] min-h-[400px] mt-2 overflow-hidden border-[3px] rounded-[2.5rem] bg-[rgba(255,255,255,0.01)] cursor-crosshair"
       style={{
         borderColor: 'var(--border)',
         backgroundImage: 'radial-gradient(circle, var(--border) 1px, transparent 1px)',

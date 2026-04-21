@@ -16,6 +16,21 @@ const stats = [
   { label: 'Satisfied Clients', value: 10, suffix: '+' },
 ];
 
+const companyExperienceArray = [
+  {
+    logo: "/builderai_logo.jpg",
+    company: "Builder.AI",
+    role: "Software Engineer",
+    period: "Jan 2021 – Apr 2025",
+  },
+  {
+    logo: "/arthfintech_logo.jpg",
+    company: "Arth Impact",
+    role: "Software Engineer",
+    period: "Sep 2025 – Jan 2026",
+  },
+];
+
 export default function About() {
   const [photoError, setPhotoError] = useState(false);
   const [ringHovered, setRingHovered] = useState(false);
@@ -44,9 +59,9 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="py-24 relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
+      className="pt-16 pb-8 relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
     >
-      <div className="text-center mb-16">
+      <div className="text-center mb-8">
         <SplitReveal
           text="About Me"
           as="h2"
@@ -153,6 +168,23 @@ export default function About() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* NEW: Experience row */}
+            <div className="mt-6 pt-5 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-4" style={{ borderColor: 'var(--border)' }}>
+              <p className="text-xs font-semibold uppercase tracking-widest font-mono shrink-0" style={{ color: 'var(--neon-green)' }}>
+                Previously Built At:
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                {companyExperienceArray.map((c, i) => (
+                  <div key={i} className="flex items-center gap-2.5 bg-white/[0.03] px-3 py-1.5 rounded-full border border-white/[0.08] hover:bg-white/[0.08] transition-colors cursor-default shadow-md shadow-black/20">
+                     <div className="relative w-6 h-6 rounded-full overflow-hidden border border-white/20 shrink-0">
+                       <Image src={c.logo} alt={`${c.company} logo`} fill className="object-cover" sizes="24px" />
+                     </div>
+                     <span className="font-bold text-xs tracking-wide pr-1" style={{ color: 'var(--fg)' }}>{c.company}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

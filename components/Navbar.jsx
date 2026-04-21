@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { DripEffect, GlowText } from '@/components/motion';
+import { DripEffect, GlowText, Firecrackers } from '@/components/motion';
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -11,9 +11,8 @@ const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
 const navLinks = [
     { name: 'Home', href: '#hero', color: '#D9FF00' }, // neon-yellow
     { name: 'About', href: '#about', color: '#00FF85' }, // neon-green
-    { name: 'Experience', href: '#experience', color: '#2DCFCF' }, // neon-cyan
-    { name: 'Projects', href: '#projects', color: '#7B4FE0' }, // neon-purple
     { name: 'Skills', href: '#skills', color: '#FF0080' }, // neon-pink
+    { name: 'Projects', href: '#projects', color: '#7B4FE0' }, // neon-purple
     { name: 'Services', href: '#services', color: '#FF8000' }, // neon-orange
     { name: 'Contact', href: '#contact', color: '#80FF00' }, // neon-lime
 ];
@@ -116,27 +115,23 @@ export default function Navbar() {
                     {/* Logo */}
                     <a
                         href="#hero"
-                        className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-full"
+                        className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-lg"
                         style={{ '--tw-ring-color': 'var(--neon-yellow)' }}
                         aria-label="Robin Singh Rawat - Home"
                     >
-                        <div
-                            ref={logoRef}
-                            className="w-10 h-10 md:w-12 md:h-12 rounded-full p-0.5 shadow-lg group-hover:scale-110 transition-transform flex items-center justify-center overflow-hidden"
-                            style={{
-                                background: 'linear-gradient(135deg, var(--neon-yellow), var(--neon-green))',
-                                perspective: '1000px'
-                            }}
-                        >
-                            <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden relative" style={{ background: 'var(--bg)' }}>
+                        <Firecrackers maxSparks={30}>
+                            <div
+                                ref={logoRef}
+                                className="relative w-32 h-10 md:w-36 md:h-12 flex items-center justify-start group-hover:scale-105 transition-transform origin-left"
+                            >
                                 <Image
                                     src="/Logo.png"
                                     alt="Robin logo"
                                     fill
-                                    className="object-cover"
+                                    className="object-contain object-left scale-[1.3] md:scale-[1.5]"
                                 />
                             </div>
-                        </div>
+                        </Firecrackers>
                     </a>
 
                     {/* Desktop nav */}

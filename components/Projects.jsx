@@ -53,6 +53,44 @@ const projects = [
       outcomes: ["85%+ Jest unit test coverage", "RBAC reduced unauthorized access to zero", "Lazy loading cut initial load time significantly", "Component library adopted by 2 downstream teams"],
     },
   },
+  {
+    title: "Atlas — AI Assistant",
+    subtitle: "RAG-Powered Chatbot",
+    period: "2026",
+    tech: ["Claude API", "RAG", "Next.js", "n8n"],
+    image: null,
+    caseStudy: {
+      sections: [
+        { title: "The Problem", content: "Static portfolios rely on visitors digging through pages to find my specific skill-sets or background." },
+        { title: "Design Decisions", "content": "A context-aware AI assistant built on Claude Haiku with a custom BM25 retrieval layer to answer queries dynamically — strictly grounded to my resume, avoiding hallucinations." },
+        { title: "Engineering Approach", "content": "Maintained a strict session-based conversation state with custom structured prompting. Built a seamless fallback to an n8n webhook backend to ensure 100% uptime for static deployments." }
+      ],
+      outcomes: [
+        "Custom BM25 TF-IDF retrieval over a local knowledge base",
+        "RAG context injection preventing LLM drift",
+        "Immediate user engagement inside a live portfolio instance"
+      ],
+    },
+  },
+  {
+    title: "AI Content Pipeline",
+    subtitle: "Instagram & YouTube Automation",
+    period: "2026",
+    tech: ["n8n", "OpenAI API", "Insta Graph API", "YouTube API"],
+    image: null,
+    caseStudy: {
+      sections: [
+        { title: "The Problem", content: "Content generation, formatting, and manual cross-posting across social media demands immense repetitive busywork." },
+        { title: "System Architecture", content: "Designed a centralized n8n workflow. It takes a raw topic prompt and dynamically generates specialized content — tailored hooks, bodies, CTAs, and hashtags — for multiple platforms simultaneously." },
+        { title: "Integration Strategy", content: "Strictly orchestrated OpenAI completions formatted for Instagram Graph API and YouTube Data API endpoints, yielding zero-touch automated scheduled rollouts." }
+      ],
+      outcomes: [
+        "AI-written hooks engineered to stop the scroll",
+        "Format-aware payload generation per platform",
+        "100% automated scheduled publishing pipeline"
+      ],
+    },
+  },
 ];
 
 const SLIDE_INTERVAL = 3000;

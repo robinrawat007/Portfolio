@@ -8,3 +8,4 @@ export { default as DripEffect } from "./DripEffect";
 export { default as GlowText } from "./GlowText";
 export { default as HoloEffect } from "./HoloEffect";
 export { default as PopSmoke } from "./PopSmoke";
+export { default as Firecrackers } from "./Firecrackers";
