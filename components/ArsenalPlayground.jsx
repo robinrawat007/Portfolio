@@ -63,18 +63,18 @@ export default function ArsenalPlayground() {
 
         // Indestructible thick walls to perfectly map the CSS container
         const wallOptions = { isStatic: true, render: { visible: false } };
-        
+
         // Ground top edge matches exactly at `height`
         const ground = Matter.Bodies.rectangle(width / 2, height + 500, width * 5, 1000, wallOptions);
-        
+
         // Left wall right edge matches exactly at `0`
         const leftWall = Matter.Bodies.rectangle(-500, height / 2, 1000, height * 4, wallOptions);
-        
+
         // Right wall left edge matches exactly at `width`
         const rightWall = Matter.Bodies.rectangle(width + 500, height / 2, 1000, height * 4, wallOptions);
-        
+
         // Ceiling bottom edge matches exactly at `0` (Traps them perfectly from going UP)
-        const ceiling = Matter.Bodies.rectangle(width / 2, -500, width * 5, 1000, wallOptions); 
+        const ceiling = Matter.Bodies.rectangle(width / 2, -500, width * 5, 1000, wallOptions);
 
         Matter.World.add(engine.world, [ground, leftWall, rightWall, ceiling]);
 
@@ -83,8 +83,8 @@ export default function ArsenalPlayground() {
           // Spread safely inside the box width
           const x = 100 + ((width - 200) * (index / Math.max(SKILLS_DATA.length - 1, 1)));
           // Spawn INSIDE the container so they don't get trapped by the zero-ceiling
-          const y = 80 + (index * 20); 
-          
+          const y = 80 + (index * 20);
+
           const shapeType = index % 4; // 0: circle, 1: rounded-box, 2: sharp-box, 3: pill
           let body;
           let viewProps = {};
@@ -112,7 +112,7 @@ export default function ArsenalPlayground() {
               chamfer: { radius: 8 },
               restitution: 0.3,
               friction: 0.5,
-              density: 0.006, 
+              density: 0.006,
             });
             viewProps = { w: 100, h: 100, radius: '8px' };
           } else {
@@ -155,7 +155,7 @@ export default function ArsenalPlayground() {
 
         // Manual Sync Loop: Update React state and tick engine manually to bypass Runner bugs
         const updateRender = () => {
-          Matter.Engine.update(engine, 1000 / 60); 
+          Matter.Engine.update(engine, 1000 / 60);
           tickCount++;
 
           setBodies(skillBodies.map(body => ({
@@ -163,8 +163,7 @@ export default function ArsenalPlayground() {
             x: body.position.x,
             y: body.position.y,
             angle: body.angle,
-            data: body.skillData,
-            _debug: { w: width, h: height, ticks: tickCount } // pass debug data
+            data: body.skillData
           })));
 
           renderFrame = requestAnimationFrame(updateRender);
@@ -200,8 +199,11 @@ export default function ArsenalPlayground() {
         backgroundPosition: 'center'
       }}
     >
-      <div className="absolute top-4 left-4 z-0 text-[10px] font-mono text-white/20 select-none pointer-events-none">
-        Debug HUD: mounted={String(mounted)}, bodies={bodies.length}, width={bodies[0]?._debug.w || 0}, height={bodies[0]?._debug.h || 0}, ticks={bodies[0]?._debug.ticks || 0}
+      {/* Minimal Background Instruction */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+        <span className="text-[6rem] md:text-[4rem] font-black tracking-[-0.05em] text-white/[0.02] uppercase mix-blend-overlay">
+          Drag
+        </span>
       </div>
 
       {!mounted && !engineError && (
