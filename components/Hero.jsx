@@ -59,10 +59,16 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-7xl font-heading font-extrabold tracking-tight text-white m-0">
-          Hi, I&apos;m <br className="md:hidden" />
-          <span className="block sm:inline whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#7B4FE0] via-[#5b6ef1] to-[#2DCFCF] filter drop-shadow-[0_0_20px_rgba(123,79,224,0.3)]">
-            Robin Singh Rawat
+        <h1 id="hero-title" className="text-4xl sm:text-5xl md:text-7xl lg:text-7xl font-heading font-extrabold tracking-tight text-white m-0">
+          <span className="word-clip"><span className="hero-word">Hi,</span></span>
+          {" "}
+          <span className="word-clip"><span className="hero-word">I&apos;m</span></span>
+          {" "}
+          <br className="md:hidden" />
+          <span className="word-clip block sm:inline-block">
+            <span className="hero-word whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-[#7B4FE0] via-[#5b6ef1] to-[#2DCFCF] filter drop-shadow-[0_0_20px_rgba(123,79,224,0.3)]">
+              Robin Singh Rawat
+            </span>
           </span>
         </h1>
 

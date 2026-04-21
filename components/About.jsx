@@ -35,8 +35,8 @@ export default function About() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="lg:col-span-5 relative"
         >
-          <div className="relative w-full max-w-sm mx-auto flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#7B4FE0] to-[#2DCFCF] rounded-full blur-2xl opacity-40 transform scale-110"></div>
+          <div data-parallax="slow" className="relative w-full max-w-sm mx-auto flex items-center justify-center" style={{ willChange: "transform" }}>
+            <div data-parallax="fast" className="absolute inset-0 bg-gradient-to-tr from-[#7B4FE0] to-[#2DCFCF] rounded-full blur-2xl opacity-40 transform scale-110" style={{ willChange: "transform" }}></div>
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-700 shadow-[0_0_30px_rgba(123,79,224,0.3)] overflow-hidden group z-10 aspect-square">
               {!photoError ? (
                 <Image
@@ -79,15 +79,15 @@ export default function About() {
               </span>
             </h3>
             <p className="text-lg leading-relaxed text-slate-300 mb-4">
-              Every day without a fast, professional online presence is a day your competitors are winning customers you should have. A slow site kills trust in 3 seconds. A confusing app sends leads straight to someone else. A manual process costs you hours you can't buy back.
+              Every day without a fast, professional online presence is a day your competitors are winning customers you should have. A slow site kills trust in 3 seconds. A confusing app sends leads straight to someone else. A manual process costs you hours you can&apos;t buy back.
             </p>
             <p className="text-lg leading-relaxed text-slate-300 mb-6">
               I build the digital infrastructure that turns visitors into paying clients, automates the repetitive work draining your team, and makes your business look like the obvious choice in your market. <strong>5 years. 10+ businesses served. Results that show up in your revenue, not just your analytics.</strong>
             </p>
 
-            <div className="grid grid-cols-3 gap-4 pt-6 mt-6 border-t border-slate-700/50">
+            <div className="gsap-card-group grid grid-cols-3 gap-4 pt-6 mt-6 border-t border-slate-700/50">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className="gsap-card text-center">
                   <div className="text-3xl font-extrabold text-white mb-1 drop-shadow-md">
                     {stat.value}
                   </div>

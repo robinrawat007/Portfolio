@@ -1,56 +1,52 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const animations = {
-  fadeUp: {
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 }
-  },
-  fade: {
-    initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0 }
-  },
-  fadeDown: {
-    initial: { opacity: 0, y: -50 },
-    animate: { opacity: 1, y: 0 }
-  },
-  fadeLeft: {
-    initial: { opacity: 0, x: -50 },
-    animate: { opacity: 1, x: 0 }
-  },
-  fadeRight: {
-    initial: { opacity: 0, x: 50 },
-    animate: { opacity: 1, x: 0 }
-  },
-  scale: {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: { opacity: 1, scale: 1 }
-  },
-  rotate: {
-    initial: { opacity: 0, rotate: -10 },
-    animate: { opacity: 1, rotate: 0 }
-  }
+gsap.registerPlugin(ScrollTrigger);
+
+const FROM_MAP = {
+  fadeUp:    { y: 100, opacity: 0, scale: 0.97 },
+  fade:      { y: 60,  opacity: 0 },
+  fadeDown:  { y: -80, opacity: 0 },
+  fadeLeft:  { x: -100, opacity: 0 },
+  fadeRight: { x: 100,  opacity: 0 },
+  scale:     { scale: 0.85, opacity: 0 },
+  rotate:    { rotation: -8, opacity: 0, x: -40 },
 };
 
-export default function ScrollReveal({ 
-  children, 
-  delay = 0.1, 
-  animation = 'fadeUp',
-  duration = 0.6 
+export default function ScrollReveal({
+  children,
+  delay = 0,
+  animation = "fadeUp",
+  duration = 1,
 }) {
-  const prefersReducedMotion = useReducedMotion();
-  const selectedAnimation = animations[animation] || animations.fadeUp;
-  
-  return (
-    <motion.div
-      initial={prefersReducedMotion ? false : selectedAnimation.initial}
-      whileInView={prefersReducedMotion ? undefined : selectedAnimation.animate}
-      transition={prefersReducedMotion ? undefined : { duration, delay, ease: "easeOut" }}
-      viewport={prefersReducedMotion ? undefined : { once: true, amount: 0.1 }}
-    >
-      {children}
-    </motion.div>
-  );
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const from = FROM_MAP[animation] ?? FROM_MAP.fadeUp;
+
+    const ctx = gsap.context(() => {
+      gsap.from(el, {
+        ...from,
+        duration,
+        delay,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          once: true,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, [animation, delay, duration]);
+
+  return <div ref={ref}>{children}</div>;
 }

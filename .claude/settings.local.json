@@ -10,7 +10,11 @@
       "Bash(pnpm build *)",
       "Bash(del *)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(file *)"
+      "Bash(file *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm lint *)",
+      "Bash(git stash *)",
+      "Bash(pnpm exec *)"
     ]
   }
 }
