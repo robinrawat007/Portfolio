@@ -73,12 +73,12 @@ export default function About() {
                 mask: 'radial-gradient(farthest-side, transparent calc(100% - 5px), white calc(100% - 4px))',
                 transition: 'animation-duration 0.4s ease',
               }}
-              onMouseEnter={() => setRingHovered(true)}
-              onMouseLeave={() => setRingHovered(false)}
             />
             <div
               className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-2 overflow-hidden z-10 aspect-square group"
               style={{ borderColor: 'transparent' }}
+              onMouseEnter={() => setRingHovered(true)}
+              onMouseLeave={() => setRingHovered(false)}
             >
               {!photoError ? (
                 <Image

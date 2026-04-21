@@ -11,25 +11,25 @@ const roles = ["AI Generalist", "Full Stack Engineer"];
 
 const NEON_DOTS = [
   { top: '18%', left: '12%', color: 'var(--neon-yellow)', dur: 2.4, delay: '0s' },
-  { top: '38%', left: '76%', color: 'var(--neon-green)',  dur: 3.1, delay: '1.3s' },
-  { top: '68%', left: '22%', color: 'var(--neon-green)',  dur: 2.7, delay: '0.7s' },
+  { top: '38%', left: '76%', color: 'var(--neon-green)', dur: 3.1, delay: '1.3s' },
+  { top: '68%', left: '22%', color: 'var(--neon-green)', dur: 2.7, delay: '0.7s' },
 ];
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex]       = useState(0);
+  const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
-  const [isDeleting, setIsDeleting]     = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [typingEnabled, setTypingEnabled] = useState(false);
 
-  const containerRef  = useRef(null);
-  const pillRef       = useRef(null);
-  const pillSvgRef    = useRef(null);
-  const pillRectRef   = useRef(null);
-  const hiRef         = useRef(null);
-  const nameRef       = useRef(null);
-  const subtitleRef   = useRef(null);
-  const descRef       = useRef(null);
-  const ctaRef        = useRef(null);
+  const containerRef = useRef(null);
+  const pillRef = useRef(null);
+  const pillSvgRef = useRef(null);
+  const pillRectRef = useRef(null);
+  const hiRef = useRef(null);
+  const nameRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const descRef = useRef(null);
+  const ctaRef = useRef(null);
 
   const typingSpeed = isDeleting ? 50 : 100;
 
@@ -56,7 +56,7 @@ export default function Hero() {
   // Size the SVG pill border to match the pill's rendered dimensions
   useLayoutEffect(() => {
     const pill = pillRef.current;
-    const svg  = pillSvgRef.current;
+    const svg = pillSvgRef.current;
     const rect = pillRectRef.current;
     if (!pill || !svg || !rect) return;
 
@@ -64,14 +64,14 @@ export default function Hero() {
     const rx = height / 2;
 
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    svg.setAttribute('width',  String(width));
+    svg.setAttribute('width', String(width));
     svg.setAttribute('height', String(height));
-    rect.setAttribute('x',      '1');
-    rect.setAttribute('y',      '1');
-    rect.setAttribute('width',  String(width - 2));
+    rect.setAttribute('x', '1');
+    rect.setAttribute('y', '1');
+    rect.setAttribute('width', String(width - 2));
     rect.setAttribute('height', String(height - 2));
-    rect.setAttribute('rx',     String(rx));
-    rect.setAttribute('ry',     String(rx));
+    rect.setAttribute('rx', String(rx));
+    rect.setAttribute('ry', String(rx));
   }, []);
 
   useGSAP(() => {
@@ -80,13 +80,13 @@ export default function Hero() {
       return;
     }
 
-    const pill     = pillRef.current;
-    const svgRect  = pillRectRef.current;
-    const hi       = hiRef.current;
-    const name     = nameRef.current;
+    const pill = pillRef.current;
+    const svgRect = pillRectRef.current;
+    const hi = hiRef.current;
+    const name = nameRef.current;
     const subtitle = subtitleRef.current;
-    const desc     = descRef.current;
-    const cta      = ctaRef.current;
+    const desc = descRef.current;
+    const cta = ctaRef.current;
     if (!pill || !hi || !name || !subtitle || !desc || !cta) return;
 
     // Measure SVG stroke length
@@ -95,11 +95,11 @@ export default function Hero() {
       strokeLen = svgRect.getTotalLength();
     }
 
-    gsap.set(pill,     { opacity: 0 });
-    gsap.set(hi,       { opacity: 0, y: 28 });
-    gsap.set(name,     { opacity: 0 });
+    gsap.set(pill, { opacity: 0 });
+    gsap.set(hi, { opacity: 0, y: 28 });
+    gsap.set(name, { opacity: 0 });
     gsap.set(subtitle, { opacity: 0 });
-    gsap.set(desc,     { opacity: 0, y: 16 });
+    gsap.set(desc, { opacity: 0, y: 16 });
 
     const ctaChildren = Array.from(cta.children);
     gsap.set(ctaChildren, { opacity: 0, y: 20 });
@@ -209,7 +209,7 @@ export default function Hero() {
                 style={{ background: 'var(--neon-green)', boxShadow: '0 0 8px var(--neon-green)' }}
               />
             </span>
-            I build the interfaces that make AI actually work.
+            I build solutions that remove friction and create value.
           </span>
         </div>
 
