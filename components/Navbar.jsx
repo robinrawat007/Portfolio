@@ -2,17 +2,18 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DripEffect } from '@/components/motion';
 
 const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
 const navLinks = [
-    { name: 'Home',       href: '#hero' },
-    { name: 'About',      href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects',   href: '#projects' },
-    { name: 'Skills',     href: '#skills' },
-    { name: 'Education',  href: '#education' },
-    { name: 'Services',   href: '#services' },
-    { name: 'Contact',    href: '#contact' },
+    { name: 'Home',       href: '#hero',       color: '#D9FF00' }, // neon-yellow
+    { name: 'About',      href: '#about',      color: '#00FF85' }, // neon-green
+    { name: 'Experience', href: '#experience', color: '#2DCFCF' }, // neon-cyan
+    { name: 'Projects',   href: '#projects',   color: '#7B4FE0' }, // neon-purple
+    { name: 'Skills',     href: '#skills',     color: '#FF0080' }, // neon-pink
+    { name: 'Education',  href: '#education',  color: '#0080FF' }, // neon-azure
+    { name: 'Services',   href: '#services',   color: '#FF8000' }, // neon-orange
+    { name: 'Contact',    href: '#contact',    color: '#80FF00' }, // neon-lime
 ];
 
 export default function Navbar() {
@@ -100,26 +101,27 @@ export default function Navbar() {
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.href.replace('#', '');
                             return (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    aria-current={isActive ? 'page' : undefined}
-                                    className="group relative px-4 py-3 min-h-[44px] text-sm font-medium rounded-full transition-colors flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                                    style={{
-                                        color: isActive ? 'var(--neon-yellow)' : 'var(--fg-muted)',
-                                        '--tw-ring-color': 'var(--neon-yellow)',
-                                    }}
-                                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--fg)'; }}
-                                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--fg-muted)'; }}
-                                >
-                                    {link.name}
-                                    {/* Neon-yellow underline: full width when active, draws left→right on hover */}
-                                    <span
-                                        className={`absolute bottom-1.5 left-4 right-4 h-[2px] origin-left transition-transform duration-300 ease-out ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
-                                        style={{ background: 'var(--neon-yellow)' }}
-                                        aria-hidden="true"
-                                    />
-                                </a>
+                                <DripEffect key={link.name} color={link.color}>
+                                    <a
+                                        href={link.href}
+                                        aria-current={isActive ? 'page' : undefined}
+                                        className="group relative px-4 py-3 min-h-[44px] text-sm font-medium rounded-full transition-colors flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                                        style={{
+                                            color: isActive ? link.color : 'var(--fg-muted)',
+                                            '--tw-ring-color': link.color,
+                                        }}
+                                        onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = link.color; }}
+                                        onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--fg-muted)'; }}
+                                    >
+                                        {link.name}
+                                        {/* Dynamic link color underline */}
+                                        <span
+                                            className={`absolute bottom-1.5 left-4 right-4 h-[2px] origin-left transition-transform duration-300 ease-out ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                                            style={{ background: link.color }}
+                                            aria-hidden="true"
+                                        />
+                                    </a>
+                                </DripEffect>
                             );
                         })}
 
@@ -201,9 +203,9 @@ export default function Navbar() {
                                         onClick={closeMobileMenu}
                                         className="block px-4 py-3 text-base font-medium rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                                         style={{
-                                            color: isActive ? 'var(--neon-yellow)' : 'var(--fg-muted)',
-                                            background: isActive ? 'rgba(217,255,0,0.06)' : 'transparent',
-                                            '--tw-ring-color': 'var(--neon-yellow)',
+                                            color: isActive ? link.color : 'var(--fg-muted)',
+                                            background: isActive ? `${link.color}10` : 'transparent', // added 10 for opacity
+                                            '--tw-ring-color': link.color,
                                         }}
                                     >
                                         {link.name}
