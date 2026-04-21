@@ -9,7 +9,7 @@ import AtlasChatIcon from "@/components/AtlasChatIcon";
 import { API_CHAT_URL, ATLAS_WEBHOOK_URL, USE_WEBHOOKS } from "@/lib/webhooks";
 
 const GREETING =
-  "Hey! I'm Atlas — Robin's AI assistant. Ask me anything about his work, skills, or services.";
+  "Hey, I’m Atlas — Robin’s AI assistant. I know everything he does… probably better than he does. Go ahead, ask me anything.";
 
 const SUGGESTED_PROMPTS = [
   "Who is Robin and what does he do?",
@@ -37,7 +37,6 @@ async function parseAtlasResponse(res) {
   }
   return null;
 }
-
 export default function AtlasChat() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -49,6 +48,21 @@ export default function AtlasChat() {
   const sessionIdRef = useRef(null);
   const listRef = useRef(null);
   const inputRef = useRef(null);
+  const panelRef = useRef(null);
+
+  // Close on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (open && panelRef.current && !panelRef.current.contains(e.target)) {
+        // Only close if we didn't click the FAB
+        const fab = document.getElementById('atlas-fab');
+        if (fab && fab.contains(e.target)) return;
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
   const ensureSession = useCallback(() => {
     if (!sessionIdRef.current) {
@@ -219,15 +233,14 @@ export default function AtlasChat() {
   }, [isHovered, open]);
 
   return (
-    <div
-      className="fixed right-6 z-50 flex flex-col-reverse items-end gap-3 pointer-events-none [&>*]:pointer-events-auto bottom-6 pb-[max(0px,env(safe-area-inset-bottom))]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="fixed right-6 z-50 flex flex-col-reverse items-end gap-3 pointer-events-none [&>*]:pointer-events-auto bottom-6 pb-[max(0px,env(safe-area-inset-bottom))]">
       {/* FAB */}
       <motion.button
+        id="atlas-fab"
         type="button"
         onClick={openPanel}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         title="Ask Atlas anything about Robin"
         aria-label="Open AI assistant chat"
         aria-expanded={open}
@@ -245,7 +258,7 @@ export default function AtlasChat() {
               className="absolute right-full mr-4 pointer-events-none drop-shadow-[0_0_15px_rgba(217,255,0,0.4)]"
             >
               <div className="relative w-32 h-32 sm:w-40 sm:h-40">
-                <Image 
+                <Image
                   src="/joey.png"
                   alt="Joey - How you doin?"
                   fill
@@ -256,11 +269,9 @@ export default function AtlasChat() {
             </motion.div>
           )}
         </AnimatePresence>
-
         <span
-          className={`relative z-10 block transition-[filter,transform] duration-300 group-hover:scale-110 group-hover:!animate-none ${
-            !open ? "animate-atlas-fab-idle" : ""
-          }`}
+          className={`relative z-10 block transition-[filter,transform] duration-300 group-hover:scale-110 group-hover:!animate-none ${!open ? "animate-atlas-fab-idle" : ""
+            }`}
           style={open ? { filter: 'drop-shadow(0 0 14px rgba(217,255,0,0.85))' } : {}}
         >
           <AtlasChatIcon className="h-[3.25rem] w-[3.25rem] sm:h-16 sm:w-16" />
@@ -278,6 +289,7 @@ export default function AtlasChat() {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="atlas-dialog-title"
@@ -285,41 +297,21 @@ export default function AtlasChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-2 flex h-[min(85vh,560px)] w-[calc(100vw-32px)] max-w-[400px] flex-col overflow-hidden rounded-2xl"
+            className="mb-2 flex h-[min(85vh,560px)] w-[calc(100vw-32px)] max-w-[400px] flex-col overflow-hidden rounded-3xl"
             style={{
-              background: 'var(--bg)',
-              border: '1px solid rgba(217,255,0,0.2)',
-              boxShadow: '0 0 0 1px rgba(217,255,0,0.08), 0 24px 48px rgba(0,0,0,0.65)',
+              background: 'rgba(10, 10, 10, 0.95)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(217,255,0,0.15)',
+              boxShadow: '0 24px 48px rgba(0,0,0,0.8)',
             }}
           >
-            {/* Top bar */}
-            <div className="flex shrink-0 items-center gap-3 px-3 py-2.5" style={{ borderBottom: '1px solid rgba(217,255,0,0.1)', background: 'rgba(10,10,10,0.8)' }}>
-              <span style={{ color: '#333' }} aria-hidden>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
-                </svg>
-              </span>
-              <span className="flex-1 text-center text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: '#555' }}>
-                AI assistant
-              </span>
-              <span
-                className="rounded-full px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide"
-                style={{ border: '1px solid rgba(217,255,0,0.2)', color: 'rgba(217,255,0,0.9)' }}
-              >
-                Atlas
-              </span>
-            </div>
-
-            {/* Header */}
-            <div className="flex shrink-0 items-start justify-between gap-3 px-4 py-3" style={{ borderBottom: '1px solid rgba(217,255,0,0.08)', background: 'linear-gradient(to bottom, rgba(217,255,0,0.05), transparent)' }}>
-              <div className="min-w-0 pt-0.5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'rgba(217,255,0,0.6)' }}>
-                  Need help?
-                </p>
-                <h2 id="atlas-dialog-title" className="font-heading text-lg font-bold tracking-tight" style={{ color: 'var(--fg)' }}>
+            {/* Minimal Header */}
+            <div className="flex shrink-0 items-center justify-between gap-3 px-5 py-4 pb-2">
+              <div className="min-w-0">
+                <h2 id="atlas-dialog-title" className="font-heading text-lg font-bold tracking-tight text-white">
                   Atlas
                 </h2>
-                <p className="text-xs" style={{ color: 'var(--fg-muted)' }}>Robin&apos;s AI assistant</p>
+                <p className="text-[11px] font-medium tracking-wide uppercase" style={{ color: 'rgba(217,255,0,0.6)' }}>AI Assistant</p>
               </div>
               <button
                 type="button"
@@ -335,32 +327,38 @@ export default function AtlasChat() {
             </div>
 
             {/* Messages */}
-            <div ref={listRef} className="min-h-0 flex-1 space-y-3 overflow-y-auto px-3 py-4" style={{ background: 'var(--bg)' }}>
+            <div ref={listRef} className="min-h-0 flex-1 space-y-4 overflow-y-auto px-5 py-4 scroll-smooth">
               {messages.map((msg, i) => (
-                <div key={`${msg.role}-${i}-${msg.t?.getTime?.() ?? i}`} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                <motion.div
+                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                  key={`${msg.role}-${i}-${msg.t?.getTime?.() ?? i}`}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
                   <div
-                    className="max-w-[88%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed"
+                    className="max-w-[88%] rounded-[1.25rem] px-4 py-3 text-[13px] leading-relaxed shadow-sm"
                     style={msg.role === "user"
-                      ? { background: 'rgba(217,255,0,0.1)', border: '1px solid rgba(217,255,0,0.25)', color: 'var(--fg)', borderRadius: '1rem 1rem 4px 1rem' }
-                      : { background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)', borderRadius: '1rem 1rem 1rem 4px' }
+                      ? { background: 'rgba(217,255,0,0.15)', color: 'white', borderRadius: '1.25rem 1.25rem 0.25rem 1.25rem' }
+                      : { background: 'rgba(255,255,255,0.05)', color: '#d4d4d4', borderRadius: '1.25rem 1.25rem 1.25rem 0.25rem' }
                     }
                   >
                     <p className="whitespace-pre-wrap">{msg.text}</p>
-                    <p className="mt-1.5 text-[10px] tabular-nums" style={{ color: msg.role === "user" ? 'rgba(217,255,0,0.5)' : '#444' }}>
+                    <p className="mt-2 text-[9px] tabular-nums tracking-wider" style={{ color: msg.role === "user" ? 'rgba(217,255,0,0.6)' : '#666' }}>
                       {formatTime(msg.t instanceof Date ? msg.t : new Date(msg.t))}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
 
               {loading && (
-                <div className="flex justify-start">
-                  <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-md px-4 py-3" style={{ border: '1px solid rgba(217,255,0,0.1)', background: 'var(--surface)' }}>
-                    <span className="h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:0ms]" style={{ background: 'var(--neon-yellow)' }} />
-                    <span className="h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:140ms]" style={{ background: 'var(--neon-yellow)' }} />
-                    <span className="h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:280ms]" style={{ background: 'var(--neon-yellow)' }} />
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
+                  <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-sm px-4 py-3 bg-white/5">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ background: 'var(--neon-yellow)' }} />
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full [animation-delay:150ms]" style={{ background: 'var(--neon-yellow)' }} />
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full [animation-delay:300ms]" style={{ background: 'var(--neon-yellow)' }} />
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {errorBanner && (
@@ -370,28 +368,26 @@ export default function AtlasChat() {
               )}
             </div>
 
-            {/* Suggested prompts */}
+            {/* Suggested prompts - Made completely minimal */}
             {!suggestedHidden && messages.length <= 1 && (
-              <div className="flex shrink-0 flex-wrap gap-2 px-3 py-2.5" style={{ borderTop: '1px solid rgba(217,255,0,0.08)', background: 'rgba(10,10,10,0.8)' }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex shrink-0 flex-wrap gap-2 px-5 py-2 pb-4">
                 {SUGGESTED_PROMPTS.map((p) => (
                   <button
                     key={p}
                     type="button"
                     onClick={() => sendMessage(p)}
                     disabled={loading}
-                    className="rounded-full px-3 py-1.5 text-xs transition-colors disabled:opacity-50"
-                    style={{ border: '1px solid rgba(217,255,0,0.2)', background: 'var(--surface)', color: 'rgba(217,255,0,0.8)' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(217,255,0,0.08)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--surface)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.2)'; }}
+                    className="rounded-full px-4 py-2 text-[11px] font-medium transition-all hover:bg-white/10 disabled:opacity-50"
+                    style={{ background: 'rgba(255,255,255,0.03)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.05)' }}
                   >
                     {p}
                   </button>
                 ))}
-              </div>
+              </motion.div>
             )}
 
             {/* Input */}
-            <div className="flex shrink-0 gap-2 p-3" style={{ borderTop: '1px solid rgba(217,255,0,0.1)', background: 'rgba(10,10,10,0.8)' }}>
+            <div className="flex shrink-0 gap-2 px-5 pb-5 pt-2">
               <label htmlFor="atlas-input" className="sr-only">Message to Atlas</label>
               <input
                 ref={inputRef}
@@ -401,32 +397,30 @@ export default function AtlasChat() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={onKeyDown}
                 disabled={loading}
-                placeholder="Message…"
-                className="min-w-0 flex-1 rounded-xl px-3 py-2.5 text-sm focus:outline-none"
+                placeholder="Ask Atlas..."
+                className="min-w-0 flex-1 rounded-full px-5 py-3 text-[13px] focus:outline-none transition-all placeholder:text-neutral-500"
                 style={{
-                  background: 'var(--surface)',
-                  border: '1px solid rgba(217,255,0,0.15)',
-                  color: 'var(--fg)',
+                  background: 'rgba(255,255,255,0.05)',
+                  color: 'white',
                   caretColor: 'var(--neon-yellow)',
                 }}
-                onFocus={(e) => { e.target.style.borderColor = 'rgba(217,255,0,0.4)'; e.target.style.boxShadow = '0 0 0 2px rgba(217,255,0,0.1)'; }}
-                onBlur={(e) => { e.target.style.borderColor = 'rgba(217,255,0,0.15)'; e.target.style.boxShadow = ''; }}
+                onFocus={(e) => { e.target.style.background = 'rgba(255,255,255,0.08)'; }}
+                onBlur={(e) => { e.target.style.background = 'rgba(255,255,255,0.05)'; }}
                 autoComplete="off"
               />
               <button
                 type="button"
                 onClick={() => sendMessage()}
                 disabled={loading || !input.trim()}
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-35 focus:outline-none focus-visible:ring-2"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100"
                 style={{
                   background: 'var(--neon-yellow)',
                   color: '#000',
-                  boxShadow: '0 0 18px rgba(217,255,0,0.35)',
-                  '--tw-ring-color': 'var(--neon-yellow)',
+                  boxShadow: '0 0 15px rgba(217,255,0,0.2)',
                 }}
                 aria-label="Send message"
               >
-                <FaPaperPlane className="h-4 w-4" />
+                <FaPaperPlane className="h-3.5 w-3.5 ml-0.5" />
               </button>
             </div>
           </motion.div>

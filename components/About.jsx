@@ -11,16 +11,16 @@ import CountUp from '@/components/motion/CountUp';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { label: 'Years Experience',  value: 5,   suffix: '' },
+  { label: 'Years Experience', value: 5, suffix: '' },
   { label: 'Projects Completed', value: 10, suffix: '+' },
-  { label: 'Satisfied Clients',  value: 10, suffix: '+' },
+  { label: 'Satisfied Clients', value: 10, suffix: '+' },
 ];
 
 export default function About() {
-  const [photoError, setPhotoError]       = useState(false);
-  const [ringHovered, setRingHovered]     = useState(false);
-  const sweepBarRef                       = useRef(null);
-  const sectionRef                        = useRef(null);
+  const [photoError, setPhotoError] = useState(false);
+  const [ringHovered, setRingHovered] = useState(false);
+  const sweepBarRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useGSAP(() => {
     const bar = sweepBarRef.current;
@@ -120,22 +120,7 @@ export default function About() {
               Your business deserves more than a pretty website.{' '}
               <br />
               <span className="text-gradient">
-                It deserves one that{' '}
-                {/* Sweep highlight on "works while you sleep" */}
-                <span className="relative inline-block">
-                  works while you sleep
-                  <span
-                    ref={sweepBarRef}
-                    className="absolute inset-x-0 -inset-y-0.5 pointer-events-none rounded-sm"
-                    style={{
-                      background: 'rgba(217,255,0,0.18)',
-                      transform: 'scaleX(0)',
-                      transformOrigin: 'left center',
-                    }}
-                    aria-hidden="true"
-                  />
-                </span>
-                .
+                It deserves one that{' '}works while you sleep.
               </span>
             </h3>
 
