@@ -53,7 +53,7 @@ export default function Skills() {
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl group-hover:opacity-20 transition-all duration-500 -mr-16 -mt-16 opacity-8" style={{ background: 'var(--neon-yellow)' }} />
 
             <div className="flex items-center gap-4 mb-6 relative z-10">
-              <span className="text-3xl p-3 rounded-xl border shadow-sm" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+              <span className="text-3xl p-3 rounded-xl border shadow-sm" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }} aria-label={`${category.title} icon`}>
                 {category.icon}
               </span>
               <h3 className="text-xl font-bold" style={{ color: 'var(--fg)' }}>

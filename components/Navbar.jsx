@@ -58,14 +58,19 @@ export default function Navbar() {
             <motion.nav
                 role="navigation"
                 aria-label="Main navigation"
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'backdrop-blur-xl border-b shadow-2xl py-2'
+                    ? 'border-b py-2'
                     : 'bg-transparent py-2'
                 }`}
-                style={scrolled ? { background: 'rgba(10,10,10,0.85)', borderColor: 'var(--border)' } : {}}
+                style={scrolled ? {
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    background: 'rgba(10,10,10,0.7)',
+                    borderColor: 'var(--border)',
+                } : {}}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                     {/* Logo */}
@@ -99,16 +104,21 @@ export default function Navbar() {
                                     key={link.name}
                                     href={link.href}
                                     aria-current={isActive ? 'page' : undefined}
-                                    className="px-4 py-3 min-h-[44px] text-sm font-medium rounded-full transition-colors flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                                    className="group relative px-4 py-3 min-h-[44px] text-sm font-medium rounded-full transition-colors flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                                     style={{
-                                        color: isActive ? 'var(--neon-green)' : 'var(--fg-muted)',
-                                        background: isActive ? 'rgba(0,255,133,0.08)' : 'transparent',
+                                        color: isActive ? 'var(--neon-yellow)' : 'var(--fg-muted)',
                                         '--tw-ring-color': 'var(--neon-yellow)',
                                     }}
                                     onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--fg)'; }}
                                     onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--fg-muted)'; }}
                                 >
                                     {link.name}
+                                    {/* Neon-yellow underline: full width when active, draws left→right on hover */}
+                                    <span
+                                        className={`absolute bottom-1.5 left-4 right-4 h-[2px] origin-left transition-transform duration-300 ease-out ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                                        style={{ background: 'var(--neon-yellow)' }}
+                                        aria-hidden="true"
+                                    />
                                 </a>
                             );
                         })}
@@ -172,8 +182,13 @@ export default function Navbar() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-x-0 top-[72px] z-40 backdrop-blur-xl border-b md:hidden"
-                        style={{ background: 'rgba(10,10,10,0.95)', borderColor: 'var(--border)' }}
+                        className="fixed inset-x-0 top-[72px] z-40 border-b md:hidden"
+                        style={{
+                            backdropFilter: 'blur(16px)',
+                            WebkitBackdropFilter: 'blur(16px)',
+                            background: 'rgba(10,10,10,0.95)',
+                            borderColor: 'var(--border)',
+                        }}
                     >
                         <div className="px-4 pt-2 pb-6 space-y-1">
                             {navLinks.map((link) => {
@@ -186,8 +201,8 @@ export default function Navbar() {
                                         onClick={closeMobileMenu}
                                         className="block px-4 py-3 text-base font-medium rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                                         style={{
-                                            color: isActive ? 'var(--neon-green)' : 'var(--fg-muted)',
-                                            background: isActive ? 'rgba(0,255,133,0.08)' : 'transparent',
+                                            color: isActive ? 'var(--neon-yellow)' : 'var(--fg-muted)',
+                                            background: isActive ? 'rgba(217,255,0,0.06)' : 'transparent',
                                             '--tw-ring-color': 'var(--neon-yellow)',
                                         }}
                                     >

@@ -4,6 +4,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaEyeSlash, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Image from 'next/image';
+import SplitReveal from '@/components/motion/SplitReveal';
+import { Magnetic, CornerBrackets } from '@/components/motion';
 
 const projects = [
   {
@@ -56,9 +58,9 @@ const projects = [
 const SLIDE_INTERVAL = 3000;
 
 const slideVariants = {
-  enter: (dir) => ({ x: dir > 0 ? '60%' : '-60%', opacity: 0, scale: 0.96 }),
+  enter: (dir) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0, scale: 1 }),
   center: { x: 0, opacity: 1, scale: 1 },
-  exit: (dir) => ({ x: dir > 0 ? '-60%' : '60%', opacity: 0, scale: 0.96 }),
+  exit: { x: 0, opacity: 0, scale: 0.92 },
 };
 
 function ProjectCard({ proj, onFlip, flipped }) {
@@ -204,10 +206,13 @@ export default function Projects() {
 
   return (
     <section id="projects" role="region" aria-roledescription="carousel" aria-label="Featured projects" className="py-24 relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-14">
-        <h2 data-split className="text-3xl md:text-5xl font-heading font-bold mb-4 tracking-tight" style={{ color: 'var(--fg)' }}>
-          Featured Projects
-        </h2>
+      <div className="text-center mb-14">
+        <SplitReveal
+          text="Featured Projects"
+          as="h2"
+          className="text-3xl md:text-5xl font-heading font-bold mb-4 tracking-tight"
+          style={{ color: 'var(--fg)' }}
+        />
         <div className="w-24 h-1.5 mx-auto rounded-full mb-6" style={{ background: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }} />
         <p className="max-w-2xl mx-auto text-lg" style={{ color: 'var(--fg-muted)' }}>
           A selection of enterprise platforms and dashboards I&apos;ve engineered.{' '}
@@ -215,27 +220,50 @@ export default function Projects() {
             Hit <FaEye className="inline mx-0.5" style={{ color: 'var(--neon-green)' }} /> for the case study.
           </span>
         </p>
-      </motion.div>
+      </div>
 
       <div className="relative">
         <div aria-live="polite" aria-atomic="true" className="sr-only">
           {`Project ${current + 1} of ${projects.length}: ${projects[current].title}`}
         </div>
 
-        <div className="relative overflow-hidden" style={{ minHeight: '480px' }} role="group" aria-roledescription="slide" aria-label={`${current + 1} of ${projects.length}: ${projects[current].title}`} tabIndex={0} onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); next(); } if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); } }}>
+        <div className="relative overflow-hidden" data-cursor="drag" style={{ minHeight: '480px' }} role="group" aria-roledescription="slide" aria-label={`${current + 1} of ${projects.length}: ${projects[current].title}`} tabIndex={0} onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); next(); } if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); } }}>
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
-            <motion.div key={current} custom={direction} variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }} className="w-full" style={{ minHeight: '480px' }}>
+            <motion.div key={current} custom={direction} variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.6, ease: [0.87, 0, 0.13, 1] }} className="w-full" style={{ minHeight: '480px' }}>
               <ProjectCard proj={projects[current]} flipped={flipped} onFlip={setFlipped} />
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <button onClick={prev} aria-label="Previous project" className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 z-10" style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; e.currentTarget.style.color = 'var(--fg)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-muted)'; }}>
-          <FaChevronLeft className="text-sm" />
-        </button>
-        <button onClick={next} aria-label="Next project" className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 z-10" style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; e.currentTarget.style.color = 'var(--fg)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-muted)'; }}>
-          <FaChevronRight className="text-sm" />
-        </button>
+        <Magnetic className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
+          <CornerBrackets>
+            <button
+              onClick={prev}
+              aria-label="Previous project"
+              className="w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
+              style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--neon-green)', '--tw-ring-color': 'var(--neon-yellow)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,133,0.5)'; e.currentTarget.style.boxShadow = '0 0 12px rgba(0,255,133,0.2)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}
+            >
+              <FaChevronLeft className="text-sm" />
+            </button>
+          </CornerBrackets>
+        </Magnetic>
+
+        <Magnetic className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
+          <CornerBrackets>
+            <button
+              onClick={next}
+              aria-label="Next project"
+              className="w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
+              style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--neon-green)', '--tw-ring-color': 'var(--neon-yellow)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,133,0.5)'; e.currentTarget.style.boxShadow = '0 0 12px rgba(0,255,133,0.2)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}
+            >
+              <FaChevronRight className="text-sm" />
+            </button>
+          </CornerBrackets>
+        </Magnetic>
       </div>
 
       <div className="flex items-center justify-center gap-2.5 mt-8">

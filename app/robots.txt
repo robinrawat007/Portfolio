@@ -1,0 +1,10 @@
+export default function robots() {
+  return {
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: "/private/",
+    },
+    sitemap: "https://robin-singh-rawat.netlify.app/sitemap.xml",
+  };
+}
