@@ -5,11 +5,22 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+// Only ScrollTrigger here — SplitText.register() calls window.innerWidth with no
+// SSR guard and must NOT run during Next.js server-side pre-rendering.
+gsap.registerPlugin(ScrollTrigger);
 
 export default function GSAPAnimations() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Register SplitText inside useEffect — client-only, window is safe here.
+    gsap.registerPlugin(SplitText);
+
+    // Split OUTSIDE gsap.context so ctx.revert() never auto-calls split.revert()
+    // on potentially-stale DOM nodes.
+    const splitInstances = gsap.utils.toArray("h2[data-split]")
+      .filter((el) => el.textContent.trim())
+      .map((el) => new SplitText(el, { type: "words" }));
 
     const ctx = gsap.context(() => {
 
@@ -84,29 +95,26 @@ export default function GSAPAnimations() {
         );
       });
 
-      // ── 5. SplitText word reveal — all h2 (batched = 1 ST instance) ──────
-      // Exclude #hero-title h1 which is already handled by .hero-word
-      const headings = gsap.utils.toArray("h2");
-      if (headings.length) {
-        ScrollTrigger.batch(headings, {
-          onEnter: (batch) => {
-            batch.forEach((el) => {
-              const split = new SplitText(el, { type: "words" });
-              // cap at 8 words per stagger group per performance rule
-              const words = split.words.slice(0, 8);
-              gsap.from(words, {
-                y: 20,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.05,
-                ease: "power2.out",
-                onComplete: () => split.revert(),
-              });
-            });
-          },
-          start: "top 90%",
-          once: true,
-          lazy: true,
+      // ── 5. SplitText word reveal — opt-in h2[data-split] only ───────────
+      // Uses pre-split instances created outside this context so ctx.revert()
+      // never auto-calls split.revert() on potentially-stale React DOM nodes.
+      // No onComplete revert either — static headings, spans are harmless.
+      if (splitInstances.length) {
+        splitInstances.forEach((split) => {
+          const words = split.words.slice(0, 8);
+          gsap.from(words, {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.05,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: split.elements[0],
+              start: "top 90%",
+              once: true,
+              lazy: true,
+            },
+          });
         });
       }
 

@@ -124,7 +124,7 @@ export default function Contact() {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-100 mb-4 tracking-tight">
+        <h2 data-split className="text-3xl md:text-5xl font-heading font-bold text-slate-100 mb-4 tracking-tight">
           Let&apos;s Build the Future
         </h2>
         <div className="w-24 h-1.5 bg-gradient-to-r from-[#7B4FE0] via-[#5b6ef1] to-[#2DCFCF] mx-auto rounded-full mb-6"></div>
