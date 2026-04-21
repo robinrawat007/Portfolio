@@ -6,18 +6,18 @@ import { socialLinks } from "@/lib/socialLinks";
 export default function SocialSidebar() {
   return (
     <aside
-      className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-3 py-4 px-2.5 rounded-2xl bg-slate-950/70 backdrop-blur-md border border-white/10 shadow-xl shadow-black/40"
+      className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-3 py-4 px-2.5 rounded-2xl backdrop-blur-md shadow-xl shadow-black/40"
+      style={{ background: 'rgba(10,10,10,0.7)', border: '1px solid var(--border)' }}
       aria-label="Social links"
     >
       {socialLinks.map(({ id, label, href, Icon, placeholder }) => {
-        const common =
-          "flex h-10 w-10 items-center justify-center rounded-xl text-slate-400 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
         if (placeholder) {
           return (
             <span
               key={id}
               title="Coming soon"
-              className={`${common} cursor-not-allowed opacity-50`}
+              className="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 cursor-not-allowed opacity-40"
+              style={{ color: 'var(--fg-muted)' }}
               aria-label={`${label} (coming soon)`}
             >
               <Icon className="h-5 w-5" aria-hidden />
@@ -31,7 +31,18 @@ export default function SocialSidebar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className={`${common} hover:text-white hover:bg-white/10 hover:scale-110`}
+            className="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 group"
+            style={{ color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--neon-yellow)';
+              e.currentTarget.style.background = 'rgba(217,255,0,0.08)';
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--fg-muted)';
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.transform = '';
+            }}
           >
             <Icon className="h-5 w-5" aria-hidden />
           </a>

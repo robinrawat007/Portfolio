@@ -20,6 +20,7 @@ import LenisProvider from "@/components/LenisProvider";
 import GSAPAnimations from "@/components/GSAPAnimations";
 import Services from "@/components/Services";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import ScrollProgressBar from "@/components/motion/ScrollProgressBar";
 
 // Deferred — not needed for initial render
 const BackgroundCanvas = dynamic(() => import("@/components/three/BackgroundCanvas"), { ssr: false });
@@ -34,15 +35,17 @@ export default function Home() {
       <div className="relative min-h-screen text-slate-100 overflow-x-hidden">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-purple-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-950"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+          style={{ background: 'var(--neon-yellow)', color: '#000' }}
         >
           Skip to main content
         </a>
-        <div className="fixed inset-0 bg-slate-950 -z-20" />
+        <div className="fixed inset-0 -z-20" style={{ background: 'var(--bg)' }} />
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           <BackgroundCanvas />
         </div>
 
+        <ScrollProgressBar />
         <CustomCursor />
         <SocialSidebar />
         <AtlasChat />

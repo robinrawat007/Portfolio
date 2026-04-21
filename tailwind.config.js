@@ -9,14 +9,25 @@ export default {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
-        heading: ['var(--font-outfit)', 'sans-serif'],
+        heading: ['var(--font-space-grotesk)', 'var(--font-outfit)', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'JetBrains Mono', 'monospace'],
       },
       colors: {
         primary: {
-          400: '#60a5fa', // blue-400
-          500: '#a855f7', // purple-500
-          600: '#34d399', // emerald-400
-        }
+          400: '#60a5fa',
+          500: '#a855f7',
+          600: '#34d399',
+        },
+        neon: {
+          yellow: '#D9FF00',
+          green:  '#00FF85',
+          cyan:   '#2DCFCF',
+          purple: '#7B4FE0',
+        },
+        surface: {
+          DEFAULT: '#111111',
+          2:       '#1A1A1A',
+        },
       },
       animation: {
         'blob': 'blob 7s infinite',

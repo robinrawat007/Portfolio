@@ -1,7 +1,3 @@
-/**
- * Neon cyan chatbot mark: speech bubble + robot.
- * Artwork is drawn to fill the viewBox so scaling up (e.g. w-14) stays crisp and bold.
- */
 export default function AtlasChatIcon({ className = "w-14 h-14" }) {
   return (
     <svg
@@ -17,7 +13,7 @@ export default function AtlasChatIcon({ className = "w-14 h-14" }) {
         stroke="currentColor"
         strokeWidth="2.25"
         strokeLinejoin="round"
-        className="text-cyan-400"
+        style={{ color: '#D9FF00' }}
       />
       <rect
         x="21"
@@ -27,42 +23,38 @@ export default function AtlasChatIcon({ className = "w-14 h-14" }) {
         rx="3"
         stroke="currentColor"
         strokeWidth="1.75"
-        className="text-cyan-300"
+        style={{ color: '#D9FF00' }}
       />
-      <circle cx="25.5" cy="24" r="1.75" className="fill-cyan-300" />
-      <circle cx="32.5" cy="24" r="1.75" className="fill-cyan-300" />
+      <circle cx="25.5" cy="24" r="1.75" fill="#D9FF00" />
+      <circle cx="32.5" cy="24" r="1.75" fill="#D9FF00" />
       <path
         d="M25.5 28.5c1.1.9 2.5.9 3.6 0"
-        stroke="currentColor"
+        stroke="#D9FF00"
         strokeWidth="1.35"
         strokeLinecap="round"
-        className="text-cyan-300"
       />
       <path
         d="M17.5 22.5v4"
-        stroke="currentColor"
+        stroke="#D9FF00"
         strokeWidth="1.75"
         strokeLinecap="round"
-        className="text-cyan-400"
       />
       <path
         d="M40.5 22.5v4"
-        stroke="currentColor"
+        stroke="#D9FF00"
         strokeWidth="1.75"
         strokeLinecap="round"
-        className="text-cyan-400"
       />
       <line
         x1="29"
         y1="18.5"
         x2="29"
         y2="14"
-        stroke="currentColor"
+        stroke="#D9FF00"
         strokeWidth="1.75"
         strokeLinecap="round"
-        className="text-cyan-400"
       />
-      <circle cx="29" cy="12.25" r="2" className="fill-cyan-400" />
+      <circle cx="29" cy="12.25" r="2" fill="#D9FF00" />
     </svg>
   );
 }

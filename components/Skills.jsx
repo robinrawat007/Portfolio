@@ -31,11 +31,11 @@ export default function Skills() {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <h2 data-split className="text-3xl md:text-5xl font-heading font-bold text-slate-100 mb-4 tracking-tight">
+        <h2 data-split className="text-3xl md:text-5xl font-heading font-bold mb-4 tracking-tight" style={{ color: 'var(--fg)' }}>
           Arsenal
         </h2>
-        <div className="w-24 h-1.5 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 mx-auto rounded-full mb-6"></div>
-        <p className="text-slate-300 max-w-2xl mx-auto text-lg">
+        <div className="w-24 h-1.5 mx-auto rounded-full mb-6" style={{ background: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }} />
+        <p className="max-w-2xl mx-auto text-lg" style={{ color: 'var(--fg-muted)' }}>
           Technologies and tools I use to build exceptional digital experiences.
         </p>
       </motion.div>
@@ -50,13 +50,13 @@ export default function Skills() {
             transition={{ delay: idx * 0.2, duration: 0.6 }}
             className="glass-card p-8 group relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all duration-500 -mr-16 -mt-16"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl group-hover:opacity-20 transition-all duration-500 -mr-16 -mt-16 opacity-8" style={{ background: 'var(--neon-yellow)' }} />
 
             <div className="flex items-center gap-4 mb-6 relative z-10">
-              <span className="text-3xl bg-slate-800/80 p-3 rounded-xl border border-slate-700 shadow-sm">
+              <span className="text-3xl p-3 rounded-xl border shadow-sm" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
                 {category.icon}
               </span>
-              <h3 className="text-xl font-bold text-white">
+              <h3 className="text-xl font-bold" style={{ color: 'var(--fg)' }}>
                 {category.title}
               </h3>
             </div>
@@ -65,7 +65,10 @@ export default function Skills() {
               {category.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="text-sm font-medium px-3 py-1.5 bg-slate-900 border border-slate-700/50 text-slate-300 rounded-md hover:border-purple-500 hover:text-purple-300 transition-colors shadow-sm"
+                  className="text-sm font-medium px-3 py-1.5 rounded-md transition-colors shadow-sm cursor-default"
+                  style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--neon-yellow)'; e.currentTarget.style.color = 'var(--neon-yellow)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--fg-muted)'; }}
                 >
                   {skill}
                 </span>

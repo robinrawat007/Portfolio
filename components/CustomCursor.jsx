@@ -1,70 +1,89 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
 
 export default function CustomCursor() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovering, setIsHovering] = useState(false);
-    /** false during SSR + first client paint — set in effect so server HTML matches touch + non-touch clients. */
-    const [showCursor, setShowCursor] = useState(false);
+  const dotRef  = useRef(null);
+  const ringRef = useRef(null);
 
-    useEffect(() => {
-        const touch =
-            typeof window !== 'undefined' &&
-            (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
-        if (touch) return;
+  useEffect(() => {
+    const dot  = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
 
-        setShowCursor(true);
+    const mm = gsap.matchMedia();
+    mm.add("(hover: hover) and (pointer: fine)", () => {
+      dot.style.display  = "block";
+      ring.style.display = "block";
 
-        const updateMousePosition = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
+      const xDot  = gsap.quickTo(dot,  "x", { duration: 0.08, ease: "none" });
+      const yDot  = gsap.quickTo(dot,  "y", { duration: 0.08, ease: "none" });
+      const xRing = gsap.quickTo(ring, "x", { duration: 0.35, ease: "power3.out" });
+      const yRing = gsap.quickTo(ring, "y", { duration: 0.35, ease: "power3.out" });
 
-        const handleMouseOver = (e) => {
-            if (
-                e.target.tagName.toLowerCase() === 'a' ||
-                e.target.tagName.toLowerCase() === 'button' ||
-                e.target.closest('a') !== null ||
-                e.target.closest('button') !== null
-            ) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
-            }
-        };
+      const onMove = (e) => {
+        xDot(e.clientX - 4);
+        yDot(e.clientY - 4);
+        xRing(e.clientX - 20);
+        yRing(e.clientY - 20);
+      };
 
-        window.addEventListener('mousemove', updateMousePosition);
-        window.addEventListener('mouseover', handleMouseOver);
+      const onOver = (e) => {
+        const interactive = e.target.closest("[data-cursor='interactive'], a, button");
+        gsap.to(ring, {
+          scale: interactive ? 2 : 1,
+          duration: 0.25,
+          ease: "power2.out",
+        });
+      };
 
-        return () => {
-            window.removeEventListener('mousemove', updateMousePosition);
-            window.removeEventListener('mouseover', handleMouseOver);
-        };
-    }, []);
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseover", onOver);
 
-    if (!showCursor) return null;
+      return () => {
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseover", onOver);
+        dot.style.display  = "none";
+        ring.style.display = "none";
+      };
+    });
 
-    return (
-        <>
-            <motion.div
-                className="fixed top-0 left-0 w-2 h-2 bg-emerald-400 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_rgba(52,211,153,0.8)]"
-                animate={{
-                    x: mousePosition.x - 4,
-                    y: mousePosition.y - 4,
-                }}
-                transition={{ type: 'tween', ease: 'backOut', duration: 0.1 }}
-            />
-            <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.2)] pointer-events-none z-[99] transform -translate-x-1/2 -translate-y-1/2"
-                animate={{
-                    x: mousePosition.x - 16,
-                    y: mousePosition.y - 16,
-                    scale: isHovering ? 1.5 : 1,
-                    backgroundColor: isHovering ? 'rgba(52,211,153,0.1)' : 'rgba(52,211,153,0)',
-                }}
-                transition={{ type: 'tween', ease: 'backOut', duration: 0.2 }}
-            />
-        </>
-    );
+    return () => mm.revert();
+  }, []);
+
+  return (
+    <>
+      {/* 8px neon-yellow dot */}
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 pointer-events-none z-[200]"
+        style={{ display: "none" }}
+        aria-hidden="true"
+      >
+        <div
+          className="w-2 h-2 rounded-full"
+          style={{
+            background: "var(--neon-yellow)",
+            boxShadow: "0 0 8px var(--neon-yellow)",
+          }}
+        />
+      </div>
+      {/* 40px ring */}
+      <div
+        ref={ringRef}
+        className="fixed top-0 left-0 pointer-events-none z-[199] w-10 h-10"
+        style={{ display: "none" }}
+        aria-hidden="true"
+      >
+        <div
+          className="w-full h-full rounded-full border"
+          style={{
+            borderColor: "rgba(217,255,0,0.6)",
+            boxShadow: "0 0 12px rgba(217,255,0,0.2)",
+          }}
+        />
+      </div>
+    </>
+  );
 }
