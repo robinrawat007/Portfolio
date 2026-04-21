@@ -4,8 +4,8 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 
-const RADIUS = 100;
-const STRENGTH = 0.3;
+const RADIUS = 40;
+const STRENGTH = 0.2;
 
 export default function Magnetic({ children, className }) {
   const ref = useRef(null);

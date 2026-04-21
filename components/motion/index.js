@@ -5,3 +5,4 @@ export { default as StaggerGroup }   from "./StaggerGroup";
 export { default as Magnetic }       from "./Magnetic";
 export { default as CornerBrackets } from "./CornerBrackets";
 export { default as CountUp }        from "./CountUp";
+export { default as PopSmoke }       from "./PopSmoke";
