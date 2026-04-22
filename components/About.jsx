@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitReveal from '@/components/motion/SplitReveal';
 import CountUp from '@/components/motion/CountUp';
+import { Tilt, GlassShapes } from '@/components/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,7 +62,8 @@ export default function About() {
       ref={sectionRef}
       className="pt-16 pb-8 relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
     >
-      <div className="text-center mb-8">
+      <GlassShapes />
+      <div className="text-center mb-8 relative z-10">
         <SplitReveal
           text="About Me"
           as="h2"
@@ -89,37 +91,39 @@ export default function About() {
                 transition: 'animation-duration 0.4s ease',
               }}
             />
-            <div
-              className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-2 overflow-hidden z-10 aspect-square group"
-              style={{ borderColor: 'transparent' }}
-              onMouseEnter={() => setRingHovered(true)}
-              onMouseLeave={() => setRingHovered(false)}
-            >
-              {!photoError ? (
-                <Image
-                  src="/profile.jpg"
-                  alt="Robin Singh Rawat"
-                  fill
-                  sizes="(max-width: 768px) 256px, 320px"
-                  priority={false}
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  onError={() => setPhotoError(true)}
-                />
-              ) : (
-                <div
-                  className="h-full w-full flex items-center justify-center"
-                  style={{ background: 'var(--surface)' }}
-                  aria-label="Robin Singh Rawat"
-                >
-                  <span
-                    className="font-heading font-extrabold text-5xl md:text-6xl tracking-tight"
-                    style={{ color: 'var(--fg)' }}
+            <Tilt intensity={15} scale={1.05}>
+              <div
+                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-2 overflow-hidden z-10 aspect-square group"
+                style={{ borderColor: 'transparent' }}
+                onMouseEnter={() => setRingHovered(true)}
+                onMouseLeave={() => setRingHovered(false)}
+              >
+                {!photoError ? (
+                  <Image
+                    src="/profile.jpg"
+                    alt="Robin Singh Rawat"
+                    fill
+                    sizes="(max-width: 768px) 256px, 320px"
+                    priority={false}
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={() => setPhotoError(true)}
+                  />
+                ) : (
+                  <div
+                    className="h-full w-full flex items-center justify-center"
+                    style={{ background: 'var(--surface)' }}
+                    aria-label="Robin Singh Rawat"
                   >
-                    RR
-                  </span>
-                </div>
-              )}
-            </div>
+                    <span
+                      className="font-heading font-extrabold text-5xl md:text-6xl tracking-tight"
+                      style={{ color: 'var(--fg)' }}
+                    >
+                      RR
+                    </span>
+                  </div>
+                )}
+              </div>
+            </Tilt>
           </div>
         </div>
 
@@ -159,14 +163,14 @@ export default function About() {
               style={{ borderColor: 'var(--border)' }}
             >
               {stats.map((stat, i) => (
-                <div key={i} className="text-center">
+                <Tilt key={i} intensity={30} scale={1.1} className="text-center p-4 rounded-xl transition-colors hover:bg-white/[0.02]">
                   <div className="text-3xl font-extrabold mb-1 drop-shadow-md font-mono" style={{ color: 'var(--neon-yellow)' }}>
                     <CountUp target={stat.value} suffix={stat.suffix} />
                   </div>
                   <div className="text-sm font-medium uppercase tracking-wider" style={{ color: 'var(--fg-muted)' }}>
                     {stat.label}
                   </div>
-                </div>
+                </Tilt>
               ))}
             </div>
 

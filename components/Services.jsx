@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useSWR from "swr";
 import { supabase } from "@/lib/supabaseClient";
+import { Tilt, GlassShapes } from "@/components/motion";
 import {
   FaBolt, FaCommentDots, FaDatabase, FaGlobe, FaLayerGroup, FaMicrophone,
 } from "react-icons/fa";
@@ -80,6 +81,7 @@ export default function Services() {
 
   return (
     <section id="services" className="py-24 relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <GlassShapes />
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
         <h2 data-split className="text-3xl md:text-5xl font-heading font-bold mb-4 tracking-tight" style={{ color: "var(--fg)" }}>Services</h2>
         <div className="w-24 h-1.5 mx-auto rounded-full mb-6" style={{ background: "linear-gradient(90deg, var(--neon-yellow), var(--neon-green))" }} />
@@ -104,14 +106,28 @@ export default function Services() {
             );
           }
           return (
-            <motion.div key={svc.id} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05, duration: 0.5 }} className="group relative h-full">
-              <div className="glass-card glass-card-hover h-full p-8 flex flex-col transition-transform duration-300 hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--neon-yellow)" }}>
-                  {Icon && <Icon className="h-6 w-6" aria-hidden />}
+            <motion.div 
+              key={svc.id} 
+              initial={{ opacity: 0, y: 50, rotateX: 45 }} 
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }} 
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.1, duration: 0.8, ease: [0.23, 1, 0.32, 1] }} 
+              className="group relative h-full"
+              style={{ perspective: "1200px" }}
+            >
+              <Tilt intensity={20} className="h-full">
+                <div className="glass-card glass-card-hover h-full p-8 flex flex-col transition-all duration-500 hover:shadow-[0_20px_50px_rgba(217,255,0,0.1)]">
+                  <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--neon-yellow)" }}>
+                    {Icon && <Icon className="h-7 w-7" aria-hidden />}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 tracking-tight" style={{ color: "var(--fg)" }}>{svc.title}</h3>
+                  <p className="text-base leading-relaxed flex-1 opacity-80" style={{ color: "var(--fg-muted)" }}>{svc.description}</p>
+                  
+                  <div className="mt-6 pt-4 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--neon-yellow)" }}>Learn More →</span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2" style={{ color: "var(--fg)" }}>{svc.title}</h3>
-                <p className="text-sm leading-relaxed flex-1" style={{ color: "var(--fg-muted)" }}>{svc.description}</p>
-              </div>
+              </Tilt>
             </motion.div>
           );
         })}

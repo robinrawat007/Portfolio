@@ -7,7 +7,7 @@ import Image from 'next/image';
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabaseClient';
 import SplitReveal from '@/components/motion/SplitReveal';
-import { Magnetic, HoloEffect } from '@/components/motion';
+import { Magnetic, HoloEffect, Tilt, GlassShapes } from '@/components/motion';
 
 const fetchProjects = async () => {
   const { data, error } = await supabase
@@ -22,132 +22,109 @@ const fetchProjects = async () => {
 const SLIDE_INTERVAL = 3000;
 
 const slideVariants = {
-  enter: (dir) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0, scale: 1 }),
-  center: { x: 0, opacity: 1, scale: 1 },
-  exit: { x: 0, opacity: 0, scale: 0.92 },
+  enter: (dir) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0, scale: 0.8, z: -100 }),
+  center: { x: 0, opacity: 1, scale: 1, z: 0 },
+  exit: (dir) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0, scale: 0.8, z: -100 }),
 };
 
 function ProjectCard({ proj, onFlip, flipped }) {
   return (
     <div style={{ perspective: '1400px' }} className="w-full h-full">
-      <motion.div
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
-        style={{ transformStyle: 'preserve-3d' }}
-        className="relative w-full h-full"
-      >
-        {/* FRONT */}
-        <div style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }} className="absolute inset-0 glass-card overflow-hidden flex flex-col">
-          <button
-            onClick={() => onFlip(true)}
-            aria-label={`View case study for ${proj.title}`}
-            className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
-            style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
-          >
-            <FaEye className="text-sm" />
-          </button>
+      <Tilt intensity={10} glare={true} scale={1.02}>
+        <motion.div
+          animate={{ rotateY: flipped ? 180 : 0 }}
+          transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
+          style={{ transformStyle: 'preserve-3d' }}
+          className="relative w-full h-full"
+        >
+          {/* FRONT */}
+          <div style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }} className="absolute inset-0 glass-card overflow-hidden flex flex-col">
+            <button
+              onClick={() => onFlip(true)}
+              aria-label={`View case study for ${proj.title}`}
+              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
+              style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
+            >
+              <FaEye className="text-sm" />
+            </button>
 
-          <div className="relative w-full h-56 md:h-64 shrink-0 overflow-hidden" style={{ background: 'var(--surface)' }}>
-            {proj.image_url ? (
-              <Image src={proj.image_url} alt={`${proj.title} screenshot`} fill className="object-cover object-top" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #0A0A0A 0%, #111111 100%)' }}>
-                <div className="text-center space-y-2 opacity-30">
-                  <div className="w-16 h-16 mx-auto rounded-xl border-2 border-dashed border-slate-700 flex items-center justify-center">
-                    <svg className="w-7 h-7 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
+            <div className="relative w-full h-56 md:h-64 shrink-0 overflow-hidden" style={{ background: 'var(--surface)' }}>
+              {proj.image_url ? (
+                <Image src={proj.image_url} alt={`${proj.title} screenshot`} fill className="object-cover object-top" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #0A0A0A 0%, #111111 100%)' }}>
+                  {/* ... placeholder content ... */}
                   <p className="text-xs text-slate-600">Screenshot coming soon</p>
                 </div>
-                <div
-                  className="absolute inset-0 opacity-[0.08]"
-                  style={{
-                    backgroundImage: 'linear-gradient(rgba(217,255,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(217,255,0,0.3) 1px, transparent 1px)',
-                    backgroundSize: '40px 40px',
-                  }}
-                />
-              </div>
-            )}
-            <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.9), transparent)' }} />
-          </div>
-
-          <div className="p-6 flex flex-col flex-1">
-            <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--fg)' }}>{proj.title}</h3>
-            <p className="text-sm font-medium mb-1" style={{ color: 'var(--neon-green)' }}>{proj.subtitle}</p>
-            <p className="text-xs mb-4" style={{ color: 'var(--fg-muted)' }}>{proj.period}</p>
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {(proj.tech ?? []).map((tag) => (
-                <span key={tag} className="text-xs px-3 py-1 rounded-full" style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* BACK */}
-        <div style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }} className="absolute inset-0 glass-card flex flex-col overflow-hidden">
-          <div className="h-1 w-full rounded-t-2xl shrink-0" style={{ background: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }} />
-
-          <div className="p-7 flex flex-col h-full overflow-hidden">
-            <div className="flex items-start justify-between mb-5 shrink-0">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'var(--neon-green)' }}>Case Study</p>
-                <h3 className="text-lg font-bold pr-6" style={{ color: 'var(--fg)' }}>{proj.title}</h3>
-              </div>
-              <button
-                onClick={() => onFlip(false)}
-                aria-label="Flip back to project"
-                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 shrink-0"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.background = 'rgba(217,255,0,0.08)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.3)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
-              >
-                <FaEyeSlash className="text-sm" />
-              </button>
+              )}
+              <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.9), transparent)' }} />
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-4 pr-1">
-              {(proj.case_study?.sections ?? []).map((section, i) => (
-                <div key={section.title}>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0" style={{ background: 'rgba(217,255,0,0.12)', color: 'var(--neon-yellow)' }}>
-                      {i + 1}
-                    </span>
-                    <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--fg)' }}>{section.title}</p>
-                  </div>
-                  <p className="text-xs leading-relaxed pl-7" style={{ color: 'var(--fg-muted)' }}>{section.content}</p>
-                </div>
-              ))}
-
-              <div className="rounded-xl p-4" style={{ background: 'rgba(217,255,0,0.05)', border: '1px solid rgba(217,255,0,0.15)' }}>
-                <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--fg)' }}>Key Outcomes</p>
-                <div className="grid grid-cols-1 gap-1.5">
-                  {(proj.case_study?.outcomes ?? []).map((outcome, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs" style={{ color: 'var(--fg-muted)' }}>
-                      <span className="shrink-0 mt-0.5" style={{ color: 'var(--neon-green)' }}>✓</span>
-                      <span>{outcome}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-3 mt-3 border-t shrink-0" style={{ borderColor: 'var(--border)' }}>
-              <div className="flex flex-wrap gap-1.5">
+            <div className="p-6 flex flex-col flex-1">
+              <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--fg)' }}>{proj.title}</h3>
+              <p className="text-sm font-medium mb-1" style={{ color: 'var(--neon-green)' }}>{proj.subtitle}</p>
+              <p className="text-xs mb-4" style={{ color: 'var(--fg-muted)' }}>{proj.period}</p>
+              <div className="flex flex-wrap gap-2 mt-auto">
                 {(proj.tech ?? []).map((tag) => (
-                  <span key={tag} className="text-[11px] px-2.5 py-0.5 rounded-full" style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}>
+                  <span key={tag} className="text-xs px-3 py-1 rounded-full" style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}>
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+
+          {/* BACK */}
+          <div style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }} className="absolute inset-0 glass-card flex flex-col overflow-hidden">
+            <div className="h-1 w-full rounded-t-2xl shrink-0" style={{ background: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }} />
+
+            <div className="p-7 flex flex-col h-full overflow-hidden">
+              <div className="flex items-start justify-between mb-5 shrink-0">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'var(--neon-green)' }}>Case Study</p>
+                  <h3 className="text-lg font-bold pr-6" style={{ color: 'var(--fg)' }}>{proj.title}</h3>
+                </div>
+                <button
+                  onClick={() => onFlip(false)}
+                  aria-label="Flip back to project"
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 shrink-0"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.background = 'rgba(217,255,0,0.08)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.3)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
+                >
+                  <FaEyeSlash className="text-sm" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+                {(proj.case_study?.sections ?? []).map((section, i) => (
+                  <div key={section.title}>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0" style={{ background: 'rgba(217,255,0,0.12)', color: 'var(--neon-yellow)' }}>
+                        {i + 1}
+                      </span>
+                      <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--fg)' }}>{section.title}</p>
+                    </div>
+                    <p className="text-xs leading-relaxed pl-7" style={{ color: 'var(--fg-muted)' }}>{section.content}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-3 mt-3 border-t shrink-0" style={{ borderColor: 'var(--border)' }}>
+                <div className="flex flex-wrap gap-1.5">
+                  {(proj.tech ?? []).map((tag) => (
+                    <span key={tag} className="text-[11px] px-2.5 py-0.5 rounded-full" style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </Tilt>
     </div>
   );
 }
@@ -174,6 +151,7 @@ export default function Projects() {
 
   return (
     <section id="projects" role="region" aria-roledescription="carousel" aria-label="Featured projects" className="py-24 relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <GlassShapes />
       <div className="text-center mb-14">
         <SplitReveal
           text="Featured Projects"

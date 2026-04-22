@@ -223,7 +223,7 @@ async function main() {
     const ok = await upsertKbEntry({ ...entry, source: "manual", source_id: null });
     console.log(ok ? " ✓" : " ✗");
     if (ok) kbOk++;
-    await new Promise((r) => setTimeout(r, 120)); // Voyage free tier rate limit buffer
+    await new Promise((r) => setTimeout(r, 22000)); // 3 RPM limit on unverified Voyage accounts
   }
   console.log(`  Done: ${kbOk}/${kbEntries.length} KB entries`);
 

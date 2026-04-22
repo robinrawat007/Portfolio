@@ -10,3 +10,5 @@ export { default as HoloEffect } from "./HoloEffect";
 export { default as PopSmoke } from "./PopSmoke";
 export { default as Firecrackers } from "./Firecrackers";
 export { default as Spotlight } from "./Spotlight";
+export { default as Tilt } from "./Tilt";
+export { default as GlassShapes } from "./GlassShapes";
