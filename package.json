@@ -10,13 +10,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && gh-pages -d out"
+    "deploy": "next build && gh-pages -d out",
+    "seed": "node --env-file .env scripts/seed-db.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.86.1",
     "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.6.1",
     "@react-three/fiber": "^9.3.0",
+    "@supabase/supabase-js": "^2.104.0",
     "framer-motion": "^12.23.11",
     "googleapis": "^156.0.0",
     "gsap": "^3.15.0",
@@ -28,6 +30,7 @@
     "react-dom": "19.2.4",
     "react-icons": "^5.5.0",
     "react-parallax-tilt": "^1.7.303",
+    "swr": "^2.4.1",
     "three": "^0.178.0"
   },
   "devDependencies": {

@@ -4,94 +4,20 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaEyeSlash, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Image from 'next/image';
+import useSWR from 'swr';
+import { supabase } from '@/lib/supabaseClient';
 import SplitReveal from '@/components/motion/SplitReveal';
 import { Magnetic, HoloEffect } from '@/components/motion';
 
-const projects = [
-  {
-    title: "Builder Studio",
-    subtitle: "No-Code App Development Platform",
-    period: "Jan 2021 – Apr 2025",
-    tech: ["Angular", "TypeScript", "Bootstrap", "REST APIs"],
-    image: null,
-    caseStudy: {
-      sections: [
-        { title: "The Problem", content: "Non-technical users needed to build custom apps without writing code. Existing tools were too rigid for client-specific business logic — customers needed drag-and-drop flexibility combined with enterprise-grade reliability." },
-        { title: "Design Decisions", content: "Chose a component-based Angular architecture to support modular feature delivery across a large team. Form builders and logic flow engines were built as isolated micro-features, allowing independent iteration." },
-        { title: "Engineering Approach", content: "Built pricing configuration, build automation, and live project preview as first-class RESTful integrations. Strict TypeScript typing eliminated runtime surprises during handoff between teams." },
-      ],
-      outcomes: ["Scaled to serve enterprise clients globally", "Drag-and-drop reduced time-to-app significantly", "Modular architecture enabled independent delivery", "Zero cross-browser layout regressions"],
-    },
-  },
-  {
-    title: "Builder Tracker",
-    subtitle: "Real-Time Project Tracking Dashboard",
-    period: "Jan 2021 – Apr 2025",
-    tech: ["Angular", "RxJS", "WebSockets", "Figma"],
-    image: null,
-    caseStudy: {
-      sections: [
-        { title: "The Problem", content: "Project managers had no real-time visibility into construction milestones. Updates happened in spreadsheets, delays went unnoticed, and there was no single source of truth for live project state." },
-        { title: "Design Decisions", content: "Chose WebSockets over polling to eliminate latency. RxJS streams composed multiple data sources into a single reactive view layer. All components were spec'd in Figma first to reduce engineering back-and-forth." },
-        { title: "UI/UX Approach", content: "Progressive disclosure — summary cards for quick triage, drill-down for details. Color coding and status chips made state legible without reading text." },
-      ],
-      outcomes: ["Real-time milestone visibility across all projects", "Eliminated spreadsheet-based status tracking", "Figma-to-code fidelity with zero regressions", "WebSocket latency under 200ms"],
-    },
-  },
-  {
-    title: "Builder Home",
-    subtitle: "User Onboarding & Account Portal",
-    period: "Jan 2021 – Apr 2025",
-    tech: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Jest"],
-    image: null,
-    caseStudy: {
-      sections: [
-        { title: "The Problem", content: "Users managing projects, teams, subscriptions, and billing had no unified portal. Context-switching created friction and generated support tickets for tasks that should have been self-serve." },
-        { title: "Architecture Decisions", content: "Next.js + TypeScript for type safety across a shared component library. RBAC implemented at route and component level. Lazy loading and code splitting kept the bundle lean despite the feature surface." },
-        { title: "Quality & Testing", content: "85%+ Jest unit test coverage maintained throughout. Tests written alongside features caught three auth-flow regressions before staging. Code reviews enforced the component library contract." },
-      ],
-      outcomes: ["85%+ Jest unit test coverage", "RBAC reduced unauthorized access to zero", "Lazy loading cut initial load time significantly", "Component library adopted by 2 downstream teams"],
-    },
-  },
-  {
-    title: "Atlas — AI Assistant",
-    subtitle: "RAG-Powered Chatbot",
-    period: "2026",
-    tech: ["Claude API", "RAG", "Next.js", "n8n"],
-    image: null,
-    caseStudy: {
-      sections: [
-        { title: "The Problem", content: "Static portfolios rely on visitors digging through pages to find my specific skill-sets or background." },
-        { title: "Design Decisions", "content": "A context-aware AI assistant built on Claude Haiku with a custom BM25 retrieval layer to answer queries dynamically — strictly grounded to my resume, avoiding hallucinations." },
-        { title: "Engineering Approach", "content": "Maintained a strict session-based conversation state with custom structured prompting. Built a seamless fallback to an n8n webhook backend to ensure 100% uptime for static deployments." }
-      ],
-      outcomes: [
-        "Custom BM25 TF-IDF retrieval over a local knowledge base",
-        "RAG context injection preventing LLM drift",
-        "Immediate user engagement inside a live portfolio instance"
-      ],
-    },
-  },
-  {
-    title: "AI Content Pipeline",
-    subtitle: "Instagram & YouTube Automation",
-    period: "2026",
-    tech: ["n8n", "OpenAI API", "Insta Graph API", "YouTube API"],
-    image: null,
-    caseStudy: {
-      sections: [
-        { title: "The Problem", content: "Content generation, formatting, and manual cross-posting across social media demands immense repetitive busywork." },
-        { title: "System Architecture", content: "Designed a centralized n8n workflow. It takes a raw topic prompt and dynamically generates specialized content — tailored hooks, bodies, CTAs, and hashtags — for multiple platforms simultaneously." },
-        { title: "Integration Strategy", content: "Strictly orchestrated OpenAI completions formatted for Instagram Graph API and YouTube Data API endpoints, yielding zero-touch automated scheduled rollouts." }
-      ],
-      outcomes: [
-        "AI-written hooks engineered to stop the scroll",
-        "Format-aware payload generation per platform",
-        "100% automated scheduled publishing pipeline"
-      ],
-    },
-  },
-];
+const fetchProjects = async () => {
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .eq('published', true)
+    .order('display_order');
+  if (error) throw error;
+  return data;
+};
 
 const SLIDE_INTERVAL = 3000;
 
@@ -124,8 +50,8 @@ function ProjectCard({ proj, onFlip, flipped }) {
           </button>
 
           <div className="relative w-full h-56 md:h-64 shrink-0 overflow-hidden" style={{ background: 'var(--surface)' }}>
-            {proj.image ? (
-              <Image src={proj.image} alt={`${proj.title} screenshot`} fill className="object-cover object-top" />
+            {proj.image_url ? (
+              <Image src={proj.image_url} alt={`${proj.title} screenshot`} fill className="object-cover object-top" />
             ) : (
               <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #0A0A0A 0%, #111111 100%)' }}>
                 <div className="text-center space-y-2 opacity-30">
@@ -153,7 +79,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
             <p className="text-sm font-medium mb-1" style={{ color: 'var(--neon-green)' }}>{proj.subtitle}</p>
             <p className="text-xs mb-4" style={{ color: 'var(--fg-muted)' }}>{proj.period}</p>
             <div className="flex flex-wrap gap-2 mt-auto">
-              {proj.tech.map((tag) => (
+              {(proj.tech ?? []).map((tag) => (
                 <span key={tag} className="text-xs px-3 py-1 rounded-full" style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}>
                   {tag}
                 </span>
@@ -185,7 +111,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
             </div>
 
             <div className="flex-1 overflow-y-auto space-y-4 pr-1">
-              {proj.caseStudy.sections.map((section, i) => (
+              {(proj.case_study?.sections ?? []).map((section, i) => (
                 <div key={section.title}>
                   <div className="flex items-center gap-2 mb-1.5">
                     <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0" style={{ background: 'rgba(217,255,0,0.12)', color: 'var(--neon-yellow)' }}>
@@ -200,7 +126,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
               <div className="rounded-xl p-4" style={{ background: 'rgba(217,255,0,0.05)', border: '1px solid rgba(217,255,0,0.15)' }}>
                 <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--fg)' }}>Key Outcomes</p>
                 <div className="grid grid-cols-1 gap-1.5">
-                  {proj.caseStudy.outcomes.map((outcome, i) => (
+                  {(proj.case_study?.outcomes ?? []).map((outcome, i) => (
                     <div key={i} className="flex items-start gap-2 text-xs" style={{ color: 'var(--fg-muted)' }}>
                       <span className="shrink-0 mt-0.5" style={{ color: 'var(--neon-green)' }}>✓</span>
                       <span>{outcome}</span>
@@ -212,7 +138,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
 
             <div className="pt-3 mt-3 border-t shrink-0" style={{ borderColor: 'var(--border)' }}>
               <div className="flex flex-wrap gap-1.5">
-                {proj.tech.map((tag) => (
+                {(proj.tech ?? []).map((tag) => (
                   <span key={tag} className="text-[11px] px-2.5 py-0.5 rounded-full" style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--fg-muted)' }}>
                     {tag}
                   </span>
@@ -227,20 +153,24 @@ function ProjectCard({ proj, onFlip, flipped }) {
 }
 
 export default function Projects() {
+  const { data: projects = [], isLoading } = useSWR('projects', fetchProjects, { revalidateOnFocus: false });
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
   const [flipped, setFlipped] = useState(false);
   const [paused, setPaused] = useState(false);
 
   const goTo = useCallback((idx, dir) => { setFlipped(false); setDirection(dir); setCurrent(idx); }, []);
-  const next = useCallback(() => goTo((current + 1) % projects.length, 1), [current, goTo]);
-  const prev = useCallback(() => goTo((current - 1 + projects.length) % projects.length, -1), [current, goTo]);
+  const next = useCallback(() => { if (projects.length) goTo((current + 1) % projects.length, 1); }, [current, goTo, projects.length]);
+  const prev = useCallback(() => { if (projects.length) goTo((current - 1 + projects.length) % projects.length, -1); }, [current, goTo, projects.length]);
 
   useEffect(() => {
-    if (paused || flipped) return;
+    if (paused || flipped || !projects.length) return;
     const id = setInterval(next, SLIDE_INTERVAL);
     return () => clearInterval(id);
-  }, [paused, flipped, next]);
+  }, [paused, flipped, next, projects.length]);
+
+  const safeIndex = projects.length ? Math.min(current, projects.length - 1) : 0;
+  const currentProject = projects[safeIndex];
 
   return (
     <section id="projects" role="region" aria-roledescription="carousel" aria-label="Featured projects" className="py-24 relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
@@ -260,59 +190,53 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="relative">
-        <div aria-live="polite" aria-atomic="true" className="sr-only">
-          {`Project ${current + 1} of ${projects.length}: ${projects[current].title}`}
+      {isLoading && (
+        <div className="flex items-center justify-center" style={{ minHeight: '480px' }}>
+          <div className="h-8 w-8 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: 'var(--neon-yellow)', borderTopColor: 'transparent' }} />
         </div>
+      )}
 
-        <div className="relative overflow-hidden" data-cursor="drag" style={{ minHeight: '480px' }} role="group" aria-roledescription="slide" aria-label={`${current + 1} of ${projects.length}: ${projects[current].title}`} tabIndex={0} onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); next(); } if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); } }}>
-          <AnimatePresence initial={false} custom={direction} mode="popLayout">
-            <motion.div key={current} custom={direction} variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.6, ease: [0.87, 0, 0.13, 1] }} className="w-full" style={{ minHeight: '480px' }}>
-              <ProjectCard proj={projects[current]} flipped={flipped} onFlip={setFlipped} />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      {!isLoading && projects.length > 0 && currentProject && (
+        <div className="relative">
+          <div aria-live="polite" aria-atomic="true" className="sr-only">
+            {`Project ${safeIndex + 1} of ${projects.length}: ${currentProject.title}`}
+          </div>
 
-        <Magnetic className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
-          <HoloEffect mode="scan" color="var(--neon-green)">
-            <button
-              onClick={prev}
-              aria-label="Previous project"
-              className="w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
-              style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--neon-green)', '--tw-ring-color': 'var(--neon-yellow)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,133,0.5)'; e.currentTarget.style.boxShadow = '0 0 12px rgba(0,255,133,0.2)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}
-            >
-              <FaChevronLeft className="text-sm" />
-            </button>
-          </HoloEffect>
-        </Magnetic>
+          <div className="relative overflow-hidden" data-cursor="drag" style={{ minHeight: '480px' }} role="group" aria-roledescription="slide" aria-label={`${safeIndex + 1} of ${projects.length}: ${currentProject.title}`} tabIndex={0} onKeyDown={(e) => { if (e.key === 'ArrowRight') { e.preventDefault(); next(); } if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); } }}>
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              <motion.div key={safeIndex} custom={direction} variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.6, ease: [0.87, 0, 0.13, 1] }} className="w-full" style={{ minHeight: '480px' }}>
+                <ProjectCard proj={currentProject} flipped={flipped} onFlip={setFlipped} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-        <Magnetic className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
-          <HoloEffect mode="scan" color="var(--neon-green)">
-            <button
-              onClick={next}
-              aria-label="Next project"
-              className="w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
-              style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--neon-green)', '--tw-ring-color': 'var(--neon-yellow)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,133,0.5)'; e.currentTarget.style.boxShadow = '0 0 12px rgba(0,255,133,0.2)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}
-            >
-              <FaChevronRight className="text-sm" />
-            </button>
-          </HoloEffect>
-        </Magnetic>
-      </div>
+          <Magnetic className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
+            <HoloEffect mode="scan" color="var(--neon-green)">
+              <button onClick={prev} aria-label="Previous project" className="w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2" style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--neon-green)', '--tw-ring-color': 'var(--neon-yellow)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,133,0.5)'; e.currentTarget.style.boxShadow = '0 0 12px rgba(0,255,133,0.2)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}>
+                <FaChevronLeft className="text-sm" />
+              </button>
+            </HoloEffect>
+          </Magnetic>
 
-      <div className="flex items-center justify-center gap-2.5 mt-8">
-        {projects.map((_, i) => (
-          <button key={i} onClick={() => goTo(i, i > current ? 1 : -1)} aria-label={`Go to project ${i + 1}`} className="rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2" style={{ width: i === current ? '24px' : '8px', height: '8px', background: i === current ? 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' : 'rgba(255,255,255,0.15)', '--tw-ring-color': 'var(--neon-yellow)' }} />
-        ))}
-      </div>
+          <Magnetic className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
+            <HoloEffect mode="scan" color="var(--neon-green)">
+              <button onClick={next} aria-label="Next project" className="w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2" style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid var(--border)', color: 'var(--neon-green)', '--tw-ring-color': 'var(--neon-yellow)' }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,255,133,0.5)'; e.currentTarget.style.boxShadow = '0 0 12px rgba(0,255,133,0.2)'; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}>
+                <FaChevronRight className="text-sm" />
+              </button>
+            </HoloEffect>
+          </Magnetic>
 
-      {!flipped && !paused && (
-        <div className="mt-3 max-w-xs mx-auto h-0.5 rounded-full overflow-hidden" style={{ background: 'var(--surface-2)' }}>
-          <motion.div key={current} initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: SLIDE_INTERVAL / 1000, ease: 'linear' }} className="h-full" style={{ background: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }} />
+          <div className="flex items-center justify-center gap-2.5 mt-8">
+            {projects.map((_, i) => (
+              <button key={i} onClick={() => goTo(i, i > safeIndex ? 1 : -1)} aria-label={`Go to project ${i + 1}`} className="rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2" style={{ width: i === safeIndex ? '24px' : '8px', height: '8px', background: i === safeIndex ? 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' : 'rgba(255,255,255,0.15)', '--tw-ring-color': 'var(--neon-yellow)' }} />
+            ))}
+          </div>
+
+          {!flipped && !paused && (
+            <div className="mt-3 max-w-xs mx-auto h-0.5 rounded-full overflow-hidden" style={{ background: 'var(--surface-2)' }}>
+              <motion.div key={safeIndex} initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: SLIDE_INTERVAL / 1000, ease: 'linear' }} className="h-full" style={{ background: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }} />
+            </div>
+          )}
         </div>
       )}
     </section>

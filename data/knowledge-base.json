@@ -1,11 +1,11 @@
 [
   {
     "id": "identity.intro",
-    "content": "Robin Singh Rawat is an AI Generalist and Full Stack Engineer based in Sonipat, Haryana, India. He specializes in building AI-powered web applications and interfaces that make Large Language Models usable for real people. With 5 years of professional experience, he bridges the gap between modern full-stack engineering (React, Next.js, Angular) and applied AI (RAG systems, LLM orchestration, prompt engineering).",
+    "content": "Robin Singh Rawat is an AI Generalist and Full Stack Engineer based in Sonipat, Haryana, India. He specializes in building AI-powered web applications and interfaces that make Large Language Models usable for real people. With 5 years of professional experience, he bridges the gap between modern full-stack engineering (React, Next.js, Angular) and applied AI (RAG systems, LLM orchestration, prompt engineering, workflow automation). His portfolio itself is an example — it features Atlas, a RAG-powered AI assistant built with Claude API, custom BM25 retrieval, and an n8n fallback backend.",
     "metadata": {
       "section": "Identity",
       "type": "overview",
-      "tags": ["robin singh rawat", "ai developer", "full stack engineer", "llm", "react", "india", "who is robin", "introduction"]
+      "tags": ["robin singh rawat", "ai developer", "full stack engineer", "llm", "react", "india", "who is robin", "introduction", "atlas", "portfolio"]
     }
   },
   {
@@ -19,11 +19,11 @@
   },
   {
     "id": "background.career-arc",
-    "content": "Robin started as a full-stack developer, spent 4+ years at Builder.AI as a Software Engineer building enterprise-scale web applications, then moved to Arth Impact for fintech work. He transitioned from Senior Full Stack Engineer into AI specialization, combining his deep full-stack skills with applied AI to build LLM-powered products. He is currently completing the Outskill AI Accelerator program (2026) covering RAG systems, prompt engineering, and LLM orchestration.",
+    "content": "Robin started as a full-stack developer, spent 4+ years at Builder.AI as a Software Engineer building enterprise-scale web applications, then moved to Arth Impact for fintech work. He transitioned from Senior Full Stack Engineer into AI specialization, combining his deep full-stack skills with applied AI to build LLM-powered products. He is currently completing the Outskill AI Accelerator program (2026) covering RAG systems, prompt engineering, and LLM orchestration. His personal portfolio project includes Atlas — a RAG-powered chatbot built with Claude API — and an AI Content Pipeline for automated social media publishing.",
     "metadata": {
       "section": "Background",
       "type": "career-story",
-      "tags": ["career path", "background", "builder.ai", "arth impact", "outskill", "how did robin get into ai", "experience", "story"]
+      "tags": ["career path", "background", "builder.ai", "arth impact", "outskill", "how did robin get into ai", "experience", "story", "atlas", "ai content pipeline"]
     }
   },
   {
@@ -50,43 +50,43 @@
   },
   {
     "id": "skills.frontend",
-    "content": "Full-stack & core technical skills: Angular (14+), React, Next.js, React Native, TypeScript, JavaScript, Redux, Zustand, TanStack Query, RxJS, Tailwind CSS, Material UI, Angular Material, HTML, CSS, WebSockets, RESTful APIs, Jest, Unit Testing, Git, GitHub, GitLab.",
+    "content": "Full-stack and core technical skills: Angular (14+), React, Next.js, React Native, TypeScript, JavaScript, Redux, Zustand, TanStack Query, RxJS, Tailwind CSS, Material UI, HTML, CSS, WebSockets, RESTful APIs, Jest, Unit Testing, Git. Primary showcase stack (physics playground on portfolio): Angular, React, Next.js, TypeScript, JavaScript, Tailwind CSS, n8n, GitHub, Supabase, Claude.",
     "metadata": {
       "section": "Skills",
       "type": "technical",
-      "tags": ["technical skills", "frontend", "react", "angular", "typescript", "what technologies", "tech stack", "programming languages"]
+      "tags": ["technical skills", "frontend", "react", "angular", "typescript", "what technologies", "tech stack", "programming languages", "showcase skills"]
     }
   },
   {
     "id": "skills.ai",
-    "content": "AI & LLM skills: OpenAI API, Claude API (Anthropic), LangChain, Prompt Engineering, AI Automation, n8n (workflow automation), RAG Systems (Retrieval-Augmented Generation), Hugging Face. Robin can build custom chatbots, voice assistants, RAG pipelines, and AI-powered automation workflows.",
+    "content": "AI and LLM skills: OpenAI API, Claude API (Anthropic), LangChain, Prompt Engineering, AI Automation, n8n (workflow automation), RAG Systems (Retrieval-Augmented Generation), Hugging Face, Supabase (used for vector storage and pgvector RAG pipelines). Robin can build custom chatbots, voice assistants, RAG pipelines, and AI-powered automation workflows.",
     "metadata": {
       "section": "Skills",
       "type": "ai",
-      "tags": ["ai skills", "llm", "openai", "claude", "langchain", "rag", "prompt engineering", "n8n", "automation", "chatbot", "voice assistant"]
+      "tags": ["ai skills", "llm", "openai", "claude", "langchain", "rag", "prompt engineering", "n8n", "automation", "chatbot", "voice assistant", "supabase", "pgvector"]
     }
   },
   {
     "id": "skills.tools",
-    "content": "Tools & platforms Robin uses: Postman, ClickUp, Jira, Figma, Android Studio, VS Code, Chrome DevTools, Sentry (error tracking), Vercel, Netlify, AWS, Lighthouse (performance auditing), Mend (security scanning).",
+    "content": "Tools and platforms Robin uses: Postman, ClickUp, Jira, Figma, Android Studio, VS Code, Chrome DevTools, GitHub, GitLab, Sentry (error tracking), Vercel, Netlify, AWS, Supabase (backend-as-a-service, Postgres, Auth, Storage, Edge Functions), Lighthouse (performance auditing), Mend (security scanning).",
     "metadata": {
       "section": "Skills",
       "type": "tools",
-      "tags": ["tools", "platforms", "deployment", "figma", "jira", "aws", "vercel", "devtools"]
+      "tags": ["tools", "platforms", "deployment", "figma", "jira", "aws", "vercel", "devtools", "supabase", "github"]
     }
   },
   {
     "id": "projects.builder-studio",
-    "content": "Project: Builder Studio — a no-code/low-code drag-and-drop app development platform (January 2021 – April 2025). Robin contributed to building dynamic component-based UIs with Angular and TypeScript. He delivered modules including form builders, logic flow engines, and pricing configuration tools. Integrated REST APIs for automation, cost estimation, and live previews. Ensured responsive, cross-browser design throughout.",
+    "content": "Project: Builder Studio — a no-code/low-code drag-and-drop app development platform (January 2021 – April 2025). Tech: Angular, TypeScript, Bootstrap, REST APIs. Problem: Non-technical users needed to build custom apps without writing code; existing tools were too rigid for client-specific business logic. Robin built dynamic component-based UIs, form builders, logic flow engines, and pricing configuration tools. Integrated REST APIs for automation, cost estimation, and live previews. Key outcomes: scaled to serve enterprise clients globally, modular architecture enabled independent delivery, zero cross-browser layout regressions.",
     "metadata": {
       "section": "Projects",
       "type": "project",
-      "tags": ["builder studio", "no-code", "low-code", "app builder", "angular", "drag and drop", "project", "portfolio"]
+      "tags": ["builder studio", "no-code", "low-code", "app builder", "angular", "drag and drop", "project", "portfolio", "enterprise"]
     }
   },
   {
     "id": "projects.builder-tracker",
-    "content": "Project: Builder Tracker — a real-time project tracking dashboard (January 2021 – April 2025). Robin engineered dashboards using Angular and RxJS with live sync via WebSocket integration. Built interactive timelines, summary cards, and real-time status views. Implemented motion effects and responsive UI based on Figma prototypes.",
+    "content": "Project: Builder Tracker — a real-time project tracking dashboard (January 2021 – April 2025). Tech: Angular, RxJS, WebSockets, Figma. Problem: Project managers had no real-time visibility into construction milestones; updates happened in spreadsheets. Robin engineered dashboards using Angular and RxJS with live sync via WebSocket integration. Built interactive timelines, summary cards, and real-time status views with progressive disclosure UX. Key outcomes: real-time milestone visibility, eliminated spreadsheet-based tracking, WebSocket latency under 200ms, Figma-to-code fidelity with zero regressions.",
     "metadata": {
       "section": "Projects",
       "type": "project",
@@ -95,11 +95,29 @@
   },
   {
     "id": "projects.builder-home",
-    "content": "Project: Builder Home — a user onboarding and account management portal (January 2021 – April 2025). Built with React, Next.js, TypeScript, and Tailwind. Features include secure authentication, role-based access control, onboarding flows, project/team/subscription management. Robin built reusable components, used lazy loading for performance, and maintained 85%+ Jest unit test coverage.",
+    "content": "Project: Builder Home — a user onboarding and account management portal (January 2021 – April 2025). Tech: React.js, Next.js, TypeScript, Tailwind CSS, Jest. Problem: Users managing projects, teams, subscriptions, and billing had no unified portal; context-switching created friction. Robin built the portal with RBAC at route and component level, lazy loading for performance, and 85%+ Jest unit test coverage. Key outcomes: RBAC reduced unauthorized access to zero, lazy loading cut initial load time significantly, component library adopted by 2 downstream teams.",
     "metadata": {
       "section": "Projects",
       "type": "project",
-      "tags": ["builder home", "onboarding", "account portal", "react", "next.js", "authentication", "rbac", "portfolio"]
+      "tags": ["builder home", "onboarding", "account portal", "react", "next.js", "authentication", "rbac", "portfolio", "jest"]
+    }
+  },
+  {
+    "id": "projects.atlas",
+    "content": "Project: Atlas — a RAG-powered AI assistant embedded in Robin's portfolio (2026). Tech: Claude API (Haiku), RAG, Next.js, n8n. Problem: Static portfolios force visitors to dig through pages to find specific skills or background details. Atlas is a context-aware AI chatbot built on Claude Haiku with a custom BM25 TF-IDF retrieval layer that answers queries dynamically — strictly grounded to Robin's knowledge base, preventing hallucinations. Features: session-based conversation state, structured prompting, and a seamless n8n webhook fallback for 100% uptime on static deployments. Key outcomes: custom BM25 retrieval over a local knowledge base, RAG context injection preventing LLM drift, immediate user engagement inside a live portfolio.",
+    "metadata": {
+      "section": "Projects",
+      "type": "project",
+      "tags": ["atlas", "ai assistant", "chatbot", "rag", "claude api", "bm25", "n8n", "portfolio project", "llm", "next.js", "retrieval augmented generation"]
+    }
+  },
+  {
+    "id": "projects.ai-content-pipeline",
+    "content": "Project: AI Content Pipeline — automated Instagram and YouTube content publishing pipeline (2026). Tech: n8n, OpenAI API, Instagram Graph API, YouTube Data API. Problem: Content generation, formatting, and manual cross-posting across social platforms demands immense repetitive busywork. Robin designed a centralized n8n workflow that takes a raw topic prompt and dynamically generates specialized content — tailored hooks, bodies, CTAs, and hashtags — for multiple platforms simultaneously. Strictly orchestrated OpenAI completions are formatted for Instagram Graph API and YouTube Data API endpoints. Key outcomes: AI-written hooks engineered to stop the scroll, format-aware payload generation per platform, 100% automated scheduled publishing pipeline.",
+    "metadata": {
+      "section": "Projects",
+      "type": "project",
+      "tags": ["ai content pipeline", "n8n", "openai", "instagram", "youtube", "automation", "social media", "content generation", "workflow", "portfolio project"]
     }
   },
   {
@@ -131,7 +149,7 @@
   },
   {
     "id": "qa.who-is-robin",
-    "content": "Q: Who is Robin? A: Robin Singh Rawat is an AI Generalist and Full Stack Engineer with 5 years of experience. He builds AI-powered web apps using React, Next.js, Angular, and integrates LLMs, RAG systems, and automation into real products.",
+    "content": "Q: Who is Robin? A: Robin Singh Rawat is an AI Generalist and Full Stack Engineer with 5 years of experience. He builds AI-powered web apps using React, Next.js, Angular, and integrates LLMs, RAG systems, and automation into real products. His portfolio includes Atlas (a RAG chatbot you're talking to right now), an AI Content Pipeline, and enterprise platforms built at Builder.AI.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
@@ -149,11 +167,11 @@
   },
   {
     "id": "qa.tech-stack",
-    "content": "Q: What technologies does Robin use? A: Full Stack — React, Next.js, Angular, TypeScript, Tailwind, Material UI, Redux, RxJS. AI — OpenAI API, Claude API, LangChain, RAG systems, n8n automation, Hugging Face. Tools — Git, Figma, Jira, AWS, Vercel, Sentry, Jest.",
+    "content": "Q: What technologies does Robin use? A: Full Stack — React, Next.js, Angular, TypeScript, Tailwind CSS, Material UI, Redux, Zustand, RxJS. AI — OpenAI API, Claude API, LangChain, RAG systems, n8n automation, Hugging Face. Backend/Infra — Supabase (Postgres, Auth, Storage, pgvector), AWS, Vercel, Netlify. Tooling — Git, Figma, Jira, Sentry, Jest. Primary showcase skills visible on his portfolio: Angular, React, Next.js, TypeScript, JavaScript, Tailwind, n8n, GitHub, Supabase, Claude.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
-      "tags": ["tech stack", "technologies", "what tools", "programming", "frameworks"]
+      "tags": ["tech stack", "technologies", "what tools", "programming", "frameworks", "supabase", "claude", "n8n"]
     }
   },
   {
@@ -194,11 +212,20 @@
   },
   {
     "id": "qa.ai-experience",
-    "content": "Q: Does Robin have real AI experience? A: Yes. Robin is completing the Outskill AI Accelerator (2026) covering RAG, prompt engineering, and LLM orchestration. He works with OpenAI API, Claude API, LangChain, n8n, and Hugging Face. He offers production AI services including chatbots, voice assistants, RAG systems, and workflow automation.",
+    "content": "Q: Does Robin have real AI experience? A: Yes. Robin is completing the Outskill AI Accelerator (2026) covering RAG, prompt engineering, and LLM orchestration. He works with OpenAI API, Claude API, LangChain, n8n, Supabase (pgvector), and Hugging Face. He has built production AI projects including Atlas (a RAG chatbot in his portfolio), an AI Content Pipeline for automated social publishing, and offers services including custom chatbots, voice assistants, RAG systems, and workflow automation.",
     "metadata": {
       "section": "Q&A",
       "type": "faq",
-      "tags": ["ai experience", "is robin good at ai", "llm experience", "rag experience", "ai credentials"]
+      "tags": ["ai experience", "is robin good at ai", "llm experience", "rag experience", "ai credentials", "atlas", "supabase", "pgvector"]
+    }
+  },
+  {
+    "id": "qa.atlas-chatbot",
+    "content": "Q: What is Atlas? How does this chatbot work? A: Atlas is the AI assistant embedded in Robin's portfolio — what you're talking to right now. It's built with Claude Haiku (Anthropic's API), a custom BM25 TF-IDF retrieval layer over a structured knowledge base, and an n8n webhook as a fallback backend. Atlas is grounded strictly to Robin's data — it won't hallucinate details about his background. It demonstrates Robin's ability to build production-ready LLM products, not just prototype prompts.",
+    "metadata": {
+      "section": "Q&A",
+      "type": "faq",
+      "tags": ["atlas", "chatbot", "how does this work", "rag", "claude api", "bm25", "ai assistant", "portfolio chatbot", "llm"]
     }
   },
   {
