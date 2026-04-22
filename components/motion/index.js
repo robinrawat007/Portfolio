@@ -9,3 +9,4 @@ export { default as GlowText } from "./GlowText";
 export { default as HoloEffect } from "./HoloEffect";
 export { default as PopSmoke } from "./PopSmoke";
 export { default as Firecrackers } from "./Firecrackers";
+export { default as Spotlight } from "./Spotlight";

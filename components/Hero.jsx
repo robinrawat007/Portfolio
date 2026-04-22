@@ -5,13 +5,12 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import MouseGlow from '@/components/motion/MouseGlow';
 import ScrambleText from '@/components/motion/ScrambleText';
-import { Magnetic, HoloEffect, Firecrackers } from '@/components/motion';
+import { Magnetic, HoloEffect, Spotlight } from '@/components/motion';
 
 const roles = ["AI Generalist", "Full Stack Engineer", "Workflow Automation Expert"];
 
 const NEON_DOTS = [
   { top: '18%', left: '12%', color: 'var(--neon-yellow)', dur: 2.4, delay: '0s' },
-  { top: '38%', left: '76%', color: 'var(--neon-green)', dur: 3.1, delay: '1.3s' },
   { top: '68%', left: '22%', color: 'var(--neon-green)', dur: 2.7, delay: '0.7s' },
 ];
 
@@ -194,24 +193,24 @@ export default function Hero() {
         {/* Heading */}
         <h1
           id="hero-title"
-          className="text-4xl sm:text-5xl md:text-7xl font-heading font-extrabold tracking-tight m-0"
+          className="text-4xl sm:text-5xl md:text-7xl font-heading font-extrabold tracking-tight m-0 flex flex-wrap items-baseline justify-center gap-x-4"
           style={{ color: 'var(--fg)' }}
         >
-          <span ref={hiRef} className="inline-block">
+          <span ref={hiRef} className="inline-flex items-baseline">
             Hi, I&apos;m
           </span>
           <br className="md:hidden" />
           {' '}
           {/* Name — ScrambleText with gradient; delay syncs to GSAP reveal at 0.65s */}
-          <span ref={nameRef} className="block sm:inline-block relative">
-            <Firecrackers maxSparks={50}>
+          <span ref={nameRef} className="inline-flex items-baseline relative">
+            <Spotlight size={300} blur={20}>
               <span
                 className="text-transparent bg-clip-text whitespace-nowrap relative z-10"
                 style={{ backgroundImage: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }}
               >
                 <ScrambleText text="Robin Singh Rawat" delay={0.1} duration={1000} />
               </span>
-            </Firecrackers>
+            </Spotlight>
           </span>
         </h1>
 

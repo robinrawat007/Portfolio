@@ -4,8 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DripEffect, GlowText, Firecrackers } from '@/components/motion';
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 
 const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
 const navLinks = [
@@ -22,43 +20,6 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const menuRef = useRef(null);
-    const logoRef = useRef(null);
-
-    useGSAP(() => {
-        if (!logoRef.current) return;
-
-        // Revolving animation on hover
-        const logo = logoRef.current;
-        let animation;
-
-        const enterAnim = () => {
-            animation = gsap.to(logo, {
-                rotationY: "+=360",
-                duration: 1.5,
-                repeat: -1,
-                ease: "none",
-                overwrite: "auto"
-            });
-        };
-
-        const leaveAnim = () => {
-            if (animation) animation.kill();
-            gsap.to(logo, {
-                rotationY: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                overwrite: "auto"
-            });
-        };
-
-        logo.addEventListener('mouseenter', enterAnim);
-        logo.addEventListener('mouseleave', leaveAnim);
-
-        return () => {
-            logo.removeEventListener('mouseenter', enterAnim);
-            logo.removeEventListener('mouseleave', leaveAnim);
-        };
-    }, { scope: logoRef });
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -119,10 +80,9 @@ export default function Navbar() {
                         style={{ '--tw-ring-color': 'var(--neon-yellow)' }}
                         aria-label="Robin Singh Rawat - Home"
                     >
-                        <Firecrackers maxSparks={30}>
+                        <Firecrackers maxParticles={40}>
                             <div
-                                ref={logoRef}
-                                className="relative w-32 h-10 md:w-36 md:h-12 flex items-center justify-start group-hover:scale-105 transition-transform origin-left"
+                                className="relative z-10 w-32 h-10 md:w-36 md:h-12 flex items-center justify-start group-hover:scale-105 transition-transform origin-left"
                             >
                                 <Image
                                     src="/Logo.png"
