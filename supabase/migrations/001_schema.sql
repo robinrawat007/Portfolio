@@ -12,6 +12,7 @@ create table if not exists projects (
   period        text not null,
   tech          text[] not null default '{}',
   image_url     text,
+  visit_url     text,
   case_study    jsonb not null default '{}'::jsonb,
   display_order int  not null default 0,
   published     boolean not null default true,

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaEye, FaEyeSlash, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaChevronLeft, FaChevronRight, FaExternalLinkAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabaseClient';
@@ -39,16 +39,32 @@ function ProjectCard({ proj, onFlip, flipped }) {
         >
           {/* FRONT */}
           <div style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }} className="absolute inset-0 glass-card overflow-hidden flex flex-col">
-            <button
-              onClick={() => onFlip(true)}
-              aria-label={`View case study for ${proj.title}`}
-              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
-              style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
-            >
-              <FaEye className="text-sm" />
-            </button>
+            <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+              {proj.visit_url && (
+                <a
+                  href={proj.visit_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${proj.title}`}
+                  className="w-9 h-9 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
+                  style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
+                >
+                  <FaExternalLinkAlt className="text-sm" />
+                </a>
+              )}
+              <button
+                onClick={() => onFlip(true)}
+                aria-label={`View case study for ${proj.title}`}
+                className="w-9 h-9 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2"
+                style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--neon-yellow)'; e.currentTarget.style.borderColor = 'rgba(217,255,0,0.4)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-muted)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; }}
+              >
+                <FaEye className="text-sm" />
+              </button>
+            </div>
 
             <div className="relative w-full h-56 md:h-64 shrink-0 overflow-hidden" style={{ background: 'var(--surface)' }}>
               {proj.image_url ? (
