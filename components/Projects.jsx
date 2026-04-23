@@ -24,106 +24,152 @@ const SLIDE_INTERVAL = 5000;
 function ProjectCard({ proj, onFlip, flipped }) {
   return (
     <div className="w-full h-full">
-        <motion.div
-          animate={{ rotateY: flipped ? 180 : 0 }}
-          transition={{ duration: 0.6, ease: "circOut" }}
-          style={{ transformStyle: 'preserve-3d' }}
-          className="relative w-full h-full"
+      <motion.div
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+        style={{ transformStyle: 'preserve-3d' }}
+        className="relative w-full min-h-[500px]"
+      >
+        {/* FRONT: Clean Full-Image Gallery Look */}
+        <div
+          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+          className="relative w-full min-h-[500px] rounded-3xl overflow-hidden flex flex-col bg-white/[0.03] backdrop-blur-2xl border border-white/[0.12] shadow-2xl group"
         >
-          {/* FRONT */}
-          <div 
-            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }} 
-            className="relative w-full min-h-[500px] glass-card overflow-hidden flex flex-col"
-          >
-            <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-              {proj.visit_url && (
-                <a
-                  href={proj.visit_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-black/40 border border-white/10 backdrop-blur-sm flex items-center justify-center text-fg-muted hover:text-neon-yellow transition-colors"
-                >
-                  <FaExternalLinkAlt className="text-sm" />
-                </a>
-              )}
-              <button
-                onClick={() => onFlip(true)}
-                className="w-9 h-9 rounded-full bg-black/40 border border-white/10 backdrop-blur-sm flex items-center justify-center text-fg-muted hover:text-neon-green transition-colors"
-              >
-                <FaEye className="text-sm" />
-              </button>
-            </div>
-
-            <div className="relative w-full h-56 md:h-64 shrink-0 overflow-hidden bg-surface">
-              {proj.image_url ? (
-                <Image 
-                    src={proj.image_url} 
-                    alt={proj.title} 
-                    fill 
-                    className="object-cover object-top" 
-                    priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-neutral-900 text-xs text-slate-600">
-                  Coming soon
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/80 to-transparent" />
-            </div>
-
-            <div className="p-6 flex flex-col flex-1">
-              <h3 className="text-xl font-bold mb-1">{proj.title}</h3>
-              <p className="text-sm font-medium mb-1 text-neon-green">{proj.subtitle}</p>
-              <p className="text-xs mb-4 text-fg-muted">{proj.period}</p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {proj.tech?.map((tag) => (
-                  <span key={tag} className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border border-white/5 bg-white/5 text-slate-400">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+          {/* Laminated Glass Finish (Glint & Gloss) */}
+          <div className="absolute inset-0 z-30 pointer-events-none opacity-30">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent" />
           </div>
 
-          {/* BACK */}
-          <div 
-            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }} 
-            className="absolute inset-0 glass-card flex flex-col overflow-hidden bg-surface-2"
-          >
-            <div className="h-1 w-full bg-gradient-to-r from-neon-yellow to-neon-green" />
-            <div className="p-7 flex flex-col h-full overflow-hidden">
-              <div className="flex items-start justify-between mb-5">
-                <div>
-                  <h3 className="text-lg font-bold">{proj.title}</h3>
-                  <p className="text-xs text-neon-yellow">Case Study</p>
-                </div>
-                <button onClick={() => onFlip(false)} className="text-fg-muted hover:text-white transition-colors">
-                  <FaChevronLeft className="text-lg" />
+          {/* Inner Glass Stroke */}
+          <div className="absolute inset-px rounded-[23px] border border-white/[0.08] pointer-events-none z-10" />
+
+          {/* Top Right Controls */}
+          <div className="absolute top-6 right-6 z-40 flex items-center gap-3">
+            {proj.visit_url && (
+              <a
+                href={proj.visit_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:scale-110 transition-all shadow-xl"
+              >
+                <FaExternalLinkAlt className="text-sm" />
+              </a>
+            )}
+            <button
+              onClick={() => onFlip(true)}
+              className="w-11 h-11 rounded-full bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:scale-110 transition-all shadow-xl"
+            >
+              <FaEye className="text-lg" />
+            </button>
+          </div>
+
+          <div className="absolute inset-0 w-full h-full overflow-hidden">
+            {proj.image_url ? (
+              <Image
+                src={proj.image_url}
+                alt={proj.title}
+                fill
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-neutral-900 text-xs text-slate-600">
+                Coming soon
+              </div>
+            )}
+            {/* Very subtle vignette for the controls */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
+          </div>
+        </div>
+
+        {/* BACK: Comprehensive Info Card */}
+        <div
+          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          className="absolute inset-0 rounded-3xl overflow-hidden flex flex-col bg-[#0A0A0A]/95 backdrop-blur-2xl border border-white/[0.1] shadow-2xl"
+        >
+          <div className="absolute inset-px rounded-[23px] border border-white/[0.05] pointer-events-none z-10" />
+          <div className="h-2 w-full bg-gradient-to-r from-neon-yellow via-neon-green to-neon-cyan" />
+
+          <div className="p-9 md:p-10 flex flex-col h-full overflow-hidden relative z-20">
+            {/* Header with Control Icons */}
+            <div className="flex items-start justify-between mb-8">
+              <div className="flex-1 pr-6">
+                <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight mb-1">{proj.title}</h3>
+                <p className="text-xs md:text-sm font-medium text-neon-green/90 mb-1">{proj.subtitle}</p>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-bold">{proj.period}</p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {proj.visit_url && (
+                  <a
+                    href={proj.visit_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neon-yellow hover:bg-neon-yellow hover:text-black transition-all"
+                    title="Launch Project"
+                  >
+                    <FaExternalLinkAlt className="text-[10px]" />
+                  </a>
+                )}
+                <button
+                  onClick={() => onFlip(false)}
+                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/30 hover:text-white transition-all"
+                  title="Go Back"
+                >
+                  <FaChevronLeft className="text-xs" />
                 </button>
               </div>
-              
-              <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
-                {proj.case_study?.sections?.map((s, i) => (
-                  <div key={i} className="mb-5">
-                    <h4 className="text-[10px] uppercase tracking-[0.2em] text-fg-muted mb-1.5 font-bold">{s.title}</h4>
-                    <p className="text-xs leading-relaxed text-slate-300">{s.content}</p>
-                  </div>
-                ))}
+            </div>
+
+            <div className="flex-1 flex flex-col space-y-6">
+              {/* Tech Stack */}
+              <div>
+                <h4 className="text-[9px] uppercase tracking-[0.3em] text-white/30 mb-3 font-bold">Stack</h4>
+                <div className="flex flex-wrap gap-2">
+                  {proj.tech?.map((tag) => (
+                    <span key={tag} className="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg border border-white/[0.08] bg-white/[0.04] text-slate-400">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              {proj.visit_url && (
-                <a 
-                  href={proj.visit_url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="mt-4 w-full py-2.5 rounded-lg bg-neon-yellow text-black text-center text-xs font-bold hover:brightness-110 transition-all"
-                >
-                  Launch Project
-                </a>
-              )}
+              {/* Case Study Grid */}
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-8">
+                  {proj.case_study?.sections?.slice(0, 2).map((s, i) => (
+                    <div key={i} className="relative pl-4 border-l border-white/10 group/item">
+                      <h5 className="text-[9px] font-bold text-neon-green/70 uppercase tracking-widest mb-1.5 transition-colors group-hover/item:text-neon-yellow">{s.title}</h5>
+                      <p className="text-[12px] leading-relaxed text-slate-400/90 font-light line-clamp-4">
+                        {s.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {proj.case_study?.sections?.[2] && (
+                  <div className="relative pl-4 border-l border-white/10 group/item">
+                    <h5 className="text-[9px] font-bold text-neon-cyan/70 uppercase tracking-widest mb-1.5 transition-colors group-hover/item:text-neon-yellow">
+                      {proj.case_study.sections[2].title}
+                    </h5>
+                    <p className="text-[12px] leading-relaxed text-slate-400/90 font-light line-clamp-2 md:line-clamp-3">
+                      {proj.case_study.sections[2].content}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Decorative Footer */}
+            <div className="mt-auto pt-6 flex items-center justify-center opacity-10">
+              <div className="h-[1px] w-10 bg-gradient-to-r from-transparent to-white" />
+              <span className="text-[8px] uppercase tracking-[0.5em] px-4 text-white whitespace-nowrap">{proj.id}</span>
+              <div className="h-[1px] w-10 bg-gradient-to-l from-transparent to-white" />
             </div>
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 }
@@ -155,7 +201,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-24 relative z-10 w-full max-w-4xl mx-auto px-6" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <GlassShapes />
-      
+
       <div className="text-center mb-14">
         <SplitReveal
           text="Featured Projects"
@@ -178,10 +224,10 @@ export default function Projects() {
         <div className="relative">
           <div className="relative overflow-hidden min-h-[480px] md:min-h-[500px]">
             <AnimatePresence mode="wait">
-              <motion.div 
-                key={current} 
-                initial={{ opacity: 0, scale: 0.95 }} 
-                animate={{ opacity: 1, scale: 1 }} 
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="w-full h-full"
@@ -196,16 +242,16 @@ export default function Projects() {
             <>
               <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
                 <Magnetic>
-                    <button onClick={prev} className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
-                        <FaChevronLeft />
-                    </button>
+                  <button onClick={prev} className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
+                    <FaChevronLeft />
+                  </button>
                 </Magnetic>
               </div>
               <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
                 <Magnetic>
-                    <button onClick={next} className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
-                        <FaChevronRight />
-                    </button>
+                  <button onClick={next} className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
+                    <FaChevronRight />
+                  </button>
                 </Magnetic>
               </div>
             </>
@@ -214,15 +260,15 @@ export default function Projects() {
           {/* Dots */}
           <div className="flex items-center justify-center gap-2.5 mt-8">
             {projects.map((_, i) => (
-              <button 
-                key={i} 
-                onClick={() => { setCurrent(i); setFlipped(false); }} 
+              <button
+                key={i}
+                onClick={() => { setCurrent(i); setFlipped(false); }}
                 className="rounded-full transition-all duration-300"
-                style={{ 
-                  width: i === current ? '24px' : '8px', 
-                  height: '8px', 
-                  background: i === current ? 'var(--neon-yellow)' : 'rgba(255,255,255,0.2)' 
-                }} 
+                style={{
+                  width: i === current ? '24px' : '8px',
+                  height: '8px',
+                  background: i === current ? 'var(--neon-yellow)' : 'rgba(255,255,255,0.2)'
+                }}
               />
             ))}
           </div>
