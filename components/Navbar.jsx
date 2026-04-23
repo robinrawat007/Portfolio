@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DripEffect, GlowText, Firecrackers } from '@/components/motion';
 
-const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL;
+
 const navLinks = [
     { name: 'Home', href: '#hero', color: '#D9FF00' }, // neon-yellow
     { name: 'About', href: '#about', color: '#00FF85' }, // neon-green
@@ -123,32 +123,7 @@ export default function Navbar() {
                             );
                         })}
 
-                        {RESUME_URL && (
-                            <a
-                                href={RESUME_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="ml-4 px-5 py-3 min-h-[44px] text-sm font-semibold rounded-full transition-all flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                                style={{
-                                    background: 'transparent',
-                                    border: '1px solid rgba(217,255,0,0.35)',
-                                    color: 'var(--neon-yellow)',
-                                    '--tw-ring-color': 'var(--neon-yellow)',
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = 'var(--neon-yellow)';
-                                    e.currentTarget.style.color = '#000';
-                                    e.currentTarget.style.boxShadow = '0 0 15px rgba(217,255,0,0.4)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = 'transparent';
-                                    e.currentTarget.style.color = 'var(--neon-yellow)';
-                                    e.currentTarget.style.boxShadow = '';
-                                }}
-                            >
-                                Resume
-                            </a>
-                        )}
+
                     </div>
 
                     {/* Mobile hamburger */}
@@ -210,19 +185,7 @@ export default function Navbar() {
                                     </a>
                                 );
                             })}
-                            {RESUME_URL && (
-                                <div className="pt-4 px-4">
-                                    <a
-                                        href={RESUME_URL}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex justify-center w-full px-5 py-3 text-base font-semibold rounded-xl focus:outline-none"
-                                        style={{ background: 'var(--neon-yellow)', color: '#000' }}
-                                    >
-                                        Download Resume
-                                    </a>
-                                </div>
-                            )}
+
                         </div>
                     </motion.div>
                 )}

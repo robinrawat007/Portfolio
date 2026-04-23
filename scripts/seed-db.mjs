@@ -97,7 +97,7 @@ const PROJECTS = [
     case_study: {
       sections: [
         { title: "The Problem", content: "Static portfolios rely on visitors digging through pages to find my specific skill-sets or background." },
-        { title: "Design Decisions", content: "A context-aware AI assistant built on Claude Haiku with a custom BM25 retrieval layer to answer queries dynamically — strictly grounded to my resume, avoiding hallucinations." },
+        { title: "Design Decisions", content: "A context-aware AI assistant built on Claude Haiku with a custom BM25 retrieval layer to answer queries dynamically — strictly grounded to my background, avoiding hallucinations." },
         { title: "Engineering Approach", content: "Maintained a strict session-based conversation state with custom structured prompting. Built a seamless fallback to an n8n webhook backend to ensure 100% uptime for static deployments." },
       ],
       outcomes: ["Custom BM25 TF-IDF retrieval over a local knowledge base", "RAG context injection preventing LLM drift", "Immediate user engagement inside a live portfolio instance"],

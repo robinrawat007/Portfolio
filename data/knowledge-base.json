@@ -228,15 +228,7 @@
       "tags": ["atlas", "chatbot", "how does this work", "rag", "claude api", "bm25", "ai assistant", "portfolio chatbot", "llm"]
     }
   },
-  {
-    "id": "qa.resume",
-    "content": "Q: Can I see Robin's resume? A: Robin's portfolio website covers his full background. For a quick summary — 5 years experience, BCA degree, NIIT full-stack certification, Outskill AI Accelerator, 4+ years at Builder.AI, fintech work at Arth Impact, and expertise across React/Next.js/Angular + AI/LLM integration. Contact him at robinrawat37@gmail.com for a formal resume.",
-    "metadata": {
-      "section": "Q&A",
-      "type": "faq",
-      "tags": ["resume", "cv", "download resume", "qualifications", "summary"]
-    }
-  },
+
   {
     "id": "qa.chatbot-cost",
     "content": "Q: How much does a chatbot or project cost? A: Robin works across budget ranges — under $500, $500–$2,000, $2,000–$5,000, and $5,000+. If you're not sure, that's fine too. Reach out with your requirements and Robin will give you a tailored estimate.",
