@@ -6,16 +6,6 @@
 **What it is:** Showcasing my skills, projects,and experience to the world. It's my digital identity — giving potential clients or employers a quick, visual way to understand who you are and what you can do.
 **Status:**  production
 
-
-## Memory
-- Read MEMORY.md at session start before anything else.
-
-## Skills
-- Check available skills before responding. Use them — don't rationalize skipping.
-- PM work: use pm-product-discovery before feature work, pm-execution for PRDs/stories.
-- UI work: use ui-ux-pro-max before building any new screen or component.
-- Code: apply vercel-react-best-practices during component writing, not just on review.
-
 ## Product
 - What: [one sentence — what it does and for whom]
 - Stage: [pre-MVP / MVP / post-launch]
