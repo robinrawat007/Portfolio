@@ -42,10 +42,10 @@ export default function Firecrackers({ children, maxParticles = 80 }) {
 
     // 3. Create a cluster of particles
     const particleCount = isHovered ? 15 : 8;
-    const newParticles = Array.from({ length: particleCount }).map(() => {
+    const newParticles = Array.from({ length: particleCount }).map((_, index) => {
       const angle = Math.random() * Math.PI * 2;
       const velocity = 40 + Math.random() * 80;
-      const id = Math.random() + Date.now();
+      const id = `${Date.now()}-${Math.random()}-${index}`;
       const life = 0.6 + Math.random() * 0.6;
       
       return {
