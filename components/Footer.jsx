@@ -49,7 +49,7 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 w-full h-4 bg-neon-green/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
               <p className="text-[9px] font-black text-neon-green/50 uppercase tracking-[0.6em] ml-1">
-                Full Stack Alchemist <span className="text-white/10 ml-2">// REV 4.0</span>
+                Full Stack Alchemist <span className="text-white/10 ml-2">{"// REV 4.0"}</span>
               </p>
             </div>
 

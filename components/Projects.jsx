@@ -263,7 +263,7 @@ export default function Projects() {
         />
         <div className="w-24 h-1.5 mx-auto rounded-full mb-6 bg-gradient-to-r from-neon-yellow to-neon-green" />
         <p className="max-w-2xl mx-auto text-lg text-fg-muted">
-          A selection of enterprise platforms and dashboards I've engineered.
+          A selection of enterprise platforms and dashboards I&apos;ve engineered.
         </p>
       </div>
 
