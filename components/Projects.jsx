@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaChevronLeft, FaChevronRight, FaExternalLinkAlt } from 'react-icons/fa';
 import Image from 'next/image';
@@ -21,66 +21,97 @@ const fetchProjects = async () => {
 
 const SLIDE_INTERVAL = 5000;
 
+const SPARKLE_COLORS = ['#D9FF00', '#00FF85', '#2DCFCF', '#7B4FE0', '#ffffff'];
+
+function buildSideParticles(side) {
+  const dir = side === 'left' ? -1 : 1;
+  return [...Array(26)].map((_, i) => ({
+    color: SPARKLE_COLORS[i % SPARKLE_COLORS.length],
+    tx: dir * (65 + Math.random() * 220),
+    ty: (Math.random() - 0.5) * 460,
+    scale: 0.6 + Math.random() * 1.0,
+    duration: 0.7 + Math.random() * 0.55,
+    delay: Math.random() * 0.1,
+    size: 3 + Math.floor(Math.random() * 6),
+    round: i % 2 === 0,
+    rotateDeg: i % 2 === 0 ? 360 : -360,
+  }));
+}
+
 function ProjectCard({ proj, onFlip, flipped }) {
-  const [showSparkles, setShowSparkles] = useState(false);
+  const [fireKey, setFireKey] = useState(0);
+  const [firing, setFiring] = useState(false);
+  const prevFlippedRef = useRef(flipped);
+  const timerRef = useRef(null);
+
+  // Stable configs per card mount — never recalculate on re-render
+  const leftParticles = useMemo(() => buildSideParticles('left'), []);
+  const rightParticles = useMemo(() => buildSideParticles('right'), []);
 
   useEffect(() => {
-    if (flipped) {
-      setShowSparkles(true);
-      const t = setTimeout(() => setShowSparkles(false), 2000);
-      return () => clearTimeout(t);
-    }
+    if (prevFlippedRef.current === flipped) return;
+    prevFlippedRef.current = flipped;
+    clearTimeout(timerRef.current);
+    setFireKey((k) => k + 1); // increment forces particle remount even if already firing
+    setFiring(true);
+    timerRef.current = setTimeout(() => setFiring(false), 1500);
   }, [flipped]);
 
-  return (
-    <div className="w-full h-full relative">
-      <AnimatePresence>
-        {showSparkles && (
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <div className="absolute left-0 top-1/2">
-              {[...Array(30)].map((_, i) => (
-                <motion.div
-                  key={`l-${i}`}
-                  initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
-                  animate={{
-                    opacity: [0, 1, 0],
-                    scale: [0, Math.random() * 1.5 + 0.5, 0],
-                    x: Math.random() * -350 - 50,
-                    y: Math.random() * 600 - 300,
-                    rotate: Math.random() * 360,
-                  }}
-                  transition={{ duration: 1.2 + Math.random() * 0.5, ease: "easeOut" }}
-                  className={`absolute w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-sm ${i % 3 === 0 ? 'bg-neon-yellow' : i % 3 === 1 ? 'bg-neon-green' : 'bg-white'}`}
-                  style={{ boxShadow: `0 0 15px ${i % 3 === 0 ? 'rgba(217,255,0,0.8)' : i % 3 === 1 ? 'rgba(0,255,102,0.8)' : 'rgba(255,255,255,0.8)'}` }}
-                />
-              ))}
-            </div>
-            <div className="absolute right-0 top-1/2">
-              {[...Array(30)].map((_, i) => (
-                <motion.div
-                  key={`r-${i}`}
-                  initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
-                  animate={{
-                    opacity: [0, 1, 0],
-                    scale: [0, Math.random() * 1.5 + 0.5, 0],
-                    x: Math.random() * 350 + 50,
-                    y: Math.random() * 600 - 300,
-                    rotate: Math.random() * 360,
-                  }}
-                  transition={{ duration: 1.2 + Math.random() * 0.5, ease: "easeOut" }}
-                  className={`absolute w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-sm ${i % 3 === 0 ? 'bg-neon-cyan' : i % 3 === 1 ? 'bg-neon-yellow' : 'bg-white'}`}
-                  style={{ boxShadow: `0 0 15px ${i % 3 === 0 ? 'rgba(0,255,255,0.8)' : i % 3 === 1 ? 'rgba(217,255,0,0.8)' : 'rgba(255,255,255,0.8)'}` }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-      </AnimatePresence>
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
+  const renderParticles = (particles, prefix) =>
+    particles.map((p, i) => (
       <motion.div
-        animate={{ rotateY: flipped ? 900 : 0 }}
-        transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-        style={{ transformStyle: 'preserve-3d' }}
+        key={`${fireKey}-${prefix}-${i}`}
+        initial={{ x: 0, y: 0, opacity: 0, scale: 0, rotate: 0 }}
+        animate={{
+          x: p.tx,
+          y: p.ty,
+          opacity: [0, 1, 1, 0],
+          scale: [0, p.scale, p.scale * 0.8, 0],
+          rotate: p.rotateDeg,
+        }}
+        transition={{ duration: p.duration, delay: p.delay, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          width: p.size,
+          height: p.size,
+          backgroundColor: p.color,
+          borderRadius: p.round ? '50%' : '2px',
+          boxShadow: `0 0 ${p.size * 2}px ${p.color}`,
+        }}
+      />
+    ));
+
+  return (
+    <div className="w-full h-full relative" style={{ perspective: '1100px' }}>
+      {/* Left and right sparkle bursts — fire on every flip direction change */}
+      {firing && (
+        <>
+          <div
+            className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none z-50"
+            style={{ overflow: 'visible' }}
+          >
+            {renderParticles(leftParticles, 'l')}
+          </div>
+          <div
+            className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none z-50"
+            style={{ overflow: 'visible' }}
+          >
+            {renderParticles(rightParticles, 'r')}
+          </div>
+        </>
+      )}
+
+      {/* rotateY 540 = 1.5 rotations, lands on back face (front→back→front→back) */}
+      <motion.div
+        animate={{ rotateY: flipped ? 540 : 0 }}
+        transition={
+          flipped
+            ? { duration: 1.35, ease: [0.23, 1, 0.32, 1] }
+            : { duration: 0.75, ease: [0.23, 1, 0.32, 1] }
+        }
+        style={{ transformStyle: 'preserve-3d', transformOrigin: 'center center' }}
         className="relative w-full min-h-[500px] z-10"
       >
         {/* FRONT: Clean Full-Image Gallery Look */}
@@ -275,7 +306,7 @@ export default function Projects() {
 
       {!isLoading && projects.length > 0 && currentProject && (
         <div className="relative">
-          <div className="relative overflow-hidden min-h-[480px] md:min-h-[500px]">
+          <div className="relative min-h-[480px] md:min-h-[500px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
