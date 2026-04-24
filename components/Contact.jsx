@@ -54,11 +54,11 @@ export default function Contact() {
   ];
 
   const socialLinks = [
-    { href: "https://www.linkedin.com/in/robinrawat1/", icon: <FaLinkedin /> },
-    { href: "https://github.com/robinrawat007", icon: <FaGithub /> },
-    { href: "https://x.com/robinrawat37", icon: <FaXTwitter /> },
-    { href: "https://www.instagram.com/robinrawat01/", icon: <FaInstagram /> },
-    { href: "https://wa.me/919416149624", icon: <FaWhatsapp /> },
+    { href: "https://www.linkedin.com/in/robinrawat1/", icon: <FaLinkedin />, label: "LinkedIn" },
+    { href: "https://github.com/robinrawat007", icon: <FaGithub />, label: "GitHub" },
+    { href: "https://x.com/robinrawat37", icon: <FaXTwitter />, label: "X (Twitter)" },
+    { href: "https://www.instagram.com/robinrawat01/", icon: <FaInstagram />, label: "Instagram" },
+    { href: "https://wa.me/919416149624", icon: <FaWhatsapp />, label: "WhatsApp" },
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function Contact() {
                 <div className="flex flex-wrap gap-3">
                   {socialLinks.map((social, idx) => (
                     <Magnetic key={idx}>
-                      <a href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl flex items-center justify-center border border-white/10 bg-white/[0.03] text-slate-400 hover:text-neon-yellow hover:border-neon-yellow/30 transition-all">
+                      <a href={social.href} aria-label={social.label} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl flex items-center justify-center border border-white/10 bg-white/[0.03] text-slate-400 hover:text-neon-yellow hover:border-neon-yellow/30 transition-all">
                         {React.cloneElement(social.icon, { size: 16 })}
                       </a>
                     </Magnetic>

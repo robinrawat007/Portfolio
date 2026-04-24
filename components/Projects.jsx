@@ -135,6 +135,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
                 href={proj.visit_url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit Project"
                 className="w-11 h-11 rounded-full bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:scale-110 transition-all shadow-xl"
               >
                 <FaExternalLinkAlt className="text-sm" />
@@ -142,6 +143,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
             )}
             <button
               onClick={() => onFlip(true)}
+              aria-label="View Details"
               className="w-11 h-11 rounded-full bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center text-white/80 hover:text-white hover:scale-110 transition-all shadow-xl"
             >
               <FaEye className="text-lg" />
@@ -198,6 +200,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
                 )}
                 <button
                   onClick={() => onFlip(false)}
+                  aria-label="Go Back"
                   className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/30 hover:text-white transition-all"
                   title="Go Back"
                 >
@@ -326,14 +329,14 @@ export default function Projects() {
             <>
               <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
                 <Magnetic>
-                  <button onClick={prev} className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
+                  <button onClick={prev} aria-label="Previous Project" className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
                     <FaChevronLeft />
                   </button>
                 </Magnetic>
               </div>
               <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
                 <Magnetic>
-                  <button onClick={next} className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
+                  <button onClick={next} aria-label="Next Project" className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
                     <FaChevronRight />
                   </button>
                 </Magnetic>
@@ -347,6 +350,7 @@ export default function Projects() {
               <button
                 key={i}
                 onClick={() => { setCurrent(i); setFlipped(false); }}
+                aria-label={`Go to project ${i + 1}`}
                 className="rounded-full transition-all duration-300"
                 style={{
                   width: i === current ? '24px' : '8px',

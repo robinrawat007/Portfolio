@@ -53,7 +53,7 @@ export async function POST(req) {
     }
 
     const topChunks = await searchKnowledgeBase(userText, 3);
-    console.log(`[Atlas] chunks: ${topChunks.length} | ids: ${topChunks.map(c => c.id).join(', ')}`);
+
     const ragContext = formatRagContext(topChunks);
     const hasContext = Boolean(topChunks?.length);
 

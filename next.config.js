@@ -2,7 +2,7 @@
 const nextConfig = {
   output: process.env.NEXT_PUBLIC_STATIC_EXPORT === "true" ? "export" : undefined,
   images: {
-    unoptimized: true,
+    unoptimized: process.env.NEXT_PUBLIC_STATIC_EXPORT === "true",
   },
 
   // Security headers applied to every response
