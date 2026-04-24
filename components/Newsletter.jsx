@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaNewspaper, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
+import Image from 'next/image';
 import { Spotlight } from './motion';
 
 export default function Newsletter() {
@@ -28,9 +29,16 @@ export default function Newsletter() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-yellow/10 border border-neon-yellow/20 mb-6"
+                className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/10 mb-6 group/logo"
               >
-                <FaNewspaper className="text-neon-yellow text-sm" />
+                <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/10 group-hover/logo:border-neon-yellow/30 transition-colors">
+                  <Image 
+                    src="/NL-Logo.png" 
+                    alt="AI Dispatch Logo" 
+                    fill 
+                    className="object-cover"
+                  />
+                </div>
                 <span className="text-neon-yellow text-xs font-bold tracking-widest uppercase">Daily Briefing</span>
               </motion.div>
               

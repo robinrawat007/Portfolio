@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "deploy": "next build && gh-pages -d out",
-    "seed": "node --env-file .env scripts/seed-db.mjs"
+    "seed": "node --env-file .env.local scripts/seed-db.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.86.1",
