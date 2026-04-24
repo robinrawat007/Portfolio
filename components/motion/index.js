@@ -12,3 +12,4 @@ export { default as Firecrackers } from "./Firecrackers";
 export { default as Spotlight } from "./Spotlight";
 export { default as Tilt } from "./Tilt";
 export { default as GlassShapes } from "./GlassShapes";
+export { default as CardSpotlight } from "./CardSpotlight";

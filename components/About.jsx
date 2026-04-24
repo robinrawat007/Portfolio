@@ -7,7 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitReveal from '@/components/motion/SplitReveal';
 import CountUp from '@/components/motion/CountUp';
-import { Tilt, GlassShapes } from '@/components/motion';
+import { Tilt, GlassShapes, CardSpotlight } from '@/components/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -129,9 +129,9 @@ export default function About() {
 
         {/* Text side */}
         <div className="lg:col-span-7 space-y-8">
-          <div className="glass-card p-8 relative overflow-hidden group">
+          <CardSpotlight className="glass-card p-8">
             <div
-              className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 rounded-full blur-3xl opacity-8 group-hover:opacity-15 transition-opacity duration-500 pointer-events-none"
+              className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 rounded-full blur-3xl opacity-8 group-hover/card-spotlight:opacity-15 transition-opacity duration-500 pointer-events-none"
               style={{ background: 'var(--neon-yellow)' }}
             />
 
@@ -190,7 +190,7 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </div>
+          </CardSpotlight>
         </div>
       </div>
 

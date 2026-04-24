@@ -183,7 +183,7 @@ export default function Hero() {
           {' '}
           {/* Name — ScrambleText with gradient; delay syncs to GSAP reveal at 0.65s */}
           <span ref={nameRef} className="inline-flex items-baseline relative">
-            <Spotlight size={300} blur={20}>
+            <Spotlight size={400} blur={15} color="rgba(255, 255, 255, 0.8)" opacity={1}>
               <span
                 className="text-transparent bg-clip-text whitespace-nowrap relative z-10"
                 style={{ backgroundImage: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }}
