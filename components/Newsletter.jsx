@@ -11,13 +11,6 @@ export default function Newsletter() {
 
   return (
     <section className="relative py-24 px-4 overflow-hidden" id="newsletter">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 -z-10">
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 blur-[120px] opacity-10 rounded-full"
-          style={{ background: 'var(--neon-yellow)' }}
-        />
-      </div>
 
       <div className="max-w-5xl mx-auto">
         <Spotlight className="glass-card p-8 md:p-12 relative overflow-hidden group border-white/10">

@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
-import MouseGlow from '@/components/motion/MouseGlow';
 import ScrambleText from '@/components/motion/ScrambleText';
 import { Magnetic, HoloEffect, Spotlight } from '@/components/motion';
 
@@ -136,25 +135,6 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden"
     >
-      <MouseGlow />
-
-      <div className="absolute inset-0 -z-10 pointer-events-none">
-        {/* Pulsing neon dots at grid intersections */}
-        {NEON_DOTS.map((dot, i) => (
-          <div
-            key={i}
-            className="absolute w-[6px] h-[6px] rounded-full"
-            style={{
-              top: dot.top,
-              left: dot.left,
-              background: dot.color,
-              boxShadow: `0 0 8px ${dot.color}`,
-              animation: `neon-pulse ${dot.dur}s ease-in-out infinite`,
-              animationDelay: dot.delay,
-            }}
-          />
-        ))}
-      </div>
 
       <div ref={containerRef} className="relative z-10 space-y-8 max-w-4xl mx-auto">
 

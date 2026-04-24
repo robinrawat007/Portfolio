@@ -17,12 +17,6 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="relative z-10 w-full pt-32 pb-12 overflow-hidden bg-black">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <GlassShapes />
-      </div>
-
-      <Spotlight fill="rgba(217, 255, 0, 0.03)" />
 
       {/* Top Border Scanline */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-white/5 overflow-hidden">

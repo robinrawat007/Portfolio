@@ -18,18 +18,6 @@
   --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
 }
 
-/* ── Grain texture overlay ──────────────────────────────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
-  will-change: auto;
-}
 
 @layer base {
   body {
@@ -130,62 +118,6 @@ body::before {
   }
 }
 
-/* ── Neon ambient orbs (replaces Three.js canvas) ───────────────────────── */
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(130px);
-  will-change: transform, opacity;
-  animation: orb-float 15s ease-in-out infinite;
-}
-
-.bg-orb-1 {
-  width: 70%;
-  height: 65%;
-  top: -10%;
-  left: -15%;
-  background: rgba(217, 255, 0, 0.06);
-  animation-duration: 15s;
-}
-
-.bg-orb-2 {
-  width: 60%;
-  height: 55%;
-  top: 10%;
-  right: -15%;
-  background: rgba(0, 255, 133, 0.04);
-  animation-duration: 18s;
-  animation-direction: reverse;
-}
-
-.bg-orb-3 {
-  width: 45%;
-  height: 45%;
-  bottom: -10%;
-  left: 30%;
-  background: rgba(217, 255, 0, 0.03);
-  animation-duration: 12s;
-  animation-delay: 2s;
-}
-
-@keyframes orb-float {
-
-  0%,
-  100% {
-    transform: scale(1) translate(0, 0);
-    opacity: 0.8;
-  }
-
-  33% {
-    transform: scale(1.12) translate(2%, 1%);
-    opacity: 1;
-  }
-
-  66% {
-    transform: scale(0.95) translate(-1%, 2%);
-    opacity: 0.7;
-  }
-}
 
 @keyframes atlas-fab-idle {
 
