@@ -62,7 +62,7 @@ export default function Newsletter() {
       window.open("https://aidispatch1.beehiiv.com/", "_blank", "noopener,noreferrer");
       // Reset state after a delay so it's ready if they come back
       setTimeout(() => setIsOpening(false), 500);
-    }, 800);
+    }, 700);
   };
 
   return (
