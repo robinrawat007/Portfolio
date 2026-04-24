@@ -67,7 +67,7 @@ export default function Newsletter() {
             {/* Right Content / CTA */}
             <div className="flex-shrink-0">
               <motion.a
-                href="https://thestackshift.beehiiv.com"
+                href="https://aidispatch1.beehiiv.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative group block"
