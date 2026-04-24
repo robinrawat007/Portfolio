@@ -22,13 +22,66 @@ const fetchProjects = async () => {
 const SLIDE_INTERVAL = 5000;
 
 function ProjectCard({ proj, onFlip, flipped }) {
+  const [showSparkles, setShowSparkles] = useState(false);
+
+  useEffect(() => {
+    if (flipped) {
+      setShowSparkles(true);
+      const t = setTimeout(() => setShowSparkles(false), 2000);
+      return () => clearTimeout(t);
+    }
+  }, [flipped]);
+
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <AnimatePresence>
+        {showSparkles && (
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <div className="absolute left-0 top-1/2">
+              {[...Array(30)].map((_, i) => (
+                <motion.div
+                  key={`l-${i}`}
+                  initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [0, Math.random() * 1.5 + 0.5, 0],
+                    x: Math.random() * -350 - 50,
+                    y: Math.random() * 600 - 300,
+                    rotate: Math.random() * 360,
+                  }}
+                  transition={{ duration: 1.2 + Math.random() * 0.5, ease: "easeOut" }}
+                  className={`absolute w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-sm ${i % 3 === 0 ? 'bg-neon-yellow' : i % 3 === 1 ? 'bg-neon-green' : 'bg-white'}`}
+                  style={{ boxShadow: `0 0 15px ${i % 3 === 0 ? 'rgba(217,255,0,0.8)' : i % 3 === 1 ? 'rgba(0,255,102,0.8)' : 'rgba(255,255,255,0.8)'}` }}
+                />
+              ))}
+            </div>
+            <div className="absolute right-0 top-1/2">
+              {[...Array(30)].map((_, i) => (
+                <motion.div
+                  key={`r-${i}`}
+                  initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [0, Math.random() * 1.5 + 0.5, 0],
+                    x: Math.random() * 350 + 50,
+                    y: Math.random() * 600 - 300,
+                    rotate: Math.random() * 360,
+                  }}
+                  transition={{ duration: 1.2 + Math.random() * 0.5, ease: "easeOut" }}
+                  className={`absolute w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-sm ${i % 3 === 0 ? 'bg-neon-cyan' : i % 3 === 1 ? 'bg-neon-yellow' : 'bg-white'}`}
+                  style={{ boxShadow: `0 0 15px ${i % 3 === 0 ? 'rgba(0,255,255,0.8)' : i % 3 === 1 ? 'rgba(217,255,0,0.8)' : 'rgba(255,255,255,0.8)'}` }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
+
       <motion.div
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+        animate={{ rotateY: flipped ? 900 : 0 }}
+        transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
         style={{ transformStyle: 'preserve-3d' }}
-        className="relative w-full min-h-[500px]"
+        className="relative w-full min-h-[500px] z-10"
       >
         {/* FRONT: Clean Full-Image Gallery Look */}
         <div
