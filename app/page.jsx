@@ -11,6 +11,7 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Newsletter from "@/components/Newsletter";
 import MarqueeTicker from "@/components/MarqueeTicker";
 import ScrollReveal from "@/components/customScroll";
 
@@ -25,7 +26,6 @@ const BackgroundCanvas = dynamic(() => import("@/components/three/BackgroundCanv
 const AtlasChat = dynamic(() => import("@/components/AtlasChat"), { ssr: false });
 const SocialSidebar = dynamic(() => import("@/components/SocialSidebar"), { ssr: false });
 const CustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
-const FloatingNewsletter = dynamic(() => import("@/components/FloatingNewsletter"), { ssr: false });
 
 export default function Home() {
   return (
@@ -73,7 +73,6 @@ export default function Home() {
         <CustomCursor />
         <SocialSidebar />
         <AtlasChat />
-        <FloatingNewsletter />
 
         <Navbar />
         <GSAPAnimations />
@@ -93,6 +92,7 @@ export default function Home() {
             <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal></ErrorBoundary>
 
             <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
+            <Newsletter />
             <Footer />
           </motion.div>
         </main>

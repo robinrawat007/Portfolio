@@ -28,10 +28,13 @@ export default function CustomCursor() {
       dot.style.display   = "block";
       aura.style.display  = "block";
 
-      const xDot  = gsap.quickTo(dot,  "x", { duration: 0.1, ease: "none" });
-      const yDot  = gsap.quickTo(dot,  "y", { duration: 0.1, ease: "none" });
-      const xAura = gsap.quickTo(aura, "x", { duration: 0.4, ease: "power3.out" });
-      const yAura = gsap.quickTo(aura, "y", { duration: 0.4, ease: "power3.out" });
+      const xDot      = gsap.quickTo(dot,  "x",      { duration: 0.1, ease: "none" });
+      const yDot      = gsap.quickTo(dot,  "y",      { duration: 0.1, ease: "none" });
+      const xAura     = gsap.quickTo(aura, "x",      { duration: 0.4, ease: "power3.out" });
+      const yAura     = gsap.quickTo(aura, "y",      { duration: 0.4, ease: "power3.out" });
+      const rotAura   = gsap.quickTo(aura, "rotate", { duration: 0.2, ease: "none" });
+      const scaleXAura = gsap.quickTo(aura, "scaleX", { duration: 0.2, ease: "none" });
+      const scaleYAura = gsap.quickTo(aura, "scaleY", { duration: 0.2, ease: "none" });
 
       const onMouseMove = (e) => {
         // Show cursor on first move
@@ -42,7 +45,6 @@ export default function CustomCursor() {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
-        // Calculate velocity for stretching
         velocity.x = mouse.x - previousMouse.x;
         velocity.y = mouse.y - previousMouse.y;
         previousMouse.x = mouse.x;
@@ -57,15 +59,10 @@ export default function CustomCursor() {
         xAura(mouse.x - 24);
         yAura(mouse.y - 24);
 
-        // Apply dynamic stretching to the aura (only in default mode to avoid jitter)
         if (currentMode === "default") {
-          gsap.to(aura, {
-            rotate: angle,
-            scaleX: 1 + stretch,
-            scaleY: 1 - stretch * 0.5,
-            duration: 0.2,
-            overwrite: "auto",
-          });
+          rotAura(angle);
+          scaleXAura(1 + stretch);
+          scaleYAura(1 - stretch * 0.5);
         }
       };
 
