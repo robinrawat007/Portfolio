@@ -13,11 +13,6 @@ function formatProjectContent(p) {
   return `Project: ${p.title} — ${p.subtitle} (${p.period}). Tech: ${tech}. ${sections} Key outcomes: ${outcomes}.`;
 }
 
-function formatServiceContent(s) {
-  const status = s.disabled ? " (Coming soon)" : "";
-  return `Service: ${s.title}${status} — ${s.description}`;
-}
-
 function formatSkillContent(s) {
   return `Skill: ${s.name}. Category: ${s.category}. ${s.showcase ? "Featured in the interactive skills playground." : ""}`;
 }
@@ -34,18 +29,6 @@ function buildKbEntry(table, record) {
           tags: [record.id, record.title?.toLowerCase(), ...(record.tech ?? []).map((t) => t.toLowerCase())],
         },
         source: "projects",
-        source_id: record.id,
-      };
-    case "services":
-      return {
-        id: `services.${record.id}`,
-        content: formatServiceContent(record),
-        metadata: {
-          section: "Services",
-          type: "service",
-          tags: [record.id, record.title?.toLowerCase()],
-        },
-        source: "services",
         source_id: record.id,
       };
     case "skills":
@@ -80,7 +63,7 @@ export async function POST(req) {
 
   const { type, table, record, old_record } = body;
 
-  if (!["projects", "services", "skills"].includes(table)) {
+  if (!["projects", "skills"].includes(table)) {
     return Response.json({ ok: true, skipped: true });
   }
 

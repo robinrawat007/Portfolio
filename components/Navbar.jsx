@@ -11,7 +11,6 @@ const navLinks = [
     { name: 'About', href: '#about', color: '#00FF85' }, // neon-green
     { name: 'Skills', href: '#skills', color: '#FF0080' }, // neon-pink
     { name: 'Projects', href: '#projects', color: '#7B4FE0' }, // neon-purple
-    { name: 'Services', href: '#services', color: '#FF8000' }, // neon-orange
     { name: 'Contact', href: '#contact', color: '#80FF00' }, // neon-lime
 ];
 

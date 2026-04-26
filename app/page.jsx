@@ -17,7 +17,6 @@ import ScrollReveal from "@/components/customScroll";
 
 import LenisProvider from "@/components/LenisProvider";
 import GSAPAnimations from "@/components/GSAPAnimations";
-import Services from "@/components/Services";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ScrollProgressBar from "@/components/motion/ScrollProgressBar";
 
@@ -60,10 +59,8 @@ export default function Home() {
             <ErrorBoundary><ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal></ErrorBoundary>
             <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal></ErrorBoundary>
 
-            <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.15}><Services /></ScrollReveal></ErrorBoundary>
-
-            <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
             <Newsletter />
+            <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
             <Footer />
           </motion.div>
         </main>
