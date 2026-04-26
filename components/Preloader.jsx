@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -11,64 +11,70 @@ export default function Preloader({ onComplete }) {
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
 
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // Final exit animation
-        gsap.to(containerRef.current, {
-          y: "-100%",
-          duration: 0.7,
-          ease: "power4.inOut",
-          onComplete: () => {
-            if (onComplete) onComplete();
-          },
-        });
-      },
-    });
+  React.useEffect(() => {
+    console.log("Preloader: Animation starting...");
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          console.log("Preloader: Timeline complete, exiting...");
+          gsap.to(containerRef.current, {
+            y: "-100%",
+            duration: 0.7,
+            ease: "power4.inOut",
+            onComplete: () => {
+              if (onComplete) onComplete();
+            },
+          });
+        },
+      });
 
-    // Initial reveal
-    tl.set([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
-      opacity: 0,
-      y: 20
-    });
+      // Initial reveal
+      tl.set([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
+        opacity: 0,
+        y: 20
+      });
 
-    tl.to([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
-      opacity: 1,
-      y: 0,
-      duration: 0.4,
-      stagger: 0.05,
-      ease: "power3.out"
-    });
-
-    // Animate counter and progress line
-    const counterObj = { value: 0 };
-    tl.to(counterObj, {
-      value: 100,
-      duration: 1.0,
-      ease: "none",
-      onUpdate: () => {
-        const val = Math.floor(counterObj.value);
-        if (counterTextRef.current) {
-          counterTextRef.current.innerText = `${val}%`;
+      // Animate counter and progress line
+      console.log("Preloader: Starting counter animation...");
+      gsap.to({ value: 0 }, {
+        value: 100,
+        duration: 1.5,
+        ease: "power1.inOut",
+        onUpdate: function() {
+          const val = Math.floor(this.targets()[0].value);
+          if (counterTextRef.current) {
+            counterTextRef.current.textContent = `${val}%`;
+          }
+          if (progressLineRef.current) {
+            progressLineRef.current.style.width = `${val}%`;
+          }
+        },
+        onComplete: () => {
+          console.log("Preloader: Counter reached 100%");
+          // Trigger the rest of the timeline or just finish
         }
-        if (progressLineRef.current) {
-          progressLineRef.current.style.width = `${val}%`;
-        }
-      },
-    }, "-=0.3");
+      });
 
-    // Hold at 100% for a moment
-    tl.to({}, { duration: 0.1 });
+      // Sequential timeline for the reveal and exit
+      tl.to([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power3.out"
+      })
+      .to({}, { duration: 1.2 }) // Wait for counter
+      .to([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
+        y: -30,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power3.in"
+      });
 
-    // Final "get ready" animation
-    tl.to([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
-      y: -30,
-      opacity: 0,
-      duration: 0.3,
-      ease: "power3.in"
-    });
+    }, containerRef);
 
-  }, { scope: containerRef });
+    return () => ctx.revert();
+  }, [onComplete]);
 
   return (
     <div

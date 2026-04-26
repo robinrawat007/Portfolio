@@ -39,6 +39,7 @@ function buildSideParticles(side) {
 }
 
 function ProjectCard({ proj, onFlip, flipped }) {
+  const [imageError, setImageError] = useState(false);
   const [fireKey, setFireKey] = useState(0);
   const [firing, setFiring] = useState(false);
   const prevFlippedRef = useRef(flipped);
@@ -151,13 +152,14 @@ function ProjectCard({ proj, onFlip, flipped }) {
           </div>
 
           <div className="absolute inset-0 w-full h-full overflow-hidden">
-            {proj.image_url ? (
+            {proj.image_url && !imageError ? (
               <Image
                 src={proj.image_url}
                 alt={proj.title}
                 fill
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 priority
+                onError={() => setImageError(true)}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-neutral-900 text-xs text-slate-600">

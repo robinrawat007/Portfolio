@@ -61,12 +61,12 @@ export default function Home() {
         
 
             <Navbar />
+            <SocialSidebar />
+            <AtlasChat />
             {enhancementsReady && (
               <>
                 <GSAPAnimations />
                 <CustomCursor />
-                <SocialSidebar />
-                <AtlasChat />
                 <ScrollProgressBar />
               </>
             )}
