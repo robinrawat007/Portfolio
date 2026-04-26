@@ -124,20 +124,30 @@ export default function Hero() {
     });
   };
 
-  const handleMouseMove = (e) => {
+  const getParallax = (e) => {
     const { left, top, width, height } = sectionRef.current.getBoundingClientRect();
     const px = e.clientX - left;
     const py = e.clientY - top;
-    const nx = (px / width - 0.5) * 2; // -1 → 1
+    const nx = (px / width - 0.5) * 2;
     const ny = (py / height - 0.5) * 2;
+    return { px, py, nx, ny };
+  };
 
-    // Video drifts opposite to cursor — depth parallax
+  // Snap video to correct position instantly on enter — prevents the "push from zero" jump
+  const handleMouseEnter = (e) => {
+    const { nx, ny } = getParallax(e);
+    gsap.set(videoWrapRef.current, { x: nx * -10, y: ny * -7 });
+  };
+
+  const handleMouseMove = (e) => {
+    const { px, py, nx, ny } = getParallax(e);
+
+    // Subtle parallax drift — reduced magnitude so it feels grounded, not floating
     gsap.to(videoWrapRef.current, {
-      x: nx * -18, y: ny * -12,
-      duration: 1.6, ease: 'power2.out', overwrite: 'auto',
+      x: nx * -10, y: ny * -7,
+      duration: 1.2, ease: 'power2.out', overwrite: 'auto',
     });
 
-    // Overlay lifts to reveal more of the video
     gsap.to(overlayRef.current, {
       opacity: 0.78,
       duration: 0.8, ease: 'power2.out', overwrite: 'auto',
@@ -145,7 +155,6 @@ export default function Hero() {
 
     spawnRipple(px, py);
 
-    // Move lens to cursor (quickTo = no per-frame gsap.to overhead)
     lensQuickX.current?.(px);
     lensQuickY.current?.(py);
     gsap.to(lensRef.current, { opacity: 1, duration: 0.35, overwrite: 'auto' });
@@ -154,7 +163,7 @@ export default function Hero() {
   const handleMouseLeave = () => {
     gsap.to(videoWrapRef.current, {
       x: 0, y: 0,
-      duration: 2, ease: 'power3.out', overwrite: 'auto',
+      duration: 1.8, ease: 'power3.out', overwrite: 'auto',
     });
     gsap.to(overlayRef.current, {
       opacity: 1,
@@ -182,6 +191,7 @@ export default function Hero() {
         className="relative w-full overflow-hidden flex items-end"
         style={{ height: '100svh', minHeight: '600px', background: '#060608' }}
         aria-labelledby="hero-title"
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
