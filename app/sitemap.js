@@ -1,13 +1,12 @@
-export default function sitemap() {
-  const baseUrl = "https://robin-singh-rawat.netlify.app";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://robin-singh-rawat.netlify.app";
 
+export default function sitemap() {
   return [
     {
-      url: baseUrl,
+      url: BASE_URL,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
-    // Add other routes if they exist, but for this portfolio it seems mostly a single page.
   ];
 }

@@ -9,7 +9,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
-        heading: ['var(--font-space-grotesk)', 'var(--font-outfit)', 'sans-serif'],
+        heading: ['var(--font-space-grotesk)', 'sans-serif'],
         mono: ['var(--font-jetbrains-mono)', 'JetBrains Mono', 'monospace'],
       },
       colors: {

@@ -2,16 +2,14 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { DripEffect, GlowText, Firecrackers } from '@/components/motion';
-
+import { DripEffect } from '@/components/motion';
 
 const navLinks = [
-    { name: 'Home', href: '#hero', color: '#D9FF00' }, // neon-yellow
-    { name: 'About', href: '#about', color: '#00FF85' }, // neon-green
-    { name: 'Skills', href: '#skills', color: '#FF0080' }, // neon-pink
-    { name: 'Projects', href: '#projects', color: '#7B4FE0' }, // neon-purple
-    { name: 'Contact', href: '#contact', color: '#80FF00' }, // neon-lime
+    { name: 'Home', href: '#hero', color: '#D9FF00' },
+    { name: 'About', href: '#about', color: '#00FF85' },
+    { name: 'Skills', href: '#skills', color: '#FF0080' },
+    { name: 'Projects', href: '#projects', color: '#7B4FE0' },
+    { name: 'Contact', href: '#contact', color: '#80FF00' },
 ];
 
 export default function Navbar() {
@@ -19,6 +17,7 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const menuRef = useRef(null);
+    const hamburgerRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -28,10 +27,34 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleKey = (e) => {
-            if (e.key === 'Escape' && mobileMenuOpen) setMobileMenuOpen(false);
+            if (e.key === 'Escape' && mobileMenuOpen) {
+                setMobileMenuOpen(false);
+                hamburgerRef.current?.focus();
+            }
         };
         document.addEventListener('keydown', handleKey);
         return () => document.removeEventListener('keydown', handleKey);
+    }, [mobileMenuOpen]);
+
+    // Focus trap for mobile menu
+    useEffect(() => {
+        if (!mobileMenuOpen || !menuRef.current) return;
+        const menu = menuRef.current;
+        const focusables = menu.querySelectorAll('a[href], button:not([disabled])');
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        first?.focus();
+
+        const handleTab = (e) => {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey) {
+                if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+            } else {
+                if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+            }
+        };
+        document.addEventListener('keydown', handleTab);
+        return () => document.removeEventListener('keydown', handleTab);
     }, [mobileMenuOpen]);
 
     useEffect(() => {
@@ -54,13 +77,10 @@ export default function Navbar() {
 
     return (
         <>
-            <motion.nav
+            <nav
                 role="navigation"
                 aria-label="Main navigation"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+                className={`animate-nav-enter fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
                     ? 'border-b py-2'
                     : 'bg-transparent py-2'
                     }`}
@@ -79,18 +99,16 @@ export default function Navbar() {
                         style={{ '--tw-ring-color': 'var(--neon-yellow)' }}
                         aria-label="Robin Singh Rawat - Home"
                     >
-                        <Firecrackers maxParticles={40}>
-                            <div
-                                className="relative z-10 w-32 h-10 md:w-36 md:h-12 flex items-center justify-start group-hover:scale-105 transition-transform origin-left"
-                            >
-                                <Image
-                                    src="/Logo.png"
-                                    alt="Robin logo"
-                                    fill
-                                    className="object-contain object-left scale-[1.3] md:scale-[1.5]"
-                                />
-                            </div>
-                        </Firecrackers>
+                        <div className="relative z-10 w-32 h-10 md:w-36 md:h-12 flex items-center justify-start group-hover:scale-105 transition-transform origin-left">
+                            <Image
+                                src="/Logo.png"
+                                alt="Robin logo"
+                                fill
+                                sizes="(max-width: 768px) 128px, 144px"
+                                className="object-contain object-left scale-[1.3] md:scale-[1.5]"
+                                priority
+                            />
+                        </div>
                     </a>
 
                     {/* Desktop nav */}
@@ -111,7 +129,6 @@ export default function Navbar() {
                                         onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--fg-muted)'; }}
                                     >
                                         {link.name}
-                                        {/* Dynamic link color underline */}
                                         <span
                                             className={`absolute bottom-1.5 left-4 right-4 h-[2px] origin-left transition-transform duration-300 ease-out ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                                             style={{ background: link.color }}
@@ -121,12 +138,11 @@ export default function Navbar() {
                                 </DripEffect>
                             );
                         })}
-
-
                     </div>
 
                     {/* Mobile hamburger */}
                     <button
+                        ref={hamburgerRef}
                         type="button"
                         className="md:hidden p-3 min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-lg transition-colors"
                         style={{ color: 'var(--fg-muted)', '--tw-ring-color': 'var(--neon-yellow)' }}
@@ -146,49 +162,45 @@ export default function Navbar() {
                         </svg>
                     </button>
                 </div>
-            </motion.nav>
+            </nav>
 
-            <AnimatePresence>
-                {mobileMenuOpen && (
-                    <motion.div
-                        id="mobile-menu"
-                        ref={menuRef}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-x-0 top-[72px] z-40 border-b md:hidden"
-                        style={{
-                            backdropFilter: 'blur(16px)',
-                            WebkitBackdropFilter: 'blur(16px)',
-                            background: 'rgba(10,10,10,0.95)',
-                            borderColor: 'var(--border)',
-                        }}
-                    >
-                        <div className="px-4 pt-2 pb-6 space-y-1">
-                            {navLinks.map((link) => {
-                                const isActive = activeSection === link.href.replace('#', '');
-                                return (
-                                    <a
-                                        key={link.name}
-                                        href={link.href}
-                                        aria-current={isActive ? 'page' : undefined}
-                                        onClick={closeMobileMenu}
-                                        className="block px-4 py-3 text-base font-medium rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                                        style={{
-                                            color: isActive ? link.color : 'var(--fg-muted)',
-                                            background: isActive ? `${link.color}10` : 'transparent', // added 10 for opacity
-                                            '--tw-ring-color': link.color,
-                                        }}
-                                    >
-                                        {link.name}
-                                    </a>
-                                );
-                            })}
-
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/* Mobile menu — CSS max-height transition, no Framer */}
+            <div
+                id="mobile-menu"
+                ref={menuRef}
+                aria-hidden={!mobileMenuOpen}
+                className={`fixed inset-x-0 top-[72px] z-40 border-b md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+                    mobileMenuOpen ? 'max-h-80 opacity-100 pointer-events-auto' : 'max-h-0 opacity-0 pointer-events-none'
+                }`}
+                style={{
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    background: 'rgba(10,10,10,0.95)',
+                    borderColor: 'var(--border)',
+                }}
+            >
+                <div className="px-4 pt-2 pb-6 space-y-1">
+                    {navLinks.map((link) => {
+                        const isActive = activeSection === link.href.replace('#', '');
+                        return (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                aria-current={isActive ? 'page' : undefined}
+                                onClick={closeMobileMenu}
+                                className="block px-4 py-3 text-base font-medium rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                                style={{
+                                    color: isActive ? link.color : 'var(--fg-muted)',
+                                    background: isActive ? `${link.color}10` : 'transparent',
+                                    '--tw-ring-color': link.color,
+                                }}
+                            >
+                                {link.name}
+                            </a>
+                        );
+                    })}
+                </div>
+            </div>
         </>
     );
 }

@@ -1,3 +1,5 @@
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://robin-singh-rawat.netlify.app";
+
 export default function robots() {
   return {
     rules: [
@@ -6,7 +8,6 @@ export default function robots() {
         allow: "/",
       },
     ],
-    sitemap: "https://robin-singh-rawat.netlify.app/sitemap.xml",
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }
-

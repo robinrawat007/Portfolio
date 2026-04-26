@@ -1,16 +1,10 @@
 import "./globals.css";
-import { Inter, Outfit, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Analytics from "../components/Analytics";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -26,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const BASE_URL = "https://robin-singh-rawat.netlify.app";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://robin-singh-rawat.netlify.app";
 
 export const metadata = {
   title: "Robin Singh Rawat — AI Generalist | React Next.js Angular TypeScript",
@@ -147,7 +141,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`dark ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       style={{ colorScheme: "dark" }}
     >
       <head>

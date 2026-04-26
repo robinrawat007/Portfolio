@@ -1,8 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Firecrackers, GlassShapes, Spotlight } from '@/components/motion';
+import { GlassShapes, Spotlight } from '@/components/motion';
 
 const footerLinks = [
   { name: 'Home', href: '#hero', color: '#D9FF00' },
@@ -18,11 +17,7 @@ export default function Footer() {
 
       {/* Top Border Scanline */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-white/5 overflow-hidden">
-        <motion.div
-          animate={{ x: ['-100%', '100%'] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          className="w-1/3 h-full bg-gradient-to-r from-transparent via-neon-yellow/40 to-transparent"
-        />
+        <div className="animate-scanline-sweep w-1/3 h-full bg-gradient-to-r from-transparent via-neon-yellow/40 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -40,6 +35,7 @@ export default function Footer() {
                     src="/Logo.png"
                     alt="Robin logo"
                     fill
+                    sizes="160px"
                     className="object-contain object-left"
                   />
                 </div>
@@ -55,33 +51,31 @@ export default function Footer() {
             <div className="flex flex-wrap justify-center lg:justify-end items-center gap-x-10 gap-y-8">
               <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
                 {footerLinks.map((link) => (
-                  <motion.a
+                  <a
                     key={link.name}
                     href={link.href}
-                    whileHover={{ y: -2 }}
-                    className="text-[13px] font-bold tracking-wider transition-all text-slate-400 hover:text-white flex items-center gap-3 group/link"
+                    className="text-[13px] font-bold tracking-wider transition-all duration-200 text-slate-400 hover:text-white hover:-translate-y-0.5 flex items-center gap-3 group/link"
                   >
                     <span
                       className="w-1.5 h-1.5 rounded-full bg-white/5 transition-all duration-300 group-hover/link:scale-150"
                       style={{ border: `1px solid ${link.color}40` }}
                     />
                     {link.name}
-                  </motion.a>
+                  </a>
                 ))}
               </div>
 
               {/* Minimalist Return Hub */}
               <div className="flex items-center ml-4 pl-10 border-l border-white/10 h-10">
-                <motion.a
+                <a
                   href="#hero"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/30 hover:text-neon-yellow hover:border-neon-yellow/40 hover:shadow-[0_0_20px_rgba(217,255,0,0.15)] transition-all"
+                  aria-label="Back to top"
+                  className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/30 hover:text-neon-yellow hover:border-neon-yellow/40 hover:shadow-[0_0_20px_rgba(217,255,0,0.15)] hover:scale-110 active:scale-95 transition-all duration-200"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                   </svg>
-                </motion.a>
+                </a>
               </div>
             </div>
           </div>

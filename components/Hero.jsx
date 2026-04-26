@@ -205,14 +205,6 @@ export default function Hero() {
 
   return (
     <>
-      <style>{`
-        @keyframes hero-drift {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-      `}</style>
-
       <section
         id="hero"
         ref={sectionRef}
@@ -356,7 +348,7 @@ export default function Hero() {
                   fontSize: 'clamp(3.8rem, 10.5vw, 11rem)',
                   fontWeight: 900,
                   letterSpacing: '-0.028em',
-                  WebkitTextStroke: '1.5px rgba(255,255,255,0.4)',
+                  WebkitTextStroke: '1.5px rgba(255,255,255,0.55)',
                   color: 'transparent',
                 }}
               >
@@ -391,7 +383,7 @@ export default function Hero() {
                 <p
                   key={role}
                   className="font-semibold uppercase"
-                  style={{ fontSize: '9px', letterSpacing: '0.32em', color: 'rgba(255,255,255,0.32)' }}
+                  style={{ fontSize: '11px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.65)' }}
                 >
                   {role}
                 </p>
@@ -402,7 +394,7 @@ export default function Hero() {
             <div className="flex-1 max-w-sm">
               <p
                 className="mb-8 leading-relaxed font-light"
-                style={{ fontSize: '13px', color: 'rgba(255,255,255,0.42)', letterSpacing: '0.015em' }}
+                style={{ fontSize: '15px', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.015em' }}
               >
                 From landing pages to production apps — AI assistants, RAG chatbots,
                 voice agents, and workflow automation end to end.
@@ -412,7 +404,7 @@ export default function Hero() {
                 <a
                   href="#projects"
                   className="group flex items-center gap-4 font-bold uppercase text-white"
-                  style={{ fontSize: '10px', letterSpacing: '0.24em' }}
+                  style={{ fontSize: '12px', letterSpacing: '0.22em' }}
                 >
                   View Work
                   <span
@@ -423,7 +415,7 @@ export default function Hero() {
                 <a
                   href="#contact"
                   className="font-bold uppercase transition-opacity duration-300 hover:opacity-80"
-                  style={{ fontSize: '10px', letterSpacing: '0.24em', color: 'rgba(255,255,255,0.25)' }}
+                  style={{ fontSize: '12px', letterSpacing: '0.22em', color: 'rgba(255,255,255,0.45)' }}
                 >
                   Let&apos;s Build
                 </a>

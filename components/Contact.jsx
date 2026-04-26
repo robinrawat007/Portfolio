@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { ENQUIRY_WEBHOOK_URL } from "@/lib/webhooks";
 import { Magnetic, Spotlight, GlassShapes } from '@/components/motion';
 
 const inputStyle = "w-full px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl text-sm text-white placeholder:text-white/20 outline-none focus:border-neon-yellow/40 focus:bg-white/[0.05] transition-all duration-300";
@@ -37,8 +35,9 @@ export default function Contact() {
     if (!validate()) return;
     setSubmitting(true); setStatus(null);
     try {
-      const payload = { name: form.name.trim(), email: form.email.trim(), enquiry: form.enquiry.trim(), source: "enquiry-form" };
-      const res = await fetch(ENQUIRY_WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const payload = { name: form.name.trim(), email: form.email.trim(), enquiry: form.enquiry.trim() };
+      const res = await fetch('/api/enquiry', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (res.status === 429) { setStatus({ type: "error", text: "Too many submissions. Wait a moment." }); return; }
       if (!res.ok) throw new Error("Failed");
       setStatus({ type: "success", text: "Received." });
       setForm(initialForm);
@@ -69,19 +68,19 @@ export default function Contact() {
       </div>
       
       <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
-        <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
+        <div className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-heading font-black mb-3 tracking-tighter text-white">
             Let&apos;s Build the Future
           </h2>
           <p className="max-w-2xl mx-auto text-base text-slate-400 font-medium leading-relaxed">
-            AI Integration & Senior Full Stack roles. 
+            AI Integration & Senior Full Stack roles.
             <span className="text-neon-green ml-2">Let&apos;s discuss your vision.</span>
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-6 items-stretch">
           {/* Left: Info Card */}
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:col-span-5">
+          <div className="lg:col-span-5">
             <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-8 flex flex-col overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
               
@@ -120,10 +119,10 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right: Enquiry Form */}
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:col-span-7">
+          <div className="lg:col-span-7">
             <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-8 lg:p-10 overflow-hidden">
               <Spotlight fill="rgba(217, 255, 0, 0.04)" />
               
@@ -151,13 +150,9 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-center justify-between gap-6 pt-2">
-                    <AnimatePresence mode="wait">
-                      {status && (
-                        <motion.p initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className={`text-[10px] font-bold uppercase tracking-widest ${status.type === 'success' ? 'text-neon-green' : 'text-red-400'}`}>
-                          {status.text}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    <p className={`text-[10px] font-bold uppercase tracking-widest transition-opacity duration-200 ${status ? 'opacity-100' : 'opacity-0'} ${status?.type === 'success' ? 'text-neon-green' : 'text-red-400'}`}>
+                      {status?.text ?? ' '}
+                    </p>
                     <button type="submit" disabled={submitting} className="ml-auto px-8 py-4 rounded-xl font-black uppercase tracking-[0.2em] text-[10px] bg-neon-yellow text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(217,255,0,0.3)] disabled:opacity-50 transition-all flex items-center gap-3">
                       {submitting ? "Sending..." : "Submit"}
                       <FaPaperPlane size={10} />
@@ -166,7 +161,7 @@ export default function Contact() {
                 </form>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
