@@ -35,7 +35,7 @@ const nextConfig = {
               "font-src 'self' data: https://fonts.gstatic.com",
               "img-src 'self' data: blob: https:",
               "connect-src 'self' https://api.anthropic.com https://hooks.n8n.cloud https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https:",
-              "media-src 'none'",
+              "media-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

@@ -1,262 +1,387 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { useGSAP } from '@gsap/react';
+import React, { useRef } from 'react';
 import { gsap } from 'gsap';
-import ScrambleText from '@/components/motion/ScrambleText';
-import { Magnetic, HoloEffect, Spotlight } from '@/components/motion';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import { Spotlight } from '@/components/motion';
 
-const roles = ["AI Generalist", "Full Stack Engineer", "Workflow Automation Expert"];
-
-const NEON_DOTS = [
-  { top: '18%', left: '12%', color: 'var(--neon-yellow)', dur: 2.4, delay: '0s' },
-  { top: '68%', left: '22%', color: 'var(--neon-green)', dur: 2.7, delay: '0.7s' },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingEnabled, setTypingEnabled] = useState(false);
+  const sectionRef     = useRef(null);
+  const videoWrapRef   = useRef(null);
+  const overlayRef     = useRef(null);
+  const contentRef     = useRef(null);
+  const line1Ref       = useRef(null);
+  const line2Ref       = useRef(null);
+  const dividerRef     = useRef(null);
+  const bottomRef      = useRef(null);
+  const scrollLineRef  = useRef(null);
+  const ripplePoolRef  = useRef(null);
+  const lastRippleRef  = useRef(0);
 
-  const containerRef = useRef(null);
-  const pillRef = useRef(null);
-  const pillSvgRef = useRef(null);
-  const pillRectRef = useRef(null);
-  const hiRef = useRef(null);
-  const nameRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const descRef = useRef(null);
-  const ctaRef = useRef(null);
+  useGSAP(
+    () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const typingSpeed = isDeleting ? 50 : 100;
+      // Scroll indicator travelling line
+      gsap.fromTo(
+        scrollLineRef.current,
+        { y: '-100%' },
+        { y: '220%', duration: 1.8, ease: 'power1.inOut', repeat: -1, repeatDelay: 0.5 }
+      );
 
-  useEffect(() => {
-    if (!typingEnabled) return;
-    const currentRole = roles[roleIndex];
-    const id = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayedText(currentRole.substring(0, displayedText.length + 1));
-        if (displayedText.length === currentRole.length) {
-          setTimeout(() => setIsDeleting(true), 1500);
+      // Initial hidden states
+      gsap.set([line1Ref.current, line2Ref.current], { y: '108%' });
+      gsap.set([dividerRef.current, bottomRef.current], { opacity: 0, y: 18 });
+
+      // Cinematic entrance — clip wipe on lines, fade on rest
+      const tl = gsap.timeline({ delay: 0.4 });
+      tl
+        .to(line1Ref.current, { y: '0%', duration: 1.25, ease: 'power4.out' })
+        .to(line2Ref.current, { y: '0%', duration: 1.25, ease: 'power4.out' }, '-=0.9')
+        .to(dividerRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+        .to(bottomRef.current, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.55');
+
+      // ScrollTrigger — bg/video slow zoom (parallax slow layer)
+      gsap.fromTo(
+        videoWrapRef.current,
+        { scale: 1 },
+        {
+          scale: 1.12,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
         }
-      } else {
-        setDisplayedText(currentRole.substring(0, displayedText.length - 1));
-        if (displayedText.length === 0) {
-          setIsDeleting(false);
-          setRoleIndex((p) => (p + 1) % roles.length);
-        }
-      }
-    }, typingSpeed);
-    return () => clearTimeout(id);
-  }, [displayedText, isDeleting, roleIndex, typingSpeed, typingEnabled]);
+      );
 
-  // Size the SVG pill border to match the pill's rendered dimensions
-  useLayoutEffect(() => {
-    const pill = pillRef.current;
-    const svg = pillSvgRef.current;
-    const rect = pillRectRef.current;
-    if (!pill || !svg || !rect) return;
-
-    const { width, height } = pill.getBoundingClientRect();
-    const rx = height / 2;
-
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    svg.setAttribute('width', String(width));
-    svg.setAttribute('height', String(height));
-    rect.setAttribute('x', '1');
-    rect.setAttribute('y', '1');
-    rect.setAttribute('width', String(width - 2));
-    rect.setAttribute('height', String(height - 2));
-    rect.setAttribute('rx', String(rx));
-    rect.setAttribute('ry', String(rx));
-  }, []);
-
-  useGSAP(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setTypingEnabled(true);
-      return;
-    }
-
-    const pill = pillRef.current;
-    const svgRect = pillRectRef.current;
-    const hi = hiRef.current;
-    const name = nameRef.current;
-    const subtitle = subtitleRef.current;
-    const desc = descRef.current;
-    const cta = ctaRef.current;
-    if (!pill || !hi || !name || !subtitle || !desc || !cta) return;
-
-    // Measure SVG stroke length
-    let strokeLen = 1000;
-    if (svgRect && typeof svgRect.getTotalLength === 'function') {
-      strokeLen = svgRect.getTotalLength();
-    }
-
-    gsap.set(pill, { opacity: 0 });
-    gsap.set(hi, { opacity: 0, y: 28 });
-    gsap.set(name, { opacity: 0 });
-    gsap.set(subtitle, { opacity: 0 });
-    gsap.set(desc, { opacity: 0, y: 16 });
-
-    const ctaChildren = Array.from(cta.children);
-    gsap.set(ctaChildren, { opacity: 0, y: 20 });
-
-    if (svgRect) {
-      gsap.set(svgRect, {
-        attr: { 'stroke-dasharray': strokeLen, 'stroke-dashoffset': strokeLen },
+      // ScrollTrigger — content fades faster than bg = depth illusion
+      gsap.to(contentRef.current, {
+        opacity: 0,
+        y: -50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: '20% top',
+          end: '62% top',
+          scrub: 1,
+        },
       });
-    }
+    },
+    { scope: sectionRef }
+  );
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const spawnRipple = (x, y) => {
+    const now = Date.now();
+    if (now - lastRippleRef.current < 90) return;
+    lastRippleRef.current = now;
 
-    // 1. Name revealed first ("Hi, I'm Robin Singh Rawat")
-    tl.to(hi, { opacity: 1, y: 0, duration: 0.6 }, 0)
-      .to(name, { opacity: 1, duration: 0.1 }, 0.2);
+    const container = ripplePoolRef.current;
+    if (!container) return;
 
-    // 2. Pill draws in ABOVE the name
-    tl.to(pill, { opacity: 1, duration: 0.4 }, 0.8)
-      .to(svgRect, { attr: { 'stroke-dashoffset': 0 }, duration: 0.6, ease: 'power2.inOut' }, 0.8);
+    // Two concentric rings per drop — inner tight, outer slow expansion
+    [
+      { maxSize: 120, startOpacity: 0.35, duration: 1.4, delay: 0    },
+      { maxSize: 220, startOpacity: 0.15, duration: 2.0, delay: 0.12 },
+    ].forEach(({ maxSize, startOpacity, duration, delay }) => {
+      const ring = document.createElement('div');
+      Object.assign(ring.style, {
+        position:      'absolute',
+        left:          `${x}px`,
+        top:           `${y}px`,
+        width:         '4px',
+        height:        '4px',
+        borderRadius:  '50%',
+        border:        `1px solid rgba(255,255,255,${startOpacity})`,
+        transform:     'translate(-50%, -50%)',
+        pointerEvents: 'none',
+        willChange:    'width, height, opacity',
+      });
+      container.appendChild(ring);
 
-    // 3. Description reveals BELOW
-    tl.to(desc, { opacity: 1, y: 0, duration: 0.6 }, 1.3);
+      gsap.to(ring, {
+        width:    maxSize,
+        height:   maxSize,
+        opacity:  0,
+        duration,
+        delay,
+        ease:     'power2.out',
+        onComplete: () => ring.remove(),
+      });
+    });
+  };
 
-    // 4. CTAs stagger in
-    tl.to(ctaChildren, { opacity: 1, y: 0, duration: 0.4, stagger: 0.14 }, 1.5);
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = sectionRef.current.getBoundingClientRect();
+    const px = e.clientX - left;
+    const py = e.clientY - top;
+    const nx = (px / width  - 0.5) * 2; // -1 → 1
+    const ny = (py / height - 0.5) * 2;
 
-    // 5. Enable typing after everything is settled
-    tl.call(() => setTypingEnabled(true), [], 1.9)
-      .to(subtitle, { opacity: 1, duration: 0.3 }, 1.9);
+    // Video drifts opposite to cursor — depth parallax
+    gsap.to(videoWrapRef.current, {
+      x: nx * -18, y: ny * -12,
+      duration: 1.6, ease: 'power2.out', overwrite: 'auto',
+    });
 
-  }, { scope: containerRef });
+    // Overlay lifts to reveal more of the video
+    gsap.to(overlayRef.current, {
+      opacity: 0.78,
+      duration: 0.8, ease: 'power2.out', overwrite: 'auto',
+    });
+
+    spawnRipple(px, py);
+  };
+
+  const handleMouseLeave = () => {
+    gsap.to(videoWrapRef.current, {
+      x: 0, y: 0,
+      duration: 2,
+      ease: 'power3.out',
+      overwrite: 'auto',
+    });
+    gsap.to(overlayRef.current, {
+      opacity: 1,
+      duration: 1,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    });
+  };
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden"
-    >
+    <>
+      <style>{`
+        @keyframes hero-drift {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
 
-      <div ref={containerRef} className="relative z-10 space-y-8 max-w-4xl mx-auto">
+      <section
+        id="hero"
+        ref={sectionRef}
+        className="relative w-full overflow-hidden flex items-end"
+        style={{ height: '100svh', minHeight: '600px', background: '#060608' }}
+        aria-labelledby="hero-title"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
 
-        {/* Status pill with SVG stroke border draw */}
-        <div ref={pillRef} className="inline-block mb-4 relative">
-          <svg
-            ref={pillSvgRef}
-            className="absolute inset-0 pointer-events-none overflow-visible"
-            fill="none"
-            aria-hidden="true"
-            style={{ position: 'absolute', top: 0, left: 0 }}
+        {/* ── Background: animated gradient fallback + video overlay ── */}
+        <div
+          ref={videoWrapRef}
+          className="absolute inset-0 z-0"
+          style={{ transformOrigin: 'center center' }}
+        >
+          {/* Fallback gradient — always visible beneath video */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                'linear-gradient(135deg, #06060c 0%, #0d0a16 20%, #060c12 40%, #0a0608 60%, #0d0a10 80%, #06060c 100%)',
+              backgroundSize: '400% 400%',
+              animation: 'hero-drift 30s ease infinite',
+            }}
+          />
+          {/* H.264 MP4 required — re-encode with ffmpeg if generated by AI tool */}
+          <video
+            className="absolute inset-0 w-full h-full"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            style={{ objectFit: 'cover' }}
           >
-            <rect
-              ref={pillRectRef}
-              style={{ stroke: 'rgba(0,255,133,0.55)', strokeWidth: '1.5' }}
-            />
-          </svg>
-          <span
-            className="flex items-center gap-3 px-5 py-2.5 rounded-full border bg-transparent text-sm font-medium tracking-wide backdrop-blur-md"
-            style={{ borderColor: 'transparent', color: 'var(--fg)' }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span
-                className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                style={{ background: 'var(--neon-green)' }}
-              />
-              <span
-                className="relative inline-flex rounded-full h-2 w-2"
-                style={{ background: 'var(--neon-green)', boxShadow: '0 0 8px var(--neon-green)' }}
-              />
-            </span>
-            I build solutions that remove friction and create value.
-          </span>
+            <source src="/hero-bg.mp4" type="video/mp4" />
+            <source src="/hero-bg.webm" type="video/webm" />
+          </video>
         </div>
 
-        {/* Heading */}
-        <h1
-          id="hero-title"
-          className="text-4xl sm:text-5xl md:text-7xl font-heading font-extrabold tracking-tight m-0 flex flex-wrap items-baseline justify-center gap-x-4"
-          style={{ color: 'var(--fg)' }}
-        >
-          <span ref={hiRef} className="inline-flex items-baseline">
-            Hi, I&apos;m
-          </span>
-          <br className="md:hidden" />
-          {' '}
-          {/* Name — ScrambleText with gradient; delay syncs to GSAP reveal at 0.65s */}
-          <span ref={nameRef} className="inline-flex items-baseline relative">
-            <Spotlight size={400} blur={15} color="rgba(255, 255, 255, 0.8)" opacity={1}>
-              <span
-                className="text-transparent bg-clip-text whitespace-nowrap relative z-10"
-                style={{ backgroundImage: 'linear-gradient(90deg, var(--neon-yellow), var(--neon-green))' }}
-              >
-                <ScrambleText text="Robin Singh Rawat" delay={0.1} duration={1000} />
-              </span>
-            </Spotlight>
-          </span>
-        </h1>
-
-        {/* Typing subtitle with block cursor */}
-        <span className="sr-only" aria-live="polite" aria-atomic="true">
-          {roles[roleIndex]}
-        </span>
+        {/* ── Gradient overlay — strong at bottom for text legibility ── */}
         <div
-          ref={subtitleRef}
-          className="h-10 md:h-12 flex items-center justify-center"
+          ref={overlayRef}
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.55) 68%, rgba(0,0,0,0.82) 100%)',
+          }}
+        />
+
+        {/* ── Vignette ── */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%)',
+          }}
+        />
+
+        {/* ── Film grain ── */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none select-none"
+          style={{
+            opacity: 0.04,
+            mixBlendMode: 'screen',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '200px 200px',
+          }}
+        />
+
+        {/* ── Ripple ring pool ── */}
+        <div
+          ref={ripplePoolRef}
+          className="absolute inset-0 pointer-events-none overflow-hidden"
+          style={{ zIndex: 15 }}
+        />
+
+        {/* ── Main content ── */}
+        <div
+          ref={contentRef}
+          className="relative z-20 w-full max-w-[1400px] mx-auto px-8 sm:px-14 lg:px-24 pb-20 md:pb-28"
+        >
+
+          {/* Headline — two-line clip wipe reveal */}
+          <h1
+            id="hero-title"
+            aria-label="Robin Singh Rawat"
+            className="font-heading"
+            style={{ margin: 0, lineHeight: 0.88 }}
+          >
+            {/* Line 1 — solid white */}
+            <div style={{ overflow: 'hidden', paddingBottom: '0.06em' }}>
+              <span
+                ref={line1Ref}
+                style={{
+                  display: 'block',
+                  fontSize: 'clamp(3.8rem, 10.5vw, 11rem)',
+                  fontWeight: 900,
+                  letterSpacing: '-0.028em',
+                  color: '#fff',
+                }}
+              >
+                <Spotlight size={800} blur={24} color="rgba(255,255,255,0.5)" opacity={0.9}>
+                  Robin Singh
+                </Spotlight>
+              </span>
+            </div>
+
+            {/* Line 2 — outline ghost text */}
+            <div style={{ overflow: 'hidden', paddingBottom: '0.06em' }}>
+              <span
+                ref={line2Ref}
+                style={{
+                  display: 'block',
+                  fontSize: 'clamp(3.8rem, 10.5vw, 11rem)',
+                  fontWeight: 900,
+                  letterSpacing: '-0.028em',
+                  WebkitTextStroke: '1.5px rgba(255,255,255,0.4)',
+                  color: 'transparent',
+                }}
+              >
+                <Spotlight size={800} blur={24} color="rgba(255,255,255,0.3)" opacity={0.75}>
+                  Rawat
+                </Spotlight>
+              </span>
+            </div>
+          </h1>
+
+          {/* Divider rule */}
+          <div
+            ref={dividerRef}
+            className="mt-8 mb-8"
+            style={{
+              width: '4rem',
+              height: '1px',
+              background: 'linear-gradient(90deg, rgba(255,255,255,0.35) 0%, transparent 100%)',
+              opacity: 0,
+            }}
+          />
+
+          {/* Bottom row — roles left, desc + CTA right */}
+          <div
+            ref={bottomRef}
+            className="flex flex-col sm:flex-row sm:items-end gap-10 sm:gap-20"
+            style={{ opacity: 0 }}
+          >
+            {/* Left — role labels */}
+            <div className="flex-shrink-0 space-y-1">
+              {['Full Stack Engineer', 'AI Generalist', 'Workflow Automation'].map((role) => (
+                <p
+                  key={role}
+                  className="font-semibold uppercase"
+                  style={{ fontSize: '9px', letterSpacing: '0.32em', color: 'rgba(255,255,255,0.32)' }}
+                >
+                  {role}
+                </p>
+              ))}
+            </div>
+
+            {/* Right — description + CTAs */}
+            <div className="flex-1 max-w-sm">
+              <p
+                className="mb-8 leading-relaxed font-light"
+                style={{ fontSize: '13px', color: 'rgba(255,255,255,0.42)', letterSpacing: '0.015em' }}
+              >
+                From landing pages to production apps — AI assistants, RAG chatbots,
+                voice agents, and workflow automation end to end.
+              </p>
+
+              <div className="flex items-center gap-10">
+                <a
+                  href="#projects"
+                  className="group flex items-center gap-4 font-bold uppercase text-white"
+                  style={{ fontSize: '10px', letterSpacing: '0.24em' }}
+                >
+                  View Work
+                  <span
+                    className="block h-px transition-all duration-500 ease-out group-hover:w-16"
+                    style={{ width: '2rem', background: 'rgba(255,255,255,0.5)' }}
+                  />
+                </a>
+                <a
+                  href="#contact"
+                  className="font-bold uppercase transition-opacity duration-300 hover:opacity-80"
+                  style={{ fontSize: '10px', letterSpacing: '0.24em', color: 'rgba(255,255,255,0.25)' }}
+                >
+                  Let&apos;s Build
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ── Scroll indicator ── */}
+        <div
+          className="absolute bottom-10 right-12 md:right-20 z-20 flex flex-col items-center gap-3"
           aria-hidden="true"
         >
-          <h2
-            className="text-xl md:text-3xl font-light leading-relaxed font-mono"
-            style={{ color: 'var(--neon-green)' }}
+          <span
+            className="font-bold uppercase"
+            style={{ fontSize: '8px', letterSpacing: '0.44em', color: 'rgba(255,255,255,0.18)', writingMode: 'vertical-rl' }}
           >
-            {displayedText}
-            <span
-              className="inline-block align-middle ml-0.5"
-              style={{
-                color: 'var(--neon-green)',
-                animation: 'cursor-blink 1s step-start infinite',
-                fontSize: '0.85em',
-              }}
-              aria-hidden="true"
-            >
-              █
-            </span>
-          </h2>
+            Scroll
+          </span>
+          <div
+            className="relative overflow-hidden"
+            style={{ width: '1px', height: '64px', background: 'rgba(255,255,255,0.07)' }}
+          >
+            <div
+              ref={scrollLineRef}
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '50%', background: 'rgba(255,255,255,0.4)' }}
+            />
+          </div>
         </div>
 
-        <p
-          ref={descRef}
-          className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-          style={{ color: 'var(--fg-muted)' }}
-        >
-          From landing pages to production apps.
-          <br />
-          AI assistants, RAG chatbots, voice agents, and workflow automation end to end.
-        </p>
-
-        {/* CTAs — Magnetic + CornerBrackets */}
-        <div
-          ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8"
-        >
-          <a
-            href="#projects"
-            className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg hover:brightness-110 transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
-            style={{ background: 'transparent', color: '#fff', border: '1px solid var(--neon-yellow)', boxShadow: '0 0 20px rgba(217,255,0,0.1)' }}
-          >
-            View My Work
-          </a>
-
-          <a
-            href="#contact"
-            className="px-8 py-4 min-h-[48px] rounded-lg font-bold text-lg transition-all duration-300 w-full sm:w-auto flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            style={{ border: '1px solid var(--neon-green)', color: 'var(--fg)', background: 'transparent' }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0,255,133,0.08)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-          >
-            Contact Me
-          </a>
-        </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
