@@ -78,10 +78,10 @@ export default function Preloader({ onComplete }) {
       <div className="flex items-center gap-6 md:gap-12 text-white font-heading select-none">
         <span
           ref={firstNameRef}
-          className="text-4xl md:text-7xl font-black tracking-tighter uppercase"
+          className="text-2xl md:text-4xl font-black tracking-tighter uppercase"
           style={{ color: "var(--neon-yellow, #D9FF00)" }}
         >
-          Robin
+          Framing
         </span>
 
         <div className="flex flex-col items-center min-w-[80px]">
@@ -102,9 +102,9 @@ export default function Preloader({ onComplete }) {
 
         <span
           ref={lastNameRef}
-          className="text-4xl md:text-7xl font-black tracking-tighter uppercase text-white"
+          className="text-2xl md:text-4xl font-black tracking-tighter uppercase text-white"
         >
-          Rawat
+          Perception
         </span>
       </div>
 
