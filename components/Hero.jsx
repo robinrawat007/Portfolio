@@ -20,6 +20,9 @@ export default function Hero() {
   const scrollLineRef  = useRef(null);
   const ripplePoolRef  = useRef(null);
   const lastRippleRef  = useRef(0);
+  const lensRef        = useRef(null);
+  const lensQuickX     = useRef(null);
+  const lensQuickY     = useRef(null);
 
   useGSAP(
     () => {
@@ -72,6 +75,11 @@ export default function Hero() {
           scrub: 1,
         },
       });
+
+      // Lens — quickTo setters for smooth cursor tracking
+      gsap.set(lensRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
+      lensQuickX.current = gsap.quickTo(lensRef.current, 'x', { duration: 0.65, ease: 'power3.out' });
+      lensQuickY.current = gsap.quickTo(lensRef.current, 'y', { duration: 0.65, ease: 'power3.out' });
     },
     { scope: sectionRef }
   );
@@ -136,20 +144,25 @@ export default function Hero() {
     });
 
     spawnRipple(px, py);
+
+    // Move lens to cursor (quickTo = no per-frame gsap.to overhead)
+    lensQuickX.current?.(px);
+    lensQuickY.current?.(py);
+    gsap.to(lensRef.current, { opacity: 1, duration: 0.35, overwrite: 'auto' });
   };
 
   const handleMouseLeave = () => {
     gsap.to(videoWrapRef.current, {
       x: 0, y: 0,
-      duration: 2,
-      ease: 'power3.out',
-      overwrite: 'auto',
+      duration: 2, ease: 'power3.out', overwrite: 'auto',
     });
     gsap.to(overlayRef.current, {
       opacity: 1,
-      duration: 1,
-      ease: 'power2.out',
-      overwrite: 'auto',
+      duration: 1, ease: 'power2.out', overwrite: 'auto',
+    });
+    gsap.to(lensRef.current, {
+      opacity: 0,
+      duration: 0.6, ease: 'power2.out', overwrite: 'auto',
     });
   };
 
@@ -235,6 +248,25 @@ export default function Hero() {
           }}
         />
 
+        {/* ── Cursor lens — soft brightening circle that trails the mouse ── */}
+        <div
+          ref={lensRef}
+          className="absolute pointer-events-none"
+          style={{
+            top: 0,
+            left: 0,
+            width: '320px',
+            height: '320px',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(circle, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.05) 45%, transparent 70%)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            mixBlendMode: 'soft-light',
+            zIndex: 11,
+            willChange: 'transform',
+          }}
+        />
+
         {/* ── Ripple ring pool ── */}
         <div
           ref={ripplePoolRef}
@@ -256,7 +288,7 @@ export default function Hero() {
             style={{ margin: 0, lineHeight: 0.88 }}
           >
             {/* Line 1 — solid white */}
-            <div style={{ overflow: 'hidden', paddingBottom: '0.06em' }}>
+            <div style={{ overflow: 'hidden', paddingBottom: '0.2em', marginBottom: '-0.2em' }}>
               <span
                 ref={line1Ref}
                 style={{
@@ -274,7 +306,7 @@ export default function Hero() {
             </div>
 
             {/* Line 2 — outline ghost text */}
-            <div style={{ overflow: 'hidden', paddingBottom: '0.06em' }}>
+            <div style={{ overflow: 'hidden', paddingBottom: '0.2em', marginBottom: '-0.2em' }}>
               <span
                 ref={line2Ref}
                 style={{

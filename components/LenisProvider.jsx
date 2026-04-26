@@ -8,7 +8,7 @@ import { setLenis } from "@/utils/lenis-store";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function LenisProvider({ children }) {
+export default function LenisProvider({ children, isStopped }) {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.1,
@@ -24,11 +24,17 @@ export default function LenisProvider({ children }) {
 
     lenis.on("scroll", ScrollTrigger.update);
 
+    if (isStopped) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+
     return () => {
       lenis.destroy();
       setLenis(null);
     };
-  }, []);
+  }, [isStopped]);
 
   return children;
 }

@@ -19,6 +19,7 @@ import LenisProvider from "@/components/LenisProvider";
 import GSAPAnimations from "@/components/GSAPAnimations";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ScrollProgressBar from "@/components/motion/ScrollProgressBar";
+import Preloader from "@/components/Preloader";
 
 // Deferred — not needed for initial render
 const AtlasChat = dynamic(() => import("@/components/AtlasChat"), { ssr: false });
@@ -26,8 +27,12 @@ const SocialSidebar = dynamic(() => import("@/components/SocialSidebar"), { ssr:
 const CustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
 
 export default function Home() {
+  const [isLoading, setIsLoading] = React.useState(true);
+
   return (
-    <LenisProvider>
+    <>
+      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      <LenisProvider isStopped={isLoading}>
       <div className="relative min-h-screen text-slate-100 overflow-x-hidden">
         <a
           href="#main-content"
@@ -39,32 +44,37 @@ export default function Home() {
         <div className="fixed inset-0 -z-20" style={{ background: 'var(--bg)' }} />
         
 
-        <ScrollProgressBar />
-        <CustomCursor />
-        <SocialSidebar />
-        <AtlasChat />
+        {!isLoading && (
+          <>
+            <Navbar />
+            <GSAPAnimations />
+            <CustomCursor />
+            <SocialSidebar />
+            <AtlasChat />
+            <ScrollProgressBar />
 
-        <Navbar />
-        <GSAPAnimations />
+            <main id="main-content" tabIndex={-1}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="relative z-10"
+              >
+                <ErrorBoundary><ScrollReveal animation="fade"><Hero /></ScrollReveal></ErrorBoundary>
+                <MarqueeTicker />
+                <ErrorBoundary><ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal></ErrorBoundary>
+                <ErrorBoundary><ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal></ErrorBoundary>
+                <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal></ErrorBoundary>
 
-        <main id="main-content" tabIndex={-1}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="relative z-10"
-          >
-            <ErrorBoundary><ScrollReveal animation="fade"><Hero /></ScrollReveal></ErrorBoundary>
-            <MarqueeTicker />
-            <ErrorBoundary><ScrollReveal animation="fadeRight" delay={0.2}><About /></ScrollReveal></ErrorBoundary>
-            <ErrorBoundary><ScrollReveal animation="scale" delay={0.1}><Skills /></ScrollReveal></ErrorBoundary>
-            <ErrorBoundary><ScrollReveal animation="fadeUp" delay={0.1}><Projects /></ScrollReveal></ErrorBoundary>
-
-            <Newsletter />
-            <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
-            <Footer />
-          </motion.div>
-        </main>
+                <Newsletter />
+                <ErrorBoundary><ScrollReveal animation="scale" delay={0.2}><Contact /></ScrollReveal></ErrorBoundary>
+                <Footer />
+              </motion.div>
+            </main>
+          </>
+        )}
       </div>
-    </LenisProvider>
+      </LenisProvider>
+    </>
   );
 }

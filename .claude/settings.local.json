@@ -21,7 +21,10 @@
       "Bash(awk -F: '{print $1}')",
       "Bash(pnpm next *)",
       "Bash(pnpm tsc *)",
-      "Bash(ffmpeg -version)"
+      "Bash(ffmpeg -version)",
+      "WebFetch(domain:chrismacarifilms.com)",
+      "Bash(cat)",
+      "Read(//tmp/**)"
     ]
   }
 }
