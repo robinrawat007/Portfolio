@@ -23,10 +23,17 @@ export default function Hero() {
   const lensRef = useRef(null);
   const lensQuickX = useRef(null);
   const lensQuickY = useRef(null);
+  const pointerEffectsEnabled = useRef(false);
+  const pointerFrameRef = useRef(null);
+  const pendingPointerRef = useRef(null);
 
   useGSAP(
     () => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      pointerEffectsEnabled.current =
+        !reduceMotion && window.matchMedia('(pointer: fine)').matches;
+
+      if (reduceMotion) return;
 
       // Scroll indicator travelling line
       gsap.fromTo(
@@ -80,13 +87,20 @@ export default function Hero() {
       gsap.set(lensRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
       lensQuickX.current = gsap.quickTo(lensRef.current, 'x', { duration: 0.65, ease: 'power3.out' });
       lensQuickY.current = gsap.quickTo(lensRef.current, 'y', { duration: 0.65, ease: 'power3.out' });
+
+      return () => {
+        if (pointerFrameRef.current) {
+          cancelAnimationFrame(pointerFrameRef.current);
+          pointerFrameRef.current = null;
+        }
+      };
     },
     { scope: sectionRef }
   );
 
   const spawnRipple = (x, y) => {
     const now = Date.now();
-    if (now - lastRippleRef.current < 90) return;
+    if (now - lastRippleRef.current < 180) return;
     lastRippleRef.current = now;
 
     const container = ripplePoolRef.current;
@@ -125,6 +139,7 @@ export default function Hero() {
   };
 
   const getParallax = (e) => {
+    if (!sectionRef.current) return null;
     const { left, top, width, height } = sectionRef.current.getBoundingClientRect();
     const px = e.clientX - left;
     const py = e.clientY - top;
@@ -135,32 +150,45 @@ export default function Hero() {
 
   // Snap video to correct position instantly on enter — prevents the "push from zero" jump
   const handleMouseEnter = (e) => {
-    const { nx, ny } = getParallax(e);
+    if (!pointerEffectsEnabled.current) return;
+    const parallax = getParallax(e);
+    if (!parallax) return;
+    const { nx, ny } = parallax;
     gsap.set(videoWrapRef.current, { x: nx * -10, y: ny * -7 });
   };
 
   const handleMouseMove = (e) => {
-    const { px, py, nx, ny } = getParallax(e);
+    if (!pointerEffectsEnabled.current) return;
+    pendingPointerRef.current = getParallax(e);
+    if (pointerFrameRef.current) return;
 
-    // Subtle parallax drift — reduced magnitude so it feels grounded, not floating
-    gsap.to(videoWrapRef.current, {
-      x: nx * -10, y: ny * -7,
-      duration: 1.2, ease: 'power2.out', overwrite: 'auto',
+    pointerFrameRef.current = requestAnimationFrame(() => {
+      pointerFrameRef.current = null;
+      const pointer = pendingPointerRef.current;
+      if (!pointer) return;
+      const { px, py, nx, ny } = pointer;
+
+      // Subtle parallax drift — reduced magnitude so it feels grounded, not floating
+      gsap.to(videoWrapRef.current, {
+        x: nx * -10, y: ny * -7,
+        duration: 1.2, ease: 'power2.out', overwrite: 'auto',
+      });
+
+      gsap.to(overlayRef.current, {
+        opacity: 0.78,
+        duration: 0.8, ease: 'power2.out', overwrite: 'auto',
+      });
+
+      spawnRipple(px, py);
+
+      lensQuickX.current?.(px);
+      lensQuickY.current?.(py);
+      gsap.to(lensRef.current, { opacity: 1, duration: 0.35, overwrite: 'auto' });
     });
-
-    gsap.to(overlayRef.current, {
-      opacity: 0.78,
-      duration: 0.8, ease: 'power2.out', overwrite: 'auto',
-    });
-
-    spawnRipple(px, py);
-
-    lensQuickX.current?.(px);
-    lensQuickY.current?.(py);
-    gsap.to(lensRef.current, { opacity: 1, duration: 0.35, overwrite: 'auto' });
   };
 
   const handleMouseLeave = () => {
+    if (!pointerEffectsEnabled.current) return;
     gsap.to(videoWrapRef.current, {
       x: 0, y: 0,
       duration: 1.8, ease: 'power3.out', overwrite: 'auto',
@@ -220,6 +248,10 @@ export default function Hero() {
             loop
             playsInline
             preload="auto"
+            poster="/hero-poster.svg"
+            fetchPriority="high"
+            aria-hidden="true"
+            disablePictureInPicture
             style={{ objectFit: 'cover' }}
           >
             <source src="/hero-bg.mp4" type="video/mp4" />

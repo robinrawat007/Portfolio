@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="glowA" cx="18%" cy="22%" r="58%">
+      <stop offset="0" stop-color="#1d2b20"/>
+      <stop offset="0.38" stop-color="#101312"/>
+      <stop offset="1" stop-color="#060608"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="78%" cy="28%" r="54%">
+      <stop offset="0" stop-color="#132a2a" stop-opacity="0.72"/>
+      <stop offset="0.55" stop-color="#0b1014" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#060608" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#060608" stop-opacity="0"/>
+      <stop offset="0.58" stop-color="#060608" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#020203"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.13"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1600" height="1000" fill="#060608"/>
+  <rect width="1600" height="1000" fill="url(#glowA)"/>
+  <rect width="1600" height="1000" fill="url(#glowB)"/>
+  <path d="M0 640 C280 570 500 720 800 640 C1110 558 1320 650 1600 570 L1600 1000 L0 1000 Z" fill="#0b0b0d" opacity="0.72"/>
+  <path d="M0 780 C270 720 520 820 820 760 C1110 702 1340 768 1600 710 L1600 1000 L0 1000 Z" fill="#030304" opacity="0.82"/>
+  <rect width="1600" height="1000" fill="url(#floor)"/>
+  <rect width="1600" height="1000" filter="url(#grain)" opacity="0.2"/>
+</svg>
