@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEye, FaChevronLeft, FaChevronRight, FaExternalLinkAlt } from 'react-icons/fa';
 import Image from 'next/image';

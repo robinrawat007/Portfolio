@@ -14,7 +14,7 @@ export default class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     // In production you could ship this to Sentry / LogRocket.
-    console.error("[ErrorBoundary] Section crashed:", error, info?.componentStack);
+    if (process.env.NODE_ENV !== 'production') console.error("[ErrorBoundary] Section crashed:", error, info?.componentStack);
   }
 
   render() {

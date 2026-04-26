@@ -24,7 +24,12 @@
       "Bash(ffmpeg -version)",
       "WebFetch(domain:chrismacarifilms.com)",
       "Bash(cat)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(sed -i 's/import React, { useRef, useState } from .react.;/import { useRef, useState } from '\\\\''react'\\\\'';/' components/About.jsx)",
+      "Bash(sed -i 's/import React, { useEffect, useRef, useState } from .react.;/import { useEffect, useRef, useState } from '\\\\''react'\\\\'';/' components/ArsenalPlayground.jsx)",
+      "Bash(sed -i 's/import React, { useCallback, useEffect, useRef, useState } from \"react\";/import { useCallback, useEffect, useRef, useState } from \"react\";/' components/AtlasChat.jsx)",
+      "Bash(sed -i 's/import React, { useRef, useEffect } from \"react\";/import { useRef, useEffect } from \"react\";/' components/MarqueeTicker.jsx)",
+      "Bash(sed -i 's/import React, { useState } from .react.;/import { useState } from '\\\\''react'\\\\'';/' components/Newsletter.jsx)"
     ]
   }
 }

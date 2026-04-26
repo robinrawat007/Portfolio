@@ -1,26 +1,8 @@
 "use client";
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import ArsenalPlayground from './ArsenalPlayground';
 
-const skillCategories = [
-  {
-    title: "Technical Skills",
-    icon: "💻",
-    skills: ["Angular", "React", "Next.js", "React Native", "TypeScript", "JavaScript", "Redux", "Zustand", "Tan Stack", "Tailwind", "Material UI", "RESTful APIs", "Jest", "HTML", "CSS", "WebSockets", "Git", "Unit Testing", "RxJS"]
-  },
-  {
-    title: "AI and LLM Tools",
-    icon: "🤖",
-    skills: ["OpenAI API", "Claude API", "LangChain", "Prompt Engineering", "AI Automation", "n8n", "RAG Systems", "Hugging Face"]
-  },
-  {
-    title: "Tools & Platforms",
-    icon: "🛠️",
-    skills: ["Postman", "ClickUp", "Jira", "Mend", "Figma", "Android Studio", "VS Code", "Antigravity", "Chrome DevTools", "GitHub", "GitLab", "Sentry", "Vercel / Netlify", "Lighthouse", "AWS"]
-  }
-];
 
 export default function Skills() {
   return (

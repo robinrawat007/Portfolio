@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabaseClient';
@@ -122,7 +122,7 @@ function PhysicsScene({ skills }) {
         };
         updateRender();
       } catch (err) {
-        console.error('Physics initialization failed:', err);
+        if (process.env.NODE_ENV !== 'production') console.error('Physics initialization failed:', err);
         setEngineError(err.toString());
       }
     };

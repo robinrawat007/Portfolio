@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -9,20 +9,20 @@ import { Spotlight } from '@/components/motion';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-  const sectionRef     = useRef(null);
-  const videoWrapRef   = useRef(null);
-  const overlayRef     = useRef(null);
-  const contentRef     = useRef(null);
-  const line1Ref       = useRef(null);
-  const line2Ref       = useRef(null);
-  const dividerRef     = useRef(null);
-  const bottomRef      = useRef(null);
-  const scrollLineRef  = useRef(null);
-  const ripplePoolRef  = useRef(null);
-  const lastRippleRef  = useRef(0);
-  const lensRef        = useRef(null);
-  const lensQuickX     = useRef(null);
-  const lensQuickY     = useRef(null);
+  const sectionRef = useRef(null);
+  const videoWrapRef = useRef(null);
+  const overlayRef = useRef(null);
+  const contentRef = useRef(null);
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const dividerRef = useRef(null);
+  const bottomRef = useRef(null);
+  const scrollLineRef = useRef(null);
+  const ripplePoolRef = useRef(null);
+  const lastRippleRef = useRef(0);
+  const lensRef = useRef(null);
+  const lensQuickX = useRef(null);
+  const lensQuickY = useRef(null);
 
   useGSAP(
     () => {
@@ -94,31 +94,31 @@ export default function Hero() {
 
     // Two concentric rings per drop — inner tight, outer slow expansion
     [
-      { maxSize: 120, startOpacity: 0.35, duration: 1.4, delay: 0    },
+      { maxSize: 120, startOpacity: 0.35, duration: 1.4, delay: 0 },
       { maxSize: 220, startOpacity: 0.15, duration: 2.0, delay: 0.12 },
     ].forEach(({ maxSize, startOpacity, duration, delay }) => {
       const ring = document.createElement('div');
       Object.assign(ring.style, {
-        position:      'absolute',
-        left:          `${x}px`,
-        top:           `${y}px`,
-        width:         '4px',
-        height:        '4px',
-        borderRadius:  '50%',
-        border:        `1px solid rgba(255,255,255,${startOpacity})`,
-        transform:     'translate(-50%, -50%)',
+        position: 'absolute',
+        left: `${x}px`,
+        top: `${y}px`,
+        width: '4px',
+        height: '4px',
+        borderRadius: '50%',
+        border: `1px solid rgba(255,255,255,${startOpacity})`,
+        transform: 'translate(-50%, -50%)',
         pointerEvents: 'none',
-        willChange:    'width, height, opacity',
+        willChange: 'width, height, opacity',
       });
       container.appendChild(ring);
 
       gsap.to(ring, {
-        width:    maxSize,
-        height:   maxSize,
-        opacity:  0,
+        width: maxSize,
+        height: maxSize,
+        opacity: 0,
         duration,
         delay,
-        ease:     'power2.out',
+        ease: 'power2.out',
         onComplete: () => ring.remove(),
       });
     });
@@ -128,7 +128,7 @@ export default function Hero() {
     const { left, top, width, height } = sectionRef.current.getBoundingClientRect();
     const px = e.clientX - left;
     const py = e.clientY - top;
-    const nx = (px / width  - 0.5) * 2; // -1 → 1
+    const nx = (px / width - 0.5) * 2; // -1 → 1
     const ny = (py / height - 0.5) * 2;
 
     // Video drifts opposite to cursor — depth parallax
@@ -285,10 +285,10 @@ export default function Hero() {
             id="hero-title"
             aria-label="Robin Singh Rawat"
             className="font-heading"
-            style={{ margin: 0, lineHeight: 0.88 }}
+            style={{ margin: 0, lineHeight: 1.0 }}
           >
             {/* Line 1 — solid white */}
-            <div style={{ overflow: 'hidden', paddingBottom: '0.2em', marginBottom: '-0.2em' }}>
+            <div style={{ overflow: 'hidden', paddingBottom: '0.5em' }}>
               <span
                 ref={line1Ref}
                 style={{
@@ -306,7 +306,7 @@ export default function Hero() {
             </div>
 
             {/* Line 2 — outline ghost text */}
-            <div style={{ overflow: 'hidden', paddingBottom: '0.2em', marginBottom: '-0.2em' }}>
+            <div style={{ overflow: 'hidden', paddingBottom: '0.5em' }}>
               <span
                 ref={line2Ref}
                 style={{
@@ -345,7 +345,7 @@ export default function Hero() {
           >
             {/* Left — role labels */}
             <div className="flex-shrink-0 space-y-1">
-              {['Full Stack Engineer', 'AI Generalist', 'Workflow Automation'].map((role) => (
+              {['Full Stack Engineer', 'AI Generalist'].map((role) => (
                 <p
                   key={role}
                   className="font-semibold uppercase"
