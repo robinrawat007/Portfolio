@@ -5,7 +5,7 @@ import Matter from 'matter-js';
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabaseClient';
 import {
-  FaAngular, FaReact, FaGithub, FaAws,
+  FaAngular, FaReact, FaGithub, FaAws, FaNodeJs, FaPython,
 } from 'react-icons/fa';
 import {
   SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiN8N,
@@ -16,7 +16,7 @@ import {
 import { TbBrandReactNative } from 'react-icons/tb';
 
 const ICON_MAP = {
-  FaAngular, FaReact, FaGithub, FaAws,
+  FaAngular, FaReact, FaGithub, FaAws, FaNodeJs, FaPython,
   SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiN8N,
   SiSupabase, SiClaude, SiRedux, SiReactquery, SiReactivex, SiMui,
   SiJest, SiOpenai, SiLangchain, SiHuggingface, SiFigma, SiVercel,
