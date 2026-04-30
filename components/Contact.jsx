@@ -14,10 +14,10 @@ export default function Contact() {
   const [status, setStatus] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const setField = (key, value) => { 
-    setForm((f) => ({ ...f, [key]: value })); 
-    setErrors((e) => ({ ...e, [key]: undefined })); 
-    setStatus(null); 
+  const setField = (key, value) => {
+    setForm((f) => ({ ...f, [key]: value }));
+    setErrors((e) => ({ ...e, [key]: undefined }));
+    setStatus(null);
   };
 
   const validate = () => {
@@ -39,7 +39,7 @@ export default function Contact() {
       const res = await fetch('/api/enquiry', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       if (res.status === 429) { setStatus({ type: "error", text: "Too many submissions. Wait a moment." }); return; }
       if (!res.ok) throw new Error("Failed");
-      setStatus({ type: "success", text: "Received." });
+      setStatus({ type: "success" });
       setForm(initialForm);
     } catch (err) {
       setStatus({ type: "error", text: "Retry shortly." });
@@ -62,11 +62,10 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-16 md:py-24 relative z-10 w-full overflow-hidden">
-      {/* Atmospheric Background */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <GlassShapes />
       </div>
-      
+
       <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
         <div className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-heading font-black mb-3 tracking-tighter text-white">
@@ -83,10 +82,10 @@ export default function Contact() {
           <div className="lg:col-span-5">
             <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-5 sm:p-8 flex flex-col overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
-              
+
               <h3 className="text-xl font-bold mb-8 text-white tracking-tight flex items-center gap-3">
-                 <span className="w-1.5 h-1.5 rounded-full bg-neon-green shadow-[0_0_8px_var(--neon-green)]" />
-                 Connect
+                <span className="w-1.5 h-1.5 rounded-full bg-neon-green shadow-[0_0_8px_var(--neon-green)]" />
+                Connect
               </h3>
 
               <div className="space-y-6 flex-1">
@@ -125,40 +124,68 @@ export default function Contact() {
           <div className="lg:col-span-7">
             <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-5 sm:p-8 lg:p-10 overflow-hidden">
               <Spotlight fill="rgba(217, 255, 0, 0.04)" />
-              
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-xl font-bold text-white tracking-tight">Enquiry</h3>
-                  <div className="text-[10px] uppercase tracking-widest text-white/20 font-bold">Fast Response Guaranteed</div>
-                </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid md:grid-cols-2 gap-5">
-                    <div className="space-y-1.5">
-                      <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/30 ml-2">Name</label>
-                      <input type="text" value={form.name} onChange={(e) => setField("name", e.target.value)} className={inputStyle} placeholder="John Doe" />
+              <div className="relative z-10 h-full flex flex-col">
+                {status?.type === 'success' ? (
+                  <div className="flex-1 flex flex-col items-center justify-center text-center py-10 gap-6">
+                    <div className="relative">
+                      <div className="w-20 h-20 rounded-full flex items-center justify-center border border-neon-green/30 bg-neon-green/5 shadow-[0_0_40px_rgba(0,255,133,0.15)]">
+                        <svg className="w-9 h-9 text-neon-green" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                        </svg>
+                      </div>
+                      <div className="absolute inset-0 rounded-full animate-ping bg-neon-green/10" style={{ animationDuration: '2s' }} />
                     </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/30 ml-2">Email</label>
-                      <input type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} className={inputStyle} placeholder="john@email.com" />
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-black text-white tracking-tight">Message Sent</h3>
+                      <p className="text-sm text-slate-400 max-w-xs leading-relaxed">
+                        I&apos;ll review your enquiry and get back to you within{' '}
+                        <span className="text-neon-green font-semibold">24–48 hours</span>.
+                      </p>
                     </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/30 ml-2">Message</label>
-                    <textarea rows={4} value={form.enquiry} onChange={(e) => setField("enquiry", e.target.value)} className={`${inputStyle} resize-none min-h-[120px]`} placeholder="Tell me about your project..." />
-                  </div>
-
-                  <div className="flex items-center justify-between gap-6 pt-2">
-                    <p className={`text-[10px] font-bold uppercase tracking-widest transition-opacity duration-200 ${status ? 'opacity-100' : 'opacity-0'} ${status?.type === 'success' ? 'text-neon-green' : 'text-red-400'}`}>
-                      {status?.text ?? ' '}
-                    </p>
-                    <button type="submit" disabled={submitting} className="ml-auto px-8 py-4 rounded-xl font-black uppercase tracking-[0.2em] text-[10px] bg-neon-yellow text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(217,255,0,0.3)] disabled:opacity-50 transition-all flex items-center gap-3">
-                      {submitting ? "Sending..." : "Submit"}
-                      <FaPaperPlane size={10} />
+                    <button
+                      onClick={() => setStatus(null)}
+                      className="mt-2 text-[10px] uppercase tracking-[0.3em] font-bold text-white/20 hover:text-white/50 transition-colors"
+                    >
+                      Send another
                     </button>
                   </div>
-                </form>
+                ) : (
+                  <>
+                    <div className="flex items-center justify-between mb-8">
+                      <h3 className="text-xl font-bold text-white tracking-tight">Enquiry</h3>
+                      <div className="text-[10px] uppercase tracking-widest text-white/20 font-bold">Fast Response Guaranteed</div>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                      <div className="grid md:grid-cols-2 gap-5">
+                        <div className="space-y-1.5">
+                          <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/30 ml-2">Name</label>
+                          <input type="text" value={form.name} onChange={(e) => setField("name", e.target.value)} className={inputStyle} placeholder="John Doe" />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/30 ml-2">Email</label>
+                          <input type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} className={inputStyle} placeholder="john@email.com" />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/30 ml-2">Message</label>
+                        <textarea rows={4} value={form.enquiry} onChange={(e) => setField("enquiry", e.target.value)} className={`${inputStyle} resize-none min-h-[120px]`} placeholder="Tell me about your project..." />
+                      </div>
+
+                      <div className="flex items-center justify-between gap-6 pt-2">
+                        {status?.type === 'error' && (
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-red-400">{status.text}</p>
+                        )}
+                        <button type="submit" disabled={submitting} className="ml-auto px-8 py-4 rounded-xl font-black uppercase tracking-[0.2em] text-[10px] bg-neon-yellow text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(217,255,0,0.3)] disabled:opacity-50 transition-all flex items-center gap-3">
+                          {submitting ? "Sending..." : "Submit"}
+                          <FaPaperPlane size={10} />
+                        </button>
+                      </div>
+                    </form>
+                  </>
+                )}
               </div>
             </div>
           </div>

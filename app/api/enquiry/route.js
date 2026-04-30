@@ -1,5 +1,3 @@
-import { getEmailConfigError, sendConfirmationEmail } from "@/lib/email";
-import { appendToSheet, getGoogleSheetsConfigError } from "@/lib/googleSheets";
 import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
@@ -14,23 +12,12 @@ function isValidEmail(email) {
 
 export async function POST(req) {
   try {
-    // Rate limit: 5 requests per 10 minutes per IP
     const ip = getClientIp(req);
     if (!checkRateLimit(ip, 5, 10 * 60 * 1000)) {
       return Response.json(
         { error: "Too many submissions. Please wait before trying again." },
         { status: 429, headers: { "Retry-After": "600" } }
       );
-    }
-
-    const configError = getEmailConfigError();
-    if (configError) {
-      return Response.json({ error: "Email is not configured", details: configError }, { status: 503 });
-    }
-
-    const sheetsError = getGoogleSheetsConfigError();
-    if (sheetsError) {
-      return Response.json({ error: "Google Sheets is not configured", details: sheetsError }, { status: 503 });
     }
 
     const body = await req.json().catch(() => ({}));
@@ -43,35 +30,21 @@ export async function POST(req) {
       return Response.json({ error: "Valid email is required" }, { status: 400 });
     if (!enquiry) return Response.json({ error: "Enquiry is required" }, { status: 400 });
 
-    await appendToSheet({
-      sheetName: process.env.GOOGLE_SHEETS_ENQUIRY_SHEET_NAME || "Enquiry",
-      values: [
-        new Date().toISOString(),
-        name,
-        email,
-        enquiry,
-        "website-enquiry",
-      ],
+    const webhookUrl = process.env.NEXT_PUBLIC_ENQUIRY_WEBHOOK_URL;
+    if (!webhookUrl) {
+      return Response.json({ error: "Enquiry webhook not configured" }, { status: 503 });
+    }
+
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, enquiry, source: "website-enquiry", submittedAt: new Date().toISOString() }),
     });
 
-    const subject = "Thanks for your enquiry — Robin Rawat";
-    const text = `Thank you for reaching out through my website.
-
-I’ve received your enquiry and will review the details shortly. I’ll get back to you as soon as possible, usually within 24–48 hours.
-
-In the meantime, if your enquiry is urgent, you can also reach me directly at robinrawat37@gmail.com or +91 9416149624.
-
-Thanks again for your interest.
-
-Best regards,
-Robin Rawat`;
-
-    await sendConfirmationEmail({
-      to: email,
-      name,
-      subject,
-      text,
-    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => res.status);
+      throw new Error(`Webhook responded ${res.status}: ${detail}`);
+    }
 
     return Response.json({ ok: true });
   } catch (e) {
@@ -81,4 +54,3 @@ Robin Rawat`;
     );
   }
 }
-
