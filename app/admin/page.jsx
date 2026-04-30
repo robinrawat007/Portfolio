@@ -31,6 +31,7 @@ function formToProject(form) {
   ].filter(s => s.content.trim());
 
   return {
+    id: toSlug(form.title),
     title: form.title.trim(),
     subtitle: form.subtitle.trim(),
     period: form.period.trim(),

@@ -280,11 +280,11 @@ function ProjectCard({ proj, onFlip, flipped }) {
                 )}
                 <button
                   onClick={() => onFlip(false)}
-                  aria-label="Go Back"
-                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/30 hover:text-white transition-all"
-                  title="Go Back"
+                  aria-label="View Screenshots"
+                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-all"
+                  title="View Screenshots"
                 >
-                  <FaChevronLeft className="text-xs" />
+                  <FaEye className="text-xs" />
                 </button>
               </div>
             </div>
@@ -340,17 +340,17 @@ function ProjectCard({ proj, onFlip, flipped }) {
 export default function Projects() {
   const { data: projects = [], isLoading } = useSWR('projects', fetchProjects);
   const [current, setCurrent] = useState(0);
-  const [flipped, setFlipped] = useState(false);
+  const [flipped, setFlipped] = useState(true);
   const [paused, setPaused] = useState(false);
 
   const next = useCallback(() => {
     if (projects.length) setCurrent((c) => (c + 1) % projects.length);
-    setFlipped(false);
+    setFlipped(true);
   }, [projects.length]);
 
   const prev = useCallback(() => {
     if (projects.length) setCurrent((c) => (c - 1 + projects.length) % projects.length);
-    setFlipped(false);
+    setFlipped(true);
   }, [projects.length]);
 
   useEffect(() => {
@@ -425,7 +425,7 @@ export default function Projects() {
             {projects.map((_, i) => (
               <button
                 key={i}
-                onClick={() => { setCurrent(i); setFlipped(false); }}
+                onClick={() => { setCurrent(i); setFlipped(true); }}
                 aria-label={`Go to project ${i + 1}`}
                 className="rounded-full transition-all duration-300"
                 style={{

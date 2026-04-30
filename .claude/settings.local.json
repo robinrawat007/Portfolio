@@ -29,7 +29,9 @@
       "Bash(sed -i 's/import React, { useEffect, useRef, useState } from .react.;/import { useEffect, useRef, useState } from '\\\\''react'\\\\'';/' components/ArsenalPlayground.jsx)",
       "Bash(sed -i 's/import React, { useCallback, useEffect, useRef, useState } from \"react\";/import { useCallback, useEffect, useRef, useState } from \"react\";/' components/AtlasChat.jsx)",
       "Bash(sed -i 's/import React, { useRef, useEffect } from \"react\";/import { useRef, useEffect } from \"react\";/' components/MarqueeTicker.jsx)",
-      "Bash(sed -i 's/import React, { useState } from .react.;/import { useState } from '\\\\''react'\\\\'';/' components/Newsletter.jsx)"
+      "Bash(sed -i 's/import React, { useState } from .react.;/import { useState } from '\\\\''react'\\\\'';/' components/Newsletter.jsx)",
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__claude_ai_Supabase__execute_sql"
     ]
   }
 }
