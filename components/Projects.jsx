@@ -354,7 +354,7 @@ export default function Projects() {
   }, [projects.length]);
 
   useEffect(() => {
-    if (paused || flipped || projects.length <= 1) return;
+    if (paused || !flipped || projects.length <= 1) return;
     const id = setInterval(next, SLIDE_INTERVAL);
     return () => clearInterval(id);
   }, [paused, flipped, next, projects.length]);
