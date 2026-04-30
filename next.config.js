@@ -3,6 +3,12 @@ const nextConfig = {
   output: process.env.NEXT_PUBLIC_STATIC_EXPORT === "true" ? "export" : undefined,
   images: {
     unoptimized: process.env.NEXT_PUBLIC_STATIC_EXPORT === "true",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
+    ],
   },
 
   // Security headers applied to every response
