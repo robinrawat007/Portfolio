@@ -22,7 +22,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         {/* Main Content Card */}
-        <div className="relative rounded-[2.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-xl p-8 md:p-12 mb-16 overflow-hidden">
+        <div className="relative rounded-[2.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-xl p-5 sm:p-8 md:p-12 mb-10 md:mb-16 overflow-hidden">
           {/* Inner Gloss */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
 
@@ -48,8 +48,8 @@ export default function Footer() {
             </div>
 
             {/* Navigation & Action Center */}
-            <div className="flex flex-wrap justify-center lg:justify-end items-center gap-x-10 gap-y-8">
-              <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+            <div className="flex flex-wrap justify-center lg:justify-end items-center gap-x-6 md:gap-x-10 gap-y-6">
+              <div className="flex flex-wrap justify-center gap-x-6 md:gap-x-8 gap-y-3">
                 {footerLinks.map((link) => (
                   <a
                     key={link.name}
@@ -66,7 +66,7 @@ export default function Footer() {
               </div>
 
               {/* Minimalist Return Hub */}
-              <div className="flex items-center ml-4 pl-10 border-l border-white/10 h-10">
+              <div className="flex items-center sm:ml-4 sm:pl-8 sm:border-l sm:border-white/10 h-10">
                 <a
                   href="#hero"
                   aria-label="Back to top"
@@ -102,7 +102,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-4 md:gap-8 lg:gap-10">
             <div className="flex items-center gap-3 bg-white/[0.03] px-4 py-2 rounded-full border border-white/5">
               <div className="w-2 h-2 rounded-full bg-neon-green shadow-[0_0_12px_rgba(0,255,133,0.6)] animate-pulse" />
               <span className="text-[9px] font-black tracking-[0.2em] text-neon-green/60 uppercase">System: Optimized</span>
