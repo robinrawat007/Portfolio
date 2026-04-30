@@ -110,6 +110,8 @@ export default function AdminPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState('');
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState('');
 
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
@@ -180,6 +182,25 @@ export default function AdminPage() {
       setLoginErr(e.message);
     } finally {
       setLoginLoading(false);
+    }
+  }
+
+  async function syncKb() {
+    setSyncing(true);
+    setSyncResult('');
+    try {
+      const res = await fetch('/api/admin/sync-kb', { method: 'POST', headers: authHeaders(token) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      const failed = data.results?.filter(r => !r.ok) ?? [];
+      setSyncResult(failed.length
+        ? `Synced ${data.synced - failed.length}/${data.synced}. Failed: ${failed.map(r => r.title).join(', ')}`
+        : `✓ Synced ${data.synced} project${data.synced !== 1 ? 's' : ''}`
+      );
+    } catch (e) {
+      setSyncResult(`Error: ${e.message}`);
+    } finally {
+      setSyncing(false);
     }
   }
 
@@ -393,9 +414,18 @@ export default function AdminPage() {
           <h1 style={s.h1}>Projects Admin</h1>
           <div style={s.btnRow}>
             <button onClick={startAdd} style={s.btn('#D9FF00', '#000')}>+ Add Project</button>
+            <button onClick={syncKb} disabled={syncing} style={s.btn(syncing ? '#111' : '#0d1f2a', syncing ? '#555' : '#2DCFCF')}>
+              {syncing ? 'Syncing…' : '⟳ Sync KB'}
+            </button>
             <button onClick={() => { setToken(null); sessionStorage.removeItem('admin_token'); }} style={s.btn('#1a1a1a', '#888')}>Logout</button>
           </div>
         </div>
+
+        {syncResult && (
+          <p style={{ fontSize: '12px', marginBottom: '12px', color: syncResult.startsWith('✓') ? '#00FF85' : '#ff5555' }}>
+            {syncResult}
+          </p>
+        )}
 
         {err && <p style={s.error}>{err}</p>}
 
