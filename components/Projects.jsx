@@ -139,12 +139,12 @@ function ProjectCard({ proj, onFlip, flipped }) {
             : { duration: 0.75, ease: [0.23, 1, 0.32, 1] }
         }
         style={{ transformStyle: 'preserve-3d', transformOrigin: 'center center' }}
-        className="relative w-full min-h-[500px] z-10"
+        className="relative w-full min-h-[440px] sm:min-h-[500px] z-10"
       >
         {/* FRONT: Full-image with bottom thumbnail overlay */}
         <div
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-          className="relative w-full min-h-[500px] rounded-3xl overflow-hidden flex flex-col bg-white/[0.03] backdrop-blur-2xl border border-white/[0.12] shadow-2xl group"
+          className="relative w-full min-h-[440px] sm:min-h-[500px] rounded-3xl overflow-hidden flex flex-col bg-white/[0.03] backdrop-blur-2xl border border-white/[0.12] shadow-2xl group"
         >
           {/* Laminated Glass Finish */}
           <div className="absolute inset-0 z-30 pointer-events-none opacity-30">
@@ -254,12 +254,12 @@ function ProjectCard({ proj, onFlip, flipped }) {
         {/* BACK: Comprehensive Info Card */}
         <div
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-          className="absolute inset-0 rounded-3xl overflow-hidden flex flex-col bg-[#0A0A0A]/95 backdrop-blur-2xl border border-white/[0.1] shadow-2xl"
+          className="absolute inset-0 rounded-3xl overflow-y-auto flex flex-col bg-[#0A0A0A]/95 backdrop-blur-2xl border border-white/[0.1] shadow-2xl"
         >
           <div className="absolute inset-px rounded-[23px] border border-white/[0.05] pointer-events-none z-10" />
           <div className="h-2 w-full bg-gradient-to-r from-neon-yellow via-neon-green to-neon-cyan" />
 
-          <div className="p-9 md:p-10 flex flex-col h-full overflow-hidden relative z-20">
+          <div className="p-5 sm:p-8 md:p-10 flex flex-col h-full relative z-20">
             <div className="flex items-start justify-between mb-8">
               <div className="flex-1 pr-6">
                 <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight mb-1">{proj.title}</h3>
@@ -302,7 +302,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
               </div>
 
               <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
                   {proj.case_study?.sections?.slice(0, 2).map((s, i) => (
                     <div key={i} className="relative pl-4 border-l border-white/10 group/item">
                       <h5 className="text-[9px] font-bold text-neon-green/70 uppercase tracking-widest mb-1.5 transition-colors group-hover/item:text-neon-yellow">{s.title}</h5>
@@ -362,7 +362,7 @@ export default function Projects() {
   const currentProject = projects[current];
 
   return (
-    <section id="projects" className="py-24 relative z-10 w-full max-w-4xl mx-auto px-6" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <section id="projects" className="py-16 sm:py-24 relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <GlassShapes />
 
       <div className="text-center mb-14">
@@ -385,7 +385,7 @@ export default function Projects() {
 
       {!isLoading && projects.length > 0 && currentProject && (
         <div className="relative">
-          <div className="relative min-h-[480px] md:min-h-[500px]">
+          <div className="relative min-h-[440px] sm:min-h-[480px] md:min-h-[500px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
@@ -403,16 +403,16 @@ export default function Projects() {
           {/* Navigation */}
           {projects.length > 1 && (
             <>
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-12 z-10">
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-5 md:-translate-x-12 z-10">
                 <Magnetic>
-                  <button onClick={prev} aria-label="Previous Project" className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
+                  <button onClick={prev} aria-label="Previous Project" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
                     <FaChevronLeft />
                   </button>
                 </Magnetic>
               </div>
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-12 z-10">
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-5 md:translate-x-12 z-10">
                 <Magnetic>
-                  <button onClick={next} aria-label="Next Project" className="w-10 h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
+                  <button onClick={next} aria-label="Next Project" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/80 border border-white/10 text-neon-green flex items-center justify-center hover:scale-110 transition-transform">
                     <FaChevronRight />
                   </button>
                 </Magnetic>

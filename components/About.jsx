@@ -129,7 +129,7 @@ export default function About() {
 
         {/* Text side */}
         <div className="lg:col-span-7 space-y-8">
-          <CardSpotlight className="glass-card p-8">
+          <CardSpotlight className="glass-card p-5 sm:p-8">
             <div
               className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 rounded-full blur-3xl opacity-8 group-hover/card-spotlight:opacity-15 transition-opacity duration-500 pointer-events-none"
               style={{ background: 'var(--neon-yellow)' }}
@@ -159,15 +159,15 @@ export default function About() {
             </p>
 
             <div
-              className="grid grid-cols-3 gap-4 pt-6 mt-6 border-t"
+              className="grid grid-cols-3 gap-1.5 sm:gap-4 pt-6 mt-6 border-t"
               style={{ borderColor: 'var(--border)' }}
             >
               {stats.map((stat, i) => (
-                <Tilt key={i} intensity={30} scale={1.1} className="text-center p-4 rounded-xl transition-colors hover:bg-white/[0.02]">
-                  <div className="text-3xl font-extrabold mb-1 drop-shadow-md font-mono" style={{ color: 'var(--neon-yellow)' }}>
+                <Tilt key={i} intensity={30} scale={1.1} className="text-center p-2 sm:p-4 rounded-xl transition-colors hover:bg-white/[0.02]">
+                  <div className="text-xl sm:text-3xl font-extrabold mb-1 drop-shadow-md font-mono" style={{ color: 'var(--neon-yellow)' }}>
                     <CountUp target={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-sm font-medium uppercase tracking-wider" style={{ color: 'var(--fg-muted)' }}>
+                  <div className="text-[10px] sm:text-sm font-medium uppercase tracking-wider" style={{ color: 'var(--fg-muted)' }}>
                     {stat.label}
                   </div>
                 </Tilt>

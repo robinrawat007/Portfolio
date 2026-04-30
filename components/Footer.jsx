@@ -13,7 +13,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 w-full pt-32 pb-12 overflow-hidden bg-black">
+    <footer className="relative z-10 w-full pt-16 sm:pt-24 md:pt-32 pb-12 overflow-hidden bg-black">
 
       {/* Top Border Scanline */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-white/5 overflow-hidden">

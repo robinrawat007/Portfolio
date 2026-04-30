@@ -61,7 +61,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-16 md:py-20 relative z-10 w-full overflow-hidden min-h-screen flex flex-col justify-center">
+    <section id="contact" className="py-16 md:py-24 relative z-10 w-full overflow-hidden">
       {/* Atmospheric Background */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <GlassShapes />
@@ -81,7 +81,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-12 gap-6 items-stretch">
           {/* Left: Info Card */}
           <div className="lg:col-span-5">
-            <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-8 flex flex-col overflow-hidden">
+            <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-5 sm:p-8 flex flex-col overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
               
               <h3 className="text-xl font-bold mb-8 text-white tracking-tight flex items-center gap-3">
@@ -123,7 +123,7 @@ export default function Contact() {
 
           {/* Right: Enquiry Form */}
           <div className="lg:col-span-7">
-            <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-8 lg:p-10 overflow-hidden">
+            <div className="relative h-full rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-5 sm:p-8 lg:p-10 overflow-hidden">
               <Spotlight fill="rgba(217, 255, 0, 0.04)" />
               
               <div className="relative z-10">

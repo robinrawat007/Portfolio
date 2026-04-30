@@ -54,6 +54,7 @@ function PhysicsScene({ skills }) {
 
         const width = el.clientWidth || window.innerWidth || 800;
         const height = el.clientHeight || window.innerHeight || 500;
+        const s = width < 500 ? 0.6 : width < 768 ? 0.75 : 1;
 
         engine = Matter.Engine.create();
         engine.world.gravity.y = 1;
@@ -72,23 +73,28 @@ function PhysicsScene({ skills }) {
           let body, viewProps;
 
           if (shapeType === 0) {
-            body = Matter.Bodies.circle(x, y, 55, { restitution: 0.6, friction: 0.1, density: 0.005 });
-            viewProps = { w: 110, h: 110, radius: '50%' };
+            const r = Math.round(55 * s);
+            body = Matter.Bodies.circle(x, y, r, { restitution: 0.6, friction: 0.1, density: 0.005 });
+            viewProps = { w: r * 2, h: r * 2, radius: '50%' };
           } else if (shapeType === 1) {
-            body = Matter.Bodies.rectangle(x, y, 110, 110, { chamfer: { radius: 32 }, restitution: 0.4, friction: 0.3, density: 0.005 });
-            viewProps = { w: 110, h: 110, radius: '32px' };
+            const sz = Math.round(110 * s);
+            body = Matter.Bodies.rectangle(x, y, sz, sz, { chamfer: { radius: Math.round(32 * s) }, restitution: 0.4, friction: 0.3, density: 0.005 });
+            viewProps = { w: sz, h: sz, radius: `${Math.round(32 * s)}px` };
           } else if (shapeType === 2) {
-            body = Matter.Bodies.rectangle(x, y, 100, 100, { chamfer: { radius: 8 }, restitution: 0.3, friction: 0.5, density: 0.006 });
-            viewProps = { w: 100, h: 100, radius: '8px' };
+            const sz = Math.round(100 * s);
+            body = Matter.Bodies.rectangle(x, y, sz, sz, { chamfer: { radius: Math.round(8 * s) }, restitution: 0.3, friction: 0.5, density: 0.006 });
+            viewProps = { w: sz, h: sz, radius: `${Math.round(8 * s)}px` };
           } else {
-            body = Matter.Bodies.rectangle(x, y, 150, 70, { chamfer: { radius: 35 }, restitution: 0.4, friction: 0.2, density: 0.004 });
-            viewProps = { w: 150, h: 70, radius: '35px' };
+            const w2 = Math.round(150 * s), h2 = Math.round(70 * s);
+            body = Matter.Bodies.rectangle(x, y, w2, h2, { chamfer: { radius: Math.round(35 * s) }, restitution: 0.4, friction: 0.2, density: 0.004 });
+            viewProps = { w: w2, h: h2, radius: `${Math.round(35 * s)}px` };
           }
 
           const Icon = ICON_MAP[skill.icon_name];
           body.skillData = {
             name: skill.name,
             Icon,
+            iconSize: Math.round(44 * s),
             style: {
               bg: skill.rgba ? `rgba(${skill.rgba}, 0.15)` : 'rgba(255,255,255,0.05)',
               border: skill.color || '#ffffff',
@@ -168,12 +174,12 @@ function PhysicsScene({ skills }) {
       )}
 
       {mounted && bodies.map((body) => {
-        const { Icon, style, viewProps } = body.data;
+        const { Icon, iconSize, style, viewProps } = body.data;
         if (!Icon || !viewProps) return null;
         return (
           <div
             key={`skill-body-${body.id}`}
-            className="absolute flex flex-col items-center justify-center p-4 border-[3px] select-none"
+            className="absolute flex flex-col items-center justify-center p-2 border-[3px] select-none"
             style={{
               width: `${viewProps.w}px`,
               height: `${viewProps.h}px`,
@@ -189,7 +195,7 @@ function PhysicsScene({ skills }) {
               pointerEvents: 'none',
             }}
           >
-            <Icon size={44} />
+            <Icon size={iconSize ?? 44} />
           </div>
         );
       })}
