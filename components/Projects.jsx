@@ -6,7 +6,7 @@ import { FaEye, FaChevronLeft, FaChevronRight, FaExternalLinkAlt } from 'react-i
 import Image from 'next/image';
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabaseClient';
-import { Magnetic, Tilt, GlassShapes } from '@/components/motion';
+import { Magnetic, GlassShapes } from '@/components/motion';
 import SplitReveal from '@/components/motion/SplitReveal';
 
 const fetchProjects = async () => {
@@ -39,13 +39,46 @@ function buildSideParticles(side) {
 }
 
 function ProjectCard({ proj, onFlip, flipped }) {
+  const [activeIdx, setActiveIdx] = useState(0);
   const [imageError, setImageError] = useState(false);
   const [fireKey, setFireKey] = useState(0);
   const [firing, setFiring] = useState(false);
   const prevFlippedRef = useRef(flipped);
   const timerRef = useRef(null);
+  const thumbStripRef = useRef(null);
+  const thumbItemRefs = useRef([]);
 
-  // Stable configs per card mount — never recalculate on re-render
+  // All screenshots for this project; fall back to image_url if no images array
+  const images = useMemo(() => {
+    if (proj.images?.length > 0) return proj.images;
+    if (proj.image_url) return [proj.image_url];
+    return [];
+  }, [proj.images, proj.image_url]);
+
+  // Reset gallery state when the project changes
+  useEffect(() => {
+    setActiveIdx(0);
+    setImageError(false);
+    thumbItemRefs.current = [];
+  }, [proj.id]);
+
+  // Clear image error when switching screenshots
+  useEffect(() => {
+    setImageError(false);
+  }, [activeIdx]);
+
+  // Auto-scroll strip to keep selected thumbnail centred
+  useEffect(() => {
+    const strip = thumbStripRef.current;
+    const thumb = thumbItemRefs.current[activeIdx];
+    if (!strip || !thumb) return;
+    strip.scrollTo({
+      left: thumb.offsetLeft - strip.offsetWidth / 2 + thumb.offsetWidth / 2,
+      behavior: 'smooth',
+    });
+  }, [activeIdx]);
+
+  // Stable particle configs per card mount
   const leftParticles = useMemo(() => buildSideParticles('left'), []);
   const rightParticles = useMemo(() => buildSideParticles('right'), []);
 
@@ -53,7 +86,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
     if (prevFlippedRef.current === flipped) return;
     prevFlippedRef.current = flipped;
     clearTimeout(timerRef.current);
-    setFireKey((k) => k + 1); // increment forces particle remount even if already firing
+    setFireKey((k) => k + 1);
     setFiring(true);
     timerRef.current = setTimeout(() => setFiring(false), 1500);
   }, [flipped]);
@@ -86,25 +119,18 @@ function ProjectCard({ proj, onFlip, flipped }) {
 
   return (
     <div className="w-full h-full relative" style={{ perspective: '1100px' }}>
-      {/* Left and right sparkle bursts — fire on every flip direction change */}
       {firing && (
         <>
-          <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none z-50"
-            style={{ overflow: 'visible' }}
-          >
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none z-50" style={{ overflow: 'visible' }}>
             {renderParticles(leftParticles, 'l')}
           </div>
-          <div
-            className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none z-50"
-            style={{ overflow: 'visible' }}
-          >
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none z-50" style={{ overflow: 'visible' }}>
             {renderParticles(rightParticles, 'r')}
           </div>
         </>
       )}
 
-      {/* rotateY 540 = 1.5 rotations, lands on back face (front→back→front→back) */}
+      {/* rotateY 540 = 1.5 rotations, lands on back face */}
       <motion.div
         animate={{ rotateY: flipped ? 540 : 0 }}
         transition={
@@ -115,18 +141,16 @@ function ProjectCard({ proj, onFlip, flipped }) {
         style={{ transformStyle: 'preserve-3d', transformOrigin: 'center center' }}
         className="relative w-full min-h-[500px] z-10"
       >
-        {/* FRONT: Clean Full-Image Gallery Look */}
+        {/* FRONT: Full-image with bottom thumbnail overlay */}
         <div
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
           className="relative w-full min-h-[500px] rounded-3xl overflow-hidden flex flex-col bg-white/[0.03] backdrop-blur-2xl border border-white/[0.12] shadow-2xl group"
         >
-          {/* Laminated Glass Finish (Glint & Gloss) */}
+          {/* Laminated Glass Finish */}
           <div className="absolute inset-0 z-30 pointer-events-none opacity-30">
             <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
             <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent" />
           </div>
-
-          {/* Inner Glass Stroke */}
           <div className="absolute inset-px rounded-[23px] border border-white/[0.08] pointer-events-none z-10" />
 
           {/* Top Right Controls */}
@@ -151,10 +175,12 @@ function ProjectCard({ proj, onFlip, flipped }) {
             </button>
           </div>
 
+          {/* Hero Image */}
           <div className="absolute inset-0 w-full h-full overflow-hidden">
-            {proj.image_url && !imageError ? (
+            {images[activeIdx] && !imageError ? (
               <Image
-                src={proj.image_url}
+                key={images[activeIdx]}
+                src={images[activeIdx]}
                 alt={proj.title}
                 fill
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -166,9 +192,52 @@ function ProjectCard({ proj, onFlip, flipped }) {
                 Coming soon
               </div>
             )}
-            {/* Very subtle vignette for the controls */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
           </div>
+
+          {/* Thumbnail Strip — overlays bottom ~20% of the card */}
+          {images.length > 1 && (
+            <div className="absolute bottom-0 left-0 right-0 z-20">
+              {/* Gradient scrim so thumbnails read over the image */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent pointer-events-none" />
+              <div
+                ref={thumbStripRef}
+                className="relative flex gap-2.5 overflow-x-auto px-5 pb-5 pt-10"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    ref={el => { thumbItemRefs.current[i] = el; }}
+                    onClick={(e) => { e.stopPropagation(); setActiveIdx(i); }}
+                    aria-label={`Screenshot ${i + 1}`}
+                    className="flex-shrink-0 relative overflow-hidden rounded-lg outline-none transition-all duration-300"
+                    style={{
+                      width: '72px',
+                      height: '48px',
+                      border: i === activeIdx
+                        ? '2px solid var(--neon-yellow)'
+                        : '2px solid rgba(255,255,255,0.15)',
+                      boxShadow: i === activeIdx ? '0 0 10px var(--neon-yellow)' : 'none',
+                      opacity: i === activeIdx ? 1 : 0.55,
+                      transform: i === activeIdx ? 'scale(1.1)' : 'scale(1)',
+                    }}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${proj.title} screenshot ${i + 1}`}
+                      fill
+                      className="object-cover object-top"
+                      sizes="72px"
+                    />
+                    {i !== activeIdx && (
+                      <div className="absolute inset-0 bg-black/30" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* BACK: Comprehensive Info Card */}
@@ -180,14 +249,12 @@ function ProjectCard({ proj, onFlip, flipped }) {
           <div className="h-2 w-full bg-gradient-to-r from-neon-yellow via-neon-green to-neon-cyan" />
 
           <div className="p-9 md:p-10 flex flex-col h-full overflow-hidden relative z-20">
-            {/* Header with Control Icons */}
             <div className="flex items-start justify-between mb-8">
               <div className="flex-1 pr-6">
                 <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight mb-1">{proj.title}</h3>
                 <p className="text-xs md:text-sm font-medium text-neon-green/90 mb-1">{proj.subtitle}</p>
                 <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-bold">{proj.period}</p>
               </div>
-
               <div className="flex items-center gap-2">
                 {proj.visit_url && (
                   <a
@@ -212,7 +279,6 @@ function ProjectCard({ proj, onFlip, flipped }) {
             </div>
 
             <div className="flex-1 flex flex-col space-y-6">
-              {/* Tech Stack */}
               <div>
                 <h4 className="text-[9px] uppercase tracking-[0.3em] text-white/30 mb-3 font-bold">Stack</h4>
                 <div className="flex flex-wrap gap-2">
@@ -224,7 +290,6 @@ function ProjectCard({ proj, onFlip, flipped }) {
                 </div>
               </div>
 
-              {/* Case Study Grid */}
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-8">
                   {proj.case_study?.sections?.slice(0, 2).map((s, i) => (
@@ -236,7 +301,6 @@ function ProjectCard({ proj, onFlip, flipped }) {
                     </div>
                   ))}
                 </div>
-
                 {proj.case_study?.sections?.[2] && (
                   <div className="relative pl-4 border-l border-white/10 group/item">
                     <h5 className="text-[9px] font-bold text-neon-cyan/70 uppercase tracking-widest mb-1.5 transition-colors group-hover/item:text-neon-yellow">
@@ -250,7 +314,6 @@ function ProjectCard({ proj, onFlip, flipped }) {
               </div>
             </div>
 
-            {/* Decorative Footer */}
             <div className="mt-auto pt-6 flex items-center justify-center opacity-10">
               <div className="h-[1px] w-10 bg-gradient-to-r from-transparent to-white" />
               <span className="text-[8px] uppercase tracking-[0.5em] px-4 text-white whitespace-nowrap">{proj.id}</span>

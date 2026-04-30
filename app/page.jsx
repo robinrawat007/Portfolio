@@ -33,8 +33,8 @@ export default function Home() {
     const loadEnhancements = () => setEnhancementsReady(true);
     const idleId =
       typeof window.requestIdleCallback === "function"
-        ? window.requestIdleCallback(loadEnhancements, { timeout: 1200 })
-        : window.setTimeout(loadEnhancements, 800);
+        ? window.requestIdleCallback(loadEnhancements, { timeout: 400 })
+        : window.setTimeout(loadEnhancements, 100);
 
     return () => {
       if (typeof window.cancelIdleCallback === "function") {
