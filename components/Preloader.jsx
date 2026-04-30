@@ -63,7 +63,7 @@ export default function Preloader({ onComplete }) {
         stagger: 0.1,
         ease: "power3.out"
       })
-      .to({}, { duration: 1.2 }) // Wait for counter
+      .to({}, { duration: 2.5 }) // Wait for counter + give video time to buffer
       .to([firstNameRef.current, lastNameRef.current, counterTextRef.current], {
         y: -30,
         opacity: 0,

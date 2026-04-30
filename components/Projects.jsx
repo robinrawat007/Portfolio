@@ -176,17 +176,28 @@ function ProjectCard({ proj, onFlip, flipped }) {
           </div>
 
           {/* Hero Image */}
-          <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <div className="absolute inset-0 w-full h-full overflow-hidden bg-neutral-950">
             {images[activeIdx] && !imageError ? (
-              <Image
-                key={images[activeIdx]}
-                src={images[activeIdx]}
-                alt={proj.title}
-                fill
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                priority
-                onError={() => setImageError(true)}
-              />
+              <>
+                {/* Blurred backdrop fills dead space */}
+                <Image
+                  src={images[activeIdx]}
+                  alt=""
+                  fill
+                  aria-hidden
+                  className="object-cover scale-110 blur-2xl opacity-40"
+                />
+                {/* Sharp main image */}
+                <Image
+                  key={images[activeIdx]}
+                  src={images[activeIdx]}
+                  alt={proj.title}
+                  fill
+                  className="object-contain"
+                  priority
+                  onError={() => setImageError(true)}
+                />
+              </>
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-neutral-900 text-xs text-slate-600">
                 Coming soon
