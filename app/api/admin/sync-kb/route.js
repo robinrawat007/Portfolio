@@ -8,10 +8,11 @@ export const dynamic = 'force-dynamic';
 
 function formatProjectContent(p) {
   const sections = (p.case_study?.sections ?? [])
-    .map((s) => `${s.title}: ${s.content}`)
+    .filter((s) => s?.content)
+    .map((s) => `${s.title ?? ''}: ${s.content}`)
     .join(' ');
   const tech = (p.tech ?? []).join(', ');
-  return `Project: ${p.title} — ${p.subtitle} (${p.period}). Tech: ${tech}. ${sections}`.trim();
+  return `Project: ${p.title ?? ''} — ${p.subtitle ?? ''} (${p.period ?? ''}). Tech: ${tech}. ${sections}`.trim();
 }
 
 export async function POST(request) {
@@ -30,7 +31,9 @@ export async function POST(request) {
   if (fetchErr) return NextResponse.json({ error: fetchErr.message }, { status: 500 });
 
   const results = [];
-  for (const p of projects) {
+  for (let i = 0; i < projects.length; i++) {
+    if (i > 0) await new Promise(r => setTimeout(r, 21000)); // 3 RPM free-tier limit — remove after adding Voyage payment method
+    const p = projects[i];
     const content = formatProjectContent(p);
     try {
       const embedding = await embed(content);

@@ -194,7 +194,7 @@ export default function AdminPage() {
       if (!res.ok) throw new Error(data.error);
       const failed = data.results?.filter(r => !r.ok) ?? [];
       setSyncResult(failed.length
-        ? `Synced ${data.synced - failed.length}/${data.synced}. Failed: ${failed.map(r => r.title).join(', ')}`
+        ? `Synced ${data.synced - failed.length}/${data.synced}. Failed: ${failed.map(r => `${r.title} (${r.error})`).join(' | ')}`
         : `✓ Synced ${data.synced} project${data.synced !== 1 ? 's' : ''}`
       );
     } catch (e) {
