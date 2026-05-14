@@ -100,7 +100,7 @@ export default function About() {
               >
                 {!photoError ? (
                   <Image
-                    src="/profile.jpg"
+                    src="/profile.png"
                     alt="Robin Singh Rawat"
                     fill
                     sizes="(max-width: 768px) 256px, 320px"
@@ -182,10 +182,10 @@ export default function About() {
               <div className="flex flex-wrap items-center gap-3">
                 {companyExperienceArray.map((c, i) => (
                   <div key={i} className="flex items-center gap-2.5 bg-white/[0.03] px-3 py-1.5 rounded-full border border-white/[0.08] hover:bg-white/[0.08] transition-colors cursor-default shadow-md shadow-black/20">
-                     <div className="relative w-6 h-6 rounded-full overflow-hidden border border-white/20 shrink-0">
-                       <Image src={c.logo} alt={`${c.company} logo`} fill className="object-cover" sizes="24px" />
-                     </div>
-                     <span className="font-bold text-xs tracking-wide pr-1" style={{ color: 'var(--fg)' }}>{c.company}</span>
+                    <div className="relative w-6 h-6 rounded-full overflow-hidden border border-white/20 shrink-0">
+                      <Image src={c.logo} alt={`${c.company} logo`} fill className="object-cover" sizes="24px" />
+                    </div>
+                    <span className="font-bold text-xs tracking-wide pr-1" style={{ color: 'var(--fg)' }}>{c.company}</span>
                   </div>
                 ))}
               </div>

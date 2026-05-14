@@ -264,6 +264,7 @@ export default function AtlasChat() {
                   fill
                   className="object-contain"
                   unoptimized
+                  priority
                 />
               </div>
             </motion.div>
