@@ -249,6 +249,10 @@ export default function AtlasChat() {
         style={{ color: 'var(--neon-yellow)', '--tw-ring-color': 'var(--neon-yellow)' }}
         whileTap={{ scale: 0.94 }}
       >
+        {/* Pre-render hidden so /joey.png is in cache before first hover */}
+        <div className="absolute w-0 h-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <Image src="/joey.png" alt="" fill unoptimized priority />
+        </div>
         <AnimatePresence>
           {isHovered && !open && (
             <motion.div

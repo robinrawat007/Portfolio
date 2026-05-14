@@ -31,7 +31,8 @@
       "Bash(sed -i 's/import React, { useRef, useEffect } from \"react\";/import { useRef, useEffect } from \"react\";/' components/MarqueeTicker.jsx)",
       "Bash(sed -i 's/import React, { useState } from .react.;/import { useState } from '\\\\''react'\\\\'';/' components/Newsletter.jsx)",
       "mcp__claude_ai_Supabase__list_projects",
-      "mcp__claude_ai_Supabase__execute_sql"
+      "mcp__claude_ai_Supabase__execute_sql",
+      "Bash(grep -E \"\\\\.\\(tsx|ts|jsx|js\\)$\")"
     ]
   }
 }

@@ -151,6 +151,7 @@ export default function RootLayout({ children }) {
         />
         <link rel="preload" href="/hero-bg.mp4" as="video" type="video/mp4" fetchPriority="high" />
         <link rel="preload" href="/hero-poster.svg" as="image" fetchPriority="high" />
+        <link rel="preload" href="/joey.png" as="image" fetchPriority="high" />
         {/* Preconnect to Google Fonts CDN (already used by next/font, belt-and-suspenders) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
