@@ -32,7 +32,11 @@
       "Bash(sed -i 's/import React, { useState } from .react.;/import { useState } from '\\\\''react'\\\\'';/' components/Newsletter.jsx)",
       "mcp__claude_ai_Supabase__list_projects",
       "mcp__claude_ai_Supabase__execute_sql",
-      "Bash(grep -E \"\\\\.\\(tsx|ts|jsx|js\\)$\")"
+      "Bash(grep -E \"\\\\.\\(tsx|ts|jsx|js\\)$\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Project\\\\Portfolio\\\\public\\\\\" | Select-Object Name, @{N='MB';E={[math]::Round\\($_.Length/1MB,2\\)}})",
+      "PowerShell(ffmpeg *)",
+      "PowerShell(winget install *)",
+      "PowerShell(Rename-Item *)"
     ]
   }
 }

@@ -239,15 +239,15 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             poster="/hero-poster.svg"
             fetchPriority="high"
             aria-hidden="true"
             disablePictureInPicture
             style={{ objectFit: 'cover' }}
           >
-            <source src="/hero-bg.mp4" type="video/mp4" />
             <source src="/hero-bg.webm" type="video/webm" />
+            <source src="/hero-bg.mp4" type="video/mp4" />
           </video>
         </div>
 
