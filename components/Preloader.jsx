@@ -13,17 +13,33 @@ export default function Preloader({ onComplete }) {
 
   React.useEffect(() => {
     console.log("Preloader: Animation starting...");
+
+    // Wait for the hero video to start buffering (or time out after 4s)
+    const videoReady = new Promise((resolve) => {
+      const video = document.querySelector('#hero video');
+      if (!video) { resolve(); return; }
+      if (video.readyState >= 2) { resolve(); return; }
+      const onCanPlay = () => { video.removeEventListener('canplay', onCanPlay); resolve(); };
+      video.addEventListener('canplay', onCanPlay);
+      // Don't block forever — 4s max wait
+      setTimeout(() => { video.removeEventListener('canplay', onCanPlay); resolve(); }, 4000);
+    });
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          console.log("Preloader: Timeline complete, exiting...");
-          gsap.to(containerRef.current, {
-            y: "-100%",
-            duration: 0.7,
-            ease: "power4.inOut",
-            onComplete: () => {
-              if (onComplete) onComplete();
-            },
+          console.log("Preloader: Timeline complete, waiting for video...");
+          // Wait for video readiness before exit animation
+          videoReady.then(() => {
+            console.log("Preloader: Video ready, exiting...");
+            gsap.to(containerRef.current, {
+              y: "-100%",
+              duration: 0.7,
+              ease: "power4.inOut",
+              onComplete: () => {
+                if (onComplete) onComplete();
+              },
+            });
           });
         },
       });
@@ -51,7 +67,6 @@ export default function Preloader({ onComplete }) {
         },
         onComplete: () => {
           console.log("Preloader: Counter reached 100%");
-          // Trigger the rest of the timeline or just finish
         }
       });
 

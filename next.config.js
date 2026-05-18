@@ -21,6 +21,19 @@ const nextConfig = {
         ],
       },
       {
+        source: "/Hero-bg2.mp4",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        // Cache all images aggressively — they rarely change
+        source: "/:path*.(png|jpg|jpeg|svg|webp|avif|ico)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           // Prevent clickjacking

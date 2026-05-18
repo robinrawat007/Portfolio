@@ -149,9 +149,9 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <link rel="preload" href="/hero-bg.mp4" as="video" type="video/mp4" fetchPriority="high" />
+        {/* Prefetch (not preload) the hero video — avoids blocking initial paint */}
+        <link rel="prefetch" href="/hero-bg.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/hero-poster.svg" as="image" fetchPriority="high" />
-        <link rel="preload" href="/joey.png" as="image" fetchPriority="high" />
         {/* Preconnect to Google Fonts CDN (already used by next/font, belt-and-suspenders) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

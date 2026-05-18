@@ -185,6 +185,7 @@ function ProjectCard({ proj, onFlip, flipped }) {
                   alt=""
                   fill
                   aria-hidden
+                  sizes="(max-width: 768px) 100vw, 800px"
                   className="object-cover scale-110 blur-2xl opacity-40"
                 />
                 {/* Sharp main image */}
@@ -193,8 +194,8 @@ function ProjectCard({ proj, onFlip, flipped }) {
                   src={images[activeIdx]}
                   alt={proj.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 800px"
                   className="object-contain"
-                  priority
                   onError={() => setImageError(true)}
                 />
               </>

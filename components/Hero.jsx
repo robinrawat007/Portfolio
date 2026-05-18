@@ -239,7 +239,7 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             poster="/hero-poster.svg"
             fetchPriority="high"
             aria-hidden="true"
