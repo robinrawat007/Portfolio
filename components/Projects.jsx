@@ -19,8 +19,6 @@ const fetchProjects = async () => {
   return data;
 };
 
-const SLIDE_INTERVAL = 5000;
-
 const SPARKLE_COLORS = ['#D9FF00', '#00FF85', '#2DCFCF', '#7B4FE0', '#ffffff'];
 
 function buildSideParticles(side) {
@@ -342,7 +340,6 @@ export default function Projects() {
   const { data: projects = [], isLoading } = useSWR('projects', fetchProjects);
   const [current, setCurrent] = useState(0);
   const [flipped, setFlipped] = useState(true);
-  const [paused, setPaused] = useState(false);
 
   const next = useCallback(() => {
     if (projects.length) setCurrent((c) => (c + 1) % projects.length);
@@ -354,16 +351,10 @@ export default function Projects() {
     setFlipped(true);
   }, [projects.length]);
 
-  useEffect(() => {
-    if (paused || !flipped || projects.length <= 1) return;
-    const id = setInterval(next, SLIDE_INTERVAL);
-    return () => clearInterval(id);
-  }, [paused, flipped, next, projects.length]);
-
   const currentProject = projects[current];
 
   return (
-    <section id="projects" className="py-16 sm:py-24 relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <section id="projects" className="py-16 sm:py-24 relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6">
       <GlassShapes />
 
       <div className="text-center mb-14">
